@@ -1,4 +1,4 @@
-# Feel Tracker App [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Polarts/feel-tracker)
+# Feel Tracker App
 
 A diary app to track your daily activities, and how you feel about them.
 Feel Tracker will provide you with a day, week, and month view of the activities you want to track, as well as trending and statistics.
