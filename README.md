@@ -29,10 +29,16 @@ This app uses React's [Context API](https://reactjs.org/docs/context.html) in co
 ### Back-End:
 There is none! The app is fully self-sustaining without any external connections other than the domain for PWA updates.
 
-## Docs
+## Project Management
+
+We use the integrated GitHub Projects to manage tasks, although the classing Projects interface, not the new one.
+Since the classic projects are not the first thing you see in the Projects tab, [click here](https://github.com/Polarts/feel-tracker/projects?type=classic) if you can't find it.
+
+## External Links
 
 - [ORS/FRS Definitions](https://docs.google.com/document/d/11IM741stFVj3_9otDXg5aKKYirAFxMybJnWy4EoPHIQ/view?usp=sharing)
 - [Architecture Diagram](https://drive.google.com/file/d/1uRsWsnlG9A36mTwNWcML81U5gVK3qsg2/view?usp=sharing)
+- [UX Design on Figma](https://www.figma.com/file/JC406azeeeGGlTbLAxCs04/Feeling-Tracker?node-id=0%3A1&t=jyrThFgzn0f7LWof-0)
 
 ## Contributing
 
