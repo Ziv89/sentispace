@@ -1,6 +1,6 @@
 import { IndexableType } from 'dexie';
 import { Activity } from './Activity';
-import { Rating } from './commonTypes';
+import { Rating } from '../types/Rating';
 
 export interface Day {
 	id?: IndexableType;

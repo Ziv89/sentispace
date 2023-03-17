@@ -1,5 +1,5 @@
 import { IndexableType } from 'dexie';
-import { Rating } from './commonTypes';
+import { Rating } from '../types/Rating';
 
 export interface Activity {
 	id?: IndexableType;
