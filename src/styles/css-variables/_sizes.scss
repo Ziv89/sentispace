@@ -1,0 +1,17 @@
+/* css-variables sizes */
+
+@use '../config/variables' as *;
+
+:root {
+	/* Borders */
+	--border-radius-inner: #{$border-radius-inner};
+	--border-radius-outer: #{$border-radius-outer};
+
+	/* Spacings */
+	--spacing-xs: #{$spacing-xs};
+	--spacing-sm: #{$spacing-sm};
+	--spacing-md: #{$spacing-md};
+	--spacing-lg: #{$spacing-lg};
+	--spacing-xl: #{$spacing-xl};
+	--spacing-xxl: #{$spacing-xxl};
+}
