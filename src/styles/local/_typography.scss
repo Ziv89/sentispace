@@ -1,57 +1,52 @@
 /* typography */
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('/src/assets/fonts/Roboto-Light.ttf');
-	font-style: normal;
-	font-weight: 300;
+body {
+	font-family: var(--font-family-default);
+	font-size: var(--font-size-md);
+	color: var(--color-neutral-1);
 }
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('/src/assets/fonts/Roboto-LightItalic.ttf');
-	font-style: italic;
-	font-weight: 300;
+h1 {
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-bold);
+	margin: var(--spacing-lg) 0;
 }
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('/src/assets/fonts/Roboto-Regular.ttf');
-	font-style: normal;
-	font-weight: 400;
+h2 {
+	font-size: var(--font-size-lg);
+	font-weight: var(--font-weight-medium);
+	margin: var(--spacing-md) 0;
 }
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('/src/assets/fonts/Roboto-Italic.ttf');
-	font-style: italic;
-	font-weight: 400;
+h3,
+h4,
+h5,
+h6 {
+	font-size: var(--font-size-md);
+	font-weight: var(--font-weight-medium);
+	margin: var(--spacing-sm) 0;
 }
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('/src/assets/fonts/Roboto-Medium.ttf');
-	font-style: normal;
-	font-weight: 500;
+/* functions */
+a,
+a:visited {
+	font-weight: var(--font-weight-regular);
+	text-decoration: underline var(--font-underline-regular);
+	color: var(--color-neutral-2);
+	text-decoration-color: inherit;
+	cursor: pointer;
+
+	&.emphasized {
+		font-weight: var(--font-weight-bold);
+		text-decoration: underline var(--font-underline-bold);
+	}
+
+	&:hover {
+		color: var(--color-neutral-1);
+	}
 }
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('/src/assets/fonts/Roboto-MediumItalic.ttf');
-	font-style: italic;
-	font-weight: 500;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/src/assets/fonts/Roboto-Bold.ttf');
-	font-style: normal;
-	font-weight: 700;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/src/assets/fonts/Roboto-BoldItalic.ttf');
-	font-style: italic;
-	font-weight: 700;
+p {
+	font-size: var(--font-size-md);
+	color: var(--color-neutral-2);
 }
