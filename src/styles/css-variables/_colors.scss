@@ -1,56 +1,46 @@
 /* css-variables colors */
 
-@use '../config/variables' as *;
-
-:root {
+@mixin colors {
 	/* Accent Colors */
-	--color-primary: #{$color-primary};
-	--color-secondary: #{$color-secondary};
+	--color-primary: #4bb3d9;
+	--color-secondary: #80cfa9;
 
 	/* Additional Colors */
-	--color-heart: #{$color-heart};
+	--color-heart: #eb4f4f;
 
 	/* Neutral Colors */
-	--color-neutral-1: #{$color-neutral-1};
-	--color-neutral-2: #{$color-neutral-2};
-	--color-neutral-3: #{$color-neutral-3};
-	--color-neutral-4: #{$color-neutral-4};
-	--color-neutral-5: #{$color-neutral-5};
-	--color-neutral-6: #{$color-neutral-6};
+	--color-neutral-1: #262626;
+	--color-neutral-2: #4d4d4d;
+	--color-neutral-3: #737373;
+	--color-neutral-4: #ffffff;
+	--color-neutral-5: #f2f2f2;
+	--color-neutral-6: #e6e6e6;
 
 	/* Rating Colors */
-	--color-rating-1: #{$color-rating-1};
-	--color-rating-2: #{$color-rating-2};
-	--color-rating-3: #{$color-rating-3};
-	--color-rating-4: #{$color-rating-4};
-	--color-rating-5: #{$color-rating-5};
-	--color-rating-6: #{$color-rating-6};
-	--color-rating-7: #{$color-rating-7};
-
-	/* Rating Gradients */
-	--gradient-rating-1: #{$gradient-rating-1};
-	--gradient-rating-2: #{$gradient-rating-2};
-	--gradient-rating-3: #{$gradient-rating-3};
-	--gradient-rating-4: #{$gradient-rating-4};
-	--gradient-rating-5: #{$gradient-rating-5};
-	--gradient-rating-6: #{$gradient-rating-6};
-	--gradient-rating-7: #{$gradient-rating-7};
+	--color-rating-1: #ff7f7f;
+	--color-rating-2: #ffa87f;
+	--color-rating-3: #ffbb6f;
+	--color-rating-4: #ffc97f;
+	--color-rating-5: #b9f0a6;
+	--color-rating-6: #7fe6ad;
+	--color-rating-7: #47cc8c;
+	--color-rating-8: #2aa886; /* this is for gradient purposes */
 
 	/* Category Colors */
-	--color-category-1: #{$color-category-1};
-	--color-category-2: #{$color-category-2};
-	--color-category-3: #{$color-category-3};
-	--color-category-4: #{$color-category-4};
-	--color-category-5: #{$color-category-5};
-	--color-category-6: #{$color-category-6};
-	--color-category-7: #{$color-category-7};
-	--color-category-8: #{$color-category-8};
-	--color-category-9: #{$color-category-9};
-	--color-category-10: #{$color-category-10};
-	--color-category-11: #{$color-category-11};
-	--color-category-12: #{$color-category-12};
-	--color-category-13: #{$color-category-13};
-	--color-category-14: #{$color-category-14};
-	--color-category-15: #{$color-category-15};
-	--color-category-16: #{$color-category-16};
+	--color-category-1: #ffa500;
+	--color-category-2: #ffa07a;
+	--color-category-3: #ffb6c1;
+	--color-category-4: #ffdab9;
+	--color-category-5: #d8bfd8;
+	--color-category-6: #c8a2c8;
+	--color-category-7: #9370db;
+	--color-category-8: #add8e6;
+	--color-category-9: #87cefa;
+	--color-category-10: #00ced1;
+	--color-category-11: #48d1cc;
+	--color-category-12: #1e90ff;
+	--color-category-13: #8cc42d;
+	--color-category-14: #b2b45e;
+	--color-category-15: #1b9a18;
+	--color-category-16: #55731f;
 }

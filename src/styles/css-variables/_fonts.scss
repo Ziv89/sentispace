@@ -1,21 +1,23 @@
 /* css-variables fonts */
 
-@use '../config/variables' as *;
-
-:root {
+@mixin fonts {
 	/* Font families */
-	--font-family-default: #{$font-family-default};
+	--font-family-default: 'Roboto', sans-serif;
 
 	/* Font weights */
-	--font-weight-light: #{$font-weight-light};
-	--font-weight-regular: #{$font-weight-regular};
-	--font-weight-medium: #{$font-weight-medium};
-	--font-weight-bold: #{$font-weight-bold};
+	--font-weight-light: 300;
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-bold: 700;
 
 	/* Font sizes */
-	--font-size-xs: #{$font-size-xs};
-	--font-size-sm: #{$font-size-sm};
-	--font-size-md: #{$font-size-md};
-	--font-size-lg: #{$font-size-lg};
-	--font-size-xl: #{$font-size-xl};
+	--font-size-xs: 0.75rem;
+	--font-size-sm: 0.875rem;
+	--font-size-md: 1rem;
+	--font-size-lg: 1.25rem;
+	--font-size-xl: 1.5rem;
+
+	/* Font underlines */
+	--font-underline-regular: 0.0625em;
+	--font-underline-bold: 0.125em;
 }

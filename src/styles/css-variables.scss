@@ -1,3 +1,9 @@
-@forward 'css-variables/fonts';
-@forward 'css-variables/sizes';
-@forward 'css-variables/colors';
+@use 'css-variables/fonts';
+@use 'css-variables/sizes';
+@use 'css-variables/colors';
+
+:root {
+	@include fonts.fonts;
+	@include sizes.sizes;
+	@include colors.colors;
+}
