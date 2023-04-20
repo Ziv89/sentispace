@@ -1,9 +1,11 @@
 @use 'css-variables/fonts';
 @use 'css-variables/sizes';
 @use 'css-variables/colors';
+@use 'css-variables/animations';
 
 :root {
 	@include fonts.fonts;
 	@include sizes.sizes;
 	@include colors.colors;
+	@include animations.animations;
 }
