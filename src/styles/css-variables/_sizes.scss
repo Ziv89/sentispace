@@ -1,0 +1,15 @@
+/* css-variables sizes */
+
+@mixin sizes {
+	/* Borders */
+	--border-radius-inner: 0.5rem;
+	--border-radius-outer: 1rem;
+
+	/* Spacings */
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 0.75rem;
+	--spacing-lg: 1rem;
+	--spacing-xl: 1.5rem;
+	--spacing-xxl: 2rem;
+}

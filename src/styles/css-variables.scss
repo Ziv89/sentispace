@@ -1,0 +1,9 @@
+@use 'css-variables/fonts';
+@use 'css-variables/sizes';
+@use 'css-variables/colors';
+
+:root {
+	@include fonts.fonts;
+	@include sizes.sizes;
+	@include colors.colors;
+}
