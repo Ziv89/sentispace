@@ -1,11 +1,11 @@
-import { NavBar } from '../components/';
+import NavBar from '../components/nav-bar/NavBar';
 import { Outlet } from 'react-router-dom';
 
 const Root = () => (
-	<main>
-		<Outlet />
-		<NavBar />
-	</main>
+    <>
+        <Outlet />
+        <NavBar />
+    </>
 );
 
 export default Root;
