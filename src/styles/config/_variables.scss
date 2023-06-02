@@ -6,6 +6,12 @@ $gradient-direction: 45deg;
 $gradient-start: 0%;
 $gradient-end: 100%;
 
+$gradient-accent: linear-gradient(
+	$gradient-direction,
+	var(--color-primary) $gradient-start,
+	var(--color-secondary) $gradient-end
+);
+
 $gradient-rating-1: linear-gradient(
 	$gradient-direction,
 	var(--color-rating-1) $gradient-start,

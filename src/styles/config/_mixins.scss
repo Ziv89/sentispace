@@ -1,13 +1,24 @@
 /* mixins */
 
 @mixin border-radius($radius) {
-	-webkit-border-radius: $radius;
-	border-radius: $radius;
-	background-clip: padding-box; /* stops bg color from leaking outside the border: */
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+    background-clip: padding-box; /* stops bg color from leaking outside the border: */
 }
 
 @mixin text-truncate {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin flex(
+    $flex-direction: row,
+    $justify-content: start,
+    $align-items: stretch
+) {
+    display: flex;
+    flex-direction: $flex-direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
 }

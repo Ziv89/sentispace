@@ -1,0 +1,47 @@
+@use '../../styles/config/variables' as *;
+@use '../../styles/config/mixins' as *;
+
+.navBar {
+    @include flex(row, space-between, center);
+    position: fixed;
+    padding: var(--spacing-xs) var(--spacing-xxl);
+    background-color: var(--color-neutral-4);
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .addButton {
+        box-sizing: content-box;
+        background: $gradient-accent;
+        height: var(--spacing-xxl);
+        width: var(--spacing-xxl);
+        padding: var(--spacing-sm);
+        border-radius: var(--border-radius-inner);
+        color: var(--color-neutral-4);
+    }
+
+    a {
+        @include flex(column, center, center);
+        gap: var(--spacing-xs);
+        padding: var(--spacing-md) var(--spacing-xl);
+        margin: 0 auto;
+        border-radius: var(--border-radius-inner);
+        font-size: var(--font-size-xs);
+        color: var(--color-neutral-3);
+        text-decoration: none;
+        transition: var(--transition-md);
+
+        &:hover {
+            color: var(--color-neutral-2);
+        }
+
+        &.active {
+            background-color: var(--color-neutral-6);
+            color: var(--color-neutral-2);
+
+            &:hover {
+                color: var(--color-neutral-1);
+            }
+        }
+    }
+}
