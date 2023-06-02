@@ -3,12 +3,11 @@
 
 .navBar {
     @include flex(row, space-between, center);
-    position: fixed;
-    padding: var(--spacing-xs) var(--spacing-xxl);
+    $navbar-height: var(--navbar-height);
+
+    padding: calc($navbar-height * 0.05);
     background-color: var(--color-neutral-4);
-    bottom: 0;
-    left: 0;
-    right: 0;
+    height: $navbar-height;
 
     .addButton {
         box-sizing: content-box;
@@ -22,14 +21,16 @@
 
     a {
         @include flex(column, center, center);
-        gap: var(--spacing-xs);
-        padding: var(--spacing-md) var(--spacing-xl);
+
+        height: calc($navbar-height * 0.9);
+        width: calc($navbar-height * 0.9);
         margin: 0 auto;
         border-radius: var(--border-radius-inner);
         font-size: var(--font-size-xs);
         color: var(--color-neutral-3);
         text-decoration: none;
-        transition: var(--transition-md);
+        transition: background-color var(--transition-medium),
+            color var(--transition-medium);
 
         &:hover {
             color: var(--color-neutral-2);

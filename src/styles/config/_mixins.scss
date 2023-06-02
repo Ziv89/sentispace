@@ -22,3 +22,34 @@
     justify-content: $justify-content;
     align-items: $align-items;
 }
+
+@mixin custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: var(--scrollbar-width);
+        width: 0;
+    }
+
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-thumb {
+        border-radius: var(--scrollbar-border-radius);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbar-track-color);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb-color);
+
+        &:hover {
+            background: var(--scrollbar-thumb-color-hover);
+        }
+    }
+}
+
+@mixin invalid {
+    &.invalid {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}

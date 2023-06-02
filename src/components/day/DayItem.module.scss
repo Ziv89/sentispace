@@ -1,0 +1,123 @@
+@use '../../styles/config/variables' as *;
+@use '../../styles/config/mixins' as *;
+@use '../../styles/config/variables' as *;
+
+.dayItem {
+    @include flex(column, start, center);
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+
+    .dayActivityCount {
+        @include flex(row, center, center);
+
+        margin-bottom: var(--spacing-sm);
+        width: var(--size-lg);
+        height: var(--size-lg);
+        border-radius: var(--size-lg);
+        font-size: var(--font-size-xs);
+        background-color: var(--color-count);
+        color: var(--color-neutral-4);
+
+        &.active {
+            margin-bottom: var(--spacing-xs);
+        }
+    }
+
+    .dayCard {
+        @include flex(column, center, center);
+        @include invalid;
+
+        width: 100%;
+        -webkit-tap-highlight-color: transparent;
+
+        background-color: var(--color-neutral-5);
+        border-radius: var(--border-radius-inner);
+
+        padding: var(--spacing-sm) var(--spacing-sm);
+        margin-bottom: var(--spacing-xs);
+
+        &.active {
+            background: $gradient-accent;
+            margin-bottom: 0;
+            padding: var(--spacing-md) var(--spacing-sm);
+
+            .dayLetter,
+            .dayNumber {
+                color: var(--color-neutral-4);
+            }
+        }
+
+        &.noCount {
+            margin-top: calc(var(--spacing-lg) + var(--spacing-md));
+        }
+
+        &.activeNoCount {
+            margin-top: calc(var(--spacing-lg) + var(--spacing-sm));
+        }
+
+        .dayLetter,
+        .dayNumber {
+            color: var(--color-neutral-2);
+        }
+
+        .dayLetter {
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-regular);
+        }
+
+        .dayNumber {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-medium);
+        }
+
+        &.ratingColor1,
+        &.ratingColor2,
+        &.ratingColor3,
+        &.ratingColor4,
+        &.ratingColor5,
+        &.ratingColor6,
+        &.ratingColor7 {
+            overflow: hidden;
+            position: relative;
+
+            &::after {
+                position: absolute;
+                content: '';
+                bottom: 0;
+                width: 100%;
+                height: var(--spacing-xs);
+                background-color: var(--rating-color);
+                border-bottom-left-radius: var(--border-radius-inner);
+                border-bottom-right-radius: var(--border-radius-inner);
+            }
+        }
+
+        &.ratingColor1::after {
+            background: $gradient-rating-1;
+        }
+
+        &.ratingColor2::after {
+            background: $gradient-rating-2;
+        }
+
+        &.ratingColor3::after {
+            background: $gradient-rating-3;
+        }
+
+        &.ratingColor4::after {
+            background: $gradient-rating-4;
+        }
+
+        &.ratingColor5::after {
+            background: $gradient-rating-5;
+        }
+
+        &.ratingColor6::after {
+            background: $gradient-rating-6;
+        }
+
+        &.ratingColor7::after {
+            background: $gradient-rating-7;
+        }
+    }
+}
