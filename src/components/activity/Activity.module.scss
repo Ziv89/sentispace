@@ -65,13 +65,19 @@
             gap: var(--spacing-xs);
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-regular);
+
+            .svg {
+                max-width: none;
+            }
         }
 
         .categories {
-            @include flex(row-reverse);
+            @include flex(row-reverse, flex-start);
 
             gap: var(--spacing-sm);
             overflow: auto;
+            white-space: nowrap;
+            width: 100%;
 
             &::-webkit-scrollbar {
                 display: none;

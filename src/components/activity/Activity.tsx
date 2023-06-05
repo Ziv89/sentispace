@@ -64,7 +64,7 @@ const Activity = ({
                                 [`categoryColor${category.color}`]:
                                     category.color,
                             })}
-                            key={category.color}
+                            key={category.name}
                         >
                             {category.name}
                         </span>

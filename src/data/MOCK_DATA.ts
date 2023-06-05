@@ -1,30 +1,192 @@
 import { Rating } from './types/Rating';
-import { addDays, startOfWeek, subMonths } from 'date-fns';
+import { addDays, subWeeks } from 'date-fns';
 import { IconIdType } from '../assets/icons';
 import { Activity, Category } from './interfaces';
 import { db } from './Database';
 import * as Icon from '@phosphor-icons/react';
 
-const activityNames = ['Biking', 'Hiking', 'Reading', 'Swimming', 'Cooking'];
-const categoryNames = ['Sports', 'Leisure', 'Education', 'Cookery', 'Outdoors'];
-const categoryDescriptions = [
-    'Sport activities to keep you fit and healthy',
-    'Leisure activities for relaxation',
-    'Educational activities to learn new skills',
-    'Cookery activities for food enthusiasts',
-    'Outdoor activities to enjoy nature',
+const activityNames = [
+    'Biking',
+    'Hiking',
+    'Reading',
+    'Swimming',
+    'Cooking',
+    'Painting',
+    'Running',
+    'Writing',
+    'Dancing',
+    'Fishing',
+    'Gardening',
+    'Photography',
+    'Pottery',
+    'Baking',
+    'Climbing',
+    'Skiing',
+    'Surfing',
+    'Yoga',
+    'Meditating',
+    'Singing',
+    'Playing guitar',
+    'Playing piano',
+    'Origami',
+    'Chess',
+    'Knitting',
+    'Video gaming',
+    'Bird watching',
+    'Star gazing',
+    'Jogging',
+    'Jumping rope',
+    'Kickboxing',
+    'Martial arts',
+    'Pilates',
+    'Rowing',
+    'Scuba diving',
+    'Skateboarding',
+    'Snowboarding',
+    'Stand-up comedy',
+    'Archery',
+    'Astronomy',
+    'Badminton',
+    'Baseball',
+    'Basketball',
+    'Beekeeping',
+    'Bowling',
+    'Boxing',
+    'Brewing beer',
+    'Calligraphy',
+    'Candle making',
+    'Canoeing',
+    'Card games',
+    'Carpentry',
+    'Ceramics',
+    'Coding',
+    'Comic books',
+    'Cross-stitch',
+    'Crossword puzzles',
+    'Curling',
+    'Darts',
+    'Digital arts',
+    'Dog training',
+    'Drawing',
+    'Embroidery',
+    'Fencing',
+    'Figure skating',
+    'Floral design',
+    'Flying drones',
+    'Football',
+    'Glassblowing',
+    'Go Kart Racing',
+    'Golfing',
+    'Gymnastics',
+    'Handwriting analysis',
+    'Homebrewing',
+    'Horseback riding',
+    'Ice hockey',
+    'Ice skating',
+    'Jewelry making',
+    'Jigsaw puzzles',
+    'Juggling',
+    'Karate',
+    'Kayaking',
+    'Kite flying',
+    'Kitesurfing',
+    'Leatherworking',
+    'Magic',
+    'Mandala Art',
+    'Metalworking',
+    'Mixology',
+    'Model building',
+    'Origami',
+    'Paintball',
+    'Paragliding',
+    'Parkour',
+    'Photography',
+    'Piano playing',
+    'Pottery',
+    'Quilting',
+    'Rafting',
+    'Rappelling',
+    'Rock climbing',
+    'Roller skating',
+    'Rugby',
+    'Sailing',
+    'Scrapbooking',
+    'Sculpting',
+    'Sewing',
+    'Soap making',
+    'Soccer',
+    'Stained glass',
+    'Stand-up paddleboarding',
+    'Sudoku',
+    'Table tennis',
+    'Tai chi',
+    'Tennis',
+    'Theater',
+    'Ultimate Frisbee',
+    'Volleyball',
+    'Watercolor painting',
+    'Weightlifting',
+    'Windsurfing',
+    'Wine tasting',
+    'Woodworking',
+    'Writing poetry',
+    'Yo-yoing',
+    'Zumba',
 ];
 
-function getRandomElement(array: any[]): any {
-    return array[Math.floor(Math.random() * array.length)];
-}
+const categoryNames = [
+    'Sports',
+    'Leisure',
+    'Education',
+    'Cookery',
+    'Outdoors',
+    'Arts',
+    'Fitness',
+    'Literature',
+    'Performing Arts',
+    'Outdoor Sports',
+    'Horticulture',
+    'Visual Arts',
+    'Craft',
+    'Bakery',
+    'Adventure Sports',
+];
 
-function getRandomTitle(): string {
-    return getRandomElement(activityNames);
-}
+const descriptionPhrases = [
+    "Participate in {title} and have a lot of fun. It's a great way to spend time!",
+    '{title} is a fantastic activity for both beginners and experts. Give it a try!',
+    "Join us for some {title}! It's a great way to relax and enjoy your time.",
+    "Try out {title}. It's both enjoyable and a great way to get in some exercise.",
+    "Get involved in {title}. It's a fun way to learn new skills.",
+    "Take part in {title}. It's a perfect pastime for any day of the week.",
+    "Have you ever tried {title}? It's a wonderful way to unwind.",
+    "{title} - a fascinating activity that you're sure to enjoy.",
+    "Don't miss out on {title}. It's a wonderful experience and a lot of fun.",
+    "{title} can be a great hobby. Don't hesitate to join us!",
+    'Engage in {title}, a rewarding experience that will create wonderful memories.',
+    'Delve into {title}, an intriguing activity that will capture your imagination.',
+    'Explore {title}, a sure way to enrich your leisure time.',
+    '{title} offers a unique experience, providing both entertainment and learning opportunities.',
+    'Immerse yourself in {title} - a perfect blend of fun and challenge.',
+    'Step into the exciting world of {title}. An adventure awaits you!',
+    'Discover the joy of {title}. A perfect activity for all ages!',
+    'Revel in the thrill of {title}, a fantastic way to invigorate your daily routine.',
+    "{title} is more than an activity, it's an unforgettable experience.",
+    '{title} provides an excellent way to stretch your abilities while having fun.',
+    "Find out what makes {title} so special. You won't regret it!",
+    'Be a part of the {title} community. Expand your horizons!',
+    "Experience the magic of {title}. A hobby that you'll fall in love with.",
+    '{title} - a fun-filled journey that will keep you coming back for more.',
+    "Unleash your creativity with {title}. It's time for some fun!",
+];
 
 function getDescriptionForTitle(title: string): string {
-    return `Participate in ${title} and have a lot of fun. It's a great way to spend time!`;
+    const randomPhrase =
+        descriptionPhrases[
+            Math.floor(Math.random() * descriptionPhrases.length)
+        ];
+
+    return randomPhrase.replace('{title}', title);
 }
 
 function getRandomRating(): Rating {
@@ -32,8 +194,8 @@ function getRandomRating(): Rating {
 }
 
 function getRandomStartDate(): Date {
-    const startDate = startOfWeek(subMonths(new Date(), 1));
-    const dayOffset = Math.floor(Math.random() * 30);
+    const startDate = subWeeks(new Date(), 3);
+    const dayOffset = Math.floor(Math.random() * 22);
     return addDays(startDate, dayOffset);
 }
 
@@ -42,7 +204,14 @@ function getRandomEndDate(startTime: Date): Date {
 }
 
 function getRandomCategoryIds(): number[] {
-    return [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+    const numOfCategories = Math.floor(Math.random() * 5);
+    let indices = new Set<number>();
+
+    while (indices.size < numOfCategories) {
+        indices.add(Math.floor(Math.random() * categoryNames.length));
+    }
+
+    return Array.from(indices);
 }
 
 const excludeKeys = [
@@ -53,6 +222,10 @@ const excludeKeys = [
     'IconBase',
 ];
 
+function getRandomElement(array: any[]): any {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
 function getRandomIconId(): IconIdType {
     const keys = Object.keys(Icon).filter(
         (key) => !excludeKeys.includes(key)
@@ -60,40 +233,8 @@ function getRandomIconId(): IconIdType {
     return getRandomElement(keys) as IconIdType;
 }
 
-export function generateRandomActivity(): Activity {
-    const title = getRandomTitle();
-    const description = getDescriptionForTitle(title);
-    const rating = getRandomRating();
-    const startTime = getRandomStartDate();
-    const endTime = getRandomEndDate(startTime);
-    const iconId: IconIdType = getRandomIconId();
-    const categoryIds = getRandomCategoryIds();
-
-    return {
-        title,
-        description,
-        rating,
-        startTime,
-        endTime,
-        iconId,
-        categoryIds,
-    } as Activity;
-}
-
 function getRandomColor(): number {
     return Math.floor(Math.random() * 16) + 1;
-}
-
-export function generateRandomCategory(): Category {
-    const randomColor = getRandomColor();
-    const name = getRandomElement(categoryNames);
-    const description = getRandomElement(categoryDescriptions);
-
-    return {
-        name,
-        color: randomColor,
-        description,
-    } as Category;
 }
 
 export async function generateData(): Promise<void> {
@@ -103,12 +244,24 @@ export async function generateData(): Promise<void> {
         return;
     }
 
-    const activities = Array.from({ length: 150 }, () =>
-        generateRandomActivity()
-    );
-    const categories = Array.from({ length: 5 }, () =>
-        generateRandomCategory()
-    );
+    const activities: Activity[] = activityNames.map((title) => {
+        const startTime = getRandomStartDate();
+
+        return {
+            title,
+            description: getDescriptionForTitle(title),
+            rating: getRandomRating(),
+            startTime,
+            endTime: getRandomEndDate(startTime),
+            iconId: getRandomIconId(),
+            categoryIds: getRandomCategoryIds(),
+        };
+    });
+
+    const categories: Category[] = categoryNames.map((name) => ({
+        name,
+        color: getRandomColor(),
+    }));
 
     await db.activities.bulkAdd(activities);
     await db.categories.bulkAdd(categories);
