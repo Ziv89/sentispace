@@ -1,14 +1,14 @@
 import { IndexableType } from 'dexie';
 import { Rating } from '../types/Rating';
-import { IconIdType } from '../../assets/icons';
+import { IconKeyType } from '../../assets/icons';
 
 export interface Activity {
-    id?: IndexableType;
+    id: IndexableType;
     title: string;
     description?: string;
     rating: Rating;
     startTime: Date;
-    endTime: Date;
-    iconId: IconIdType;
+    endTime?: Date;
+    iconKey: IconKeyType;
     categoryIds: IndexableType[];
 }

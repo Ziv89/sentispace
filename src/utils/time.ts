@@ -1,30 +1,33 @@
-import { startOfWeek, addDays, eachDayOfInterval, addWeeks } from 'date-fns';
+import {
+    startOfWeek,
+    addDays,
+    eachDayOfInterval,
+    addWeeks,
+    format,
+} from 'date-fns';
 
-function formatTime(time: Date): string {
-    const hours = time.getHours();
-    const minutes = time.getMinutes();
-    const amPm = hours < 12 ? 'am' : 'pm';
-    const formattedHours = hours % 12 === 0 ? '12' : `${hours % 12}`;
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-    return `${formattedHours}:${formattedMinutes}${amPm}`;
-}
-
-export function formatTimeRange(
+export const formatTimeRange = (
     startTime: Date,
-    endTime: Date | undefined
-): string {
-    const start = formatTime(startTime);
-    if (!endTime) {
-        return start;
-    }
-    const end = formatTime(endTime);
-    if (start === end) {
-        return start;
-    }
-    return `${start} - ${end}`;
-}
+    endTime?: Date,
+    isNow?: boolean
+): string => {
+    if (isNow) return 'now';
 
-export const getArrayOfWeekDatesFromDate = (date: Date, offset?: number) => {
+    const timeFormat = 'hh:mmaaa';
+    const formattedStartTime = format(startTime, timeFormat);
+    if (endTime) {
+        const formattedEndTime = format(endTime, timeFormat);
+
+        return `${formattedStartTime} - ${formattedEndTime}`;
+    }
+
+    return formattedStartTime;
+};
+
+export const getArrayOfWeekDatesFromDate = (
+    date: Date,
+    offset?: number
+): Date[] => {
     const startDate = startOfWeek(offset ? addWeeks(date, offset) : date, {
         weekStartsOn: 1,
     });

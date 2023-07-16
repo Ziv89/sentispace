@@ -18,7 +18,7 @@ class Database extends Dexie implements IDatabase {
 
         const stores: { [storeName in StoreName]: string } = {
             [Stores.ACTIVITY]:
-                '++id,title,description,rating,startTime,endTime,iconId,categoryIds',
+                '++id,title,description,rating,startTime,endTime,iconKey,categoryIds',
             [Stores.CATEGORY]: '++id,name,color',
         };
 

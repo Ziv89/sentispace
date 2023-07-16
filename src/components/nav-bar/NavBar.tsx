@@ -3,7 +3,8 @@ import classes from './NavBar.module.scss';
 import { GearSix, HouseSimple, Plus } from '@phosphor-icons/react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Paths } from '../../routes/enums/Paths';
-import { generateData } from '../../data/MOCK_DATA';
+import { useState } from 'react';
+import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
 
 enum IconWeight {
     ACTIVE = 'fill',
@@ -17,6 +18,9 @@ const getIconWeight = (isActive: boolean): IconWeight => {
 const NavBar = () => {
     const location = useLocation();
 
+    const [isActivityModalOpen, setIsActivityModalOpen] =
+        useState<boolean>(false);
+
     return (
         <nav className={classes.navBar}>
             <NavLink
@@ -28,11 +32,16 @@ const NavBar = () => {
                 />
                 Home
             </NavLink>
-            <NavLink to={Paths.HOME}>
+            <div onClick={() => setIsActivityModalOpen(true)}>
                 <Plus className={classes.addButton} />
-            </NavLink>
+                {isActivityModalOpen && (
+                    <ActivityEditForm
+                        onClose={() => setIsActivityModalOpen(false)}
+                    />
+                )}
+            </div>
             <NavLink
-                to={Paths.HOME}
+                to={Paths.SETTINGS}
                 className={({ isActive }) => (isActive ? classes.active : '')}
             >
                 <GearSix

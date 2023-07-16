@@ -12,9 +12,7 @@ import DayView from './routes/day/DayView';
 import { IconContext, IconProps } from '@phosphor-icons/react';
 import { generateData } from './data/MOCK_DATA';
 
-if (import.meta.env.VITE_DEBUG) {
-    generateData();
-}
+if (import.meta.env.DEV) generateData();
 
 const iconProps: IconProps = {
     size: 32,

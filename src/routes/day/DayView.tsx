@@ -1,29 +1,23 @@
 import classes from './DayView.module.scss';
 
-import { useContext } from 'react';
-import { db } from '../../data/Database';
+import { useContext, useState } from 'react';
 import Activity from '../../components/activity/Activity';
-import { Activity as IActivity } from '../../data/interfaces';
-import { useLiveQuery } from 'dexie-react-hooks';
 import { CalendarBlank, Sliders } from '@phosphor-icons/react';
-import { endOfDay, format, startOfDay } from 'date-fns';
+import { format } from 'date-fns';
 import { DayViewContext } from '../../data/contexts/DayViewContext';
 import DayCarousel from '../../components/day/DayCarousel';
 import classNames from 'classnames/bind';
+import FilterModal from '../../components/shared/FilterModal';
+import { useFilteredActivities } from '../../hooks/useFilteredActivities';
+import Badge from '../../components/generic/Badge';
 
 const cx = classNames.bind(classes);
 
 function DayView() {
     const { selectedDay } = useContext(DayViewContext);
-    const activities =
-        useLiveQuery<IActivity[]>(
-            () =>
-                db.activities
-                    .where('startTime')
-                    .between(startOfDay(selectedDay), endOfDay(selectedDay))
-                    .toArray(),
-            [selectedDay]
-        ) ?? [];
+    const [activities, selectedCategories] = useFilteredActivities(selectedDay);
+
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
     return (
         <div className={classes.viewContainer}>
@@ -39,9 +33,20 @@ function DayView() {
             <DayCarousel />
             <div className={classes.activitiesHeading}>
                 <h2 className={classes.title}>Activities</h2>
-                <div className={classes.clickableText}>
+                <div
+                    className={classes.clickableText}
+                    onClick={() => setIsFilterModalOpen(true)}
+                >
                     Filters
                     <Sliders />
+                    {selectedCategories.length > 0 && (
+                        <Badge
+                            top
+                            right
+                            value={selectedCategories.length}
+                            color="var(--color-filter)"
+                        />
+                    )}
                 </div>
             </div>
             <div className={classes.activitiesWrapper}>
@@ -49,7 +54,8 @@ function DayView() {
                     {activities.map((activity) => (
                         <Activity
                             key={activity.id?.toString()}
-                            iconId={activity.iconId}
+                            id={activity.id}
+                            iconKey={activity.iconKey}
                             title={activity.title}
                             startTime={activity.startTime}
                             endTime={activity.endTime}
@@ -60,6 +66,9 @@ function DayView() {
                     ))}
                 </div>
             </div>
+            {isFilterModalOpen && (
+                <FilterModal onClose={() => setIsFilterModalOpen(false)} />
+            )}
         </div>
     );
 }

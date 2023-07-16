@@ -8,15 +8,8 @@
     -webkit-tap-highlight-color: transparent;
 
     .dayActivityCount {
-        @include flex(row, center, center);
-
         margin-bottom: var(--spacing-sm);
-        width: var(--size-lg);
-        height: var(--size-lg);
-        border-radius: var(--size-lg);
-        font-size: var(--font-size-xs);
-        background-color: var(--color-count);
-        color: var(--color-neutral-4);
+        position: relative;
 
         &.active {
             margin-bottom: var(--spacing-xs);

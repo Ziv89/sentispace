@@ -1,54 +1,43 @@
 import classes from './DayItem.module.scss';
 
-import { MouseEventHandler } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../../data/Database';
-import { endOfDay, isAfter, startOfDay } from 'date-fns';
+import { HTMLAttributes } from 'react';
 import classNames from 'classnames/bind';
-import { Activity } from '../../data/interfaces';
+import { useFilteredActivities } from '../../hooks/useFilteredActivities';
+import { isAfter } from 'date-fns';
+import Badge from '../generic/Badge';
 
 const cx = classNames.bind(classes);
 
-interface DayItemProps {
+interface DayItemProps extends HTMLAttributes<HTMLDivElement> {
     date: Date;
     active?: boolean;
-    onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
 const DayItem = ({ date, active, onClick }: DayItemProps) => {
-    const activities =
-        useLiveQuery<Activity[]>(() =>
-            db.activities
-                .where('startTime')
-                .between(startOfDay(date), endOfDay(date))
-                .toArray()
-        ) ?? [];
+    const [activities] = useFilteredActivities(date);
 
     const dayLetter = date.toLocaleString('default', { weekday: 'long' })[0];
     const dayNumber = date.getDate();
-
     const count = activities.length;
     const rating =
         activities.reduce(
             (accumulator, currentValue) => accumulator + currentValue.rating,
             0
         ) / activities.length;
-
     const invalid = isAfter(date, new Date());
-    const mappedRating =
-        rating && Math.round(((rating - 0) / (5 - 0)) * (7 - 1) + 1);
+    const mappedRating = rating && Math.round((rating / 5) * 6 + 1);
 
     return (
         <div className={classes.dayItem}>
             {count > 0 && (
-                <div
+                <Badge
                     className={cx({
                         dayActivityCount: true,
                         active,
                     })}
-                >
-                    {count}
-                </div>
+                    value={count}
+                    color="var(--color-count)"
+                />
             )}
             <div
                 className={cx({

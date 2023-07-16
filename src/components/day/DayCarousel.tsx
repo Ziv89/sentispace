@@ -6,6 +6,7 @@ import { CaretLeft, CaretRight, IconProps } from '@phosphor-icons/react';
 import { DayViewContext, today } from '../../data/contexts/DayViewContext';
 import {
     MouseEvent,
+    TouchEvent,
     useCallback,
     useContext,
     useEffect,
@@ -28,11 +29,11 @@ const NAVIGATION_ICON_PROPS: IconProps = {
 
 const swipeThreshold = 10000;
 
-const swipeMagnitude = (offset: number, velocity: number) => {
+const swipeMagnitude = (offset: number, velocity: number): number => {
     return Math.abs(offset) * velocity;
 };
 
-function usePrevious<T>(state: T): T | null {
+const usePrevious = <T,>(state: T): T | null => {
     const [tuple, setTuple] = useState<[T | null, T]>([null, state]);
 
     if (tuple[1] !== state) {
@@ -40,8 +41,7 @@ function usePrevious<T>(state: T): T | null {
     }
 
     return tuple[0];
-}
-
+};
 const DayCarousel = () => {
     const { selectedDay, setSelectedDay, displayedWeek, setDisplayedWeek } =
         useContext(DayViewContext);
@@ -89,7 +89,8 @@ const DayCarousel = () => {
     );
 
     const handleDaySelection = useCallback(
-        (e: MouseEvent, date: Date) => {
+        (event: MouseEvent | TouchEvent, date: Date) => {
+            event.stopPropagation();
             if (isDragging) return;
 
             if (!isSameDay(date, selectedDay)) {
@@ -144,7 +145,9 @@ const DayCarousel = () => {
                                     key={date.toDateString()}
                                     date={date}
                                     active={isSameDay(date, selectedDay)}
-                                    onClick={(e) => handleDaySelection(e, date)}
+                                    onClick={(event) =>
+                                        handleDaySelection(event, date)
+                                    }
                                 />
                             ))}
                         </div>

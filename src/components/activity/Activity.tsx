@@ -1,15 +1,14 @@
 import classes from './Activity.module.scss';
 
-import { MouseEventHandler, useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Activity as IActivity } from '../../data/interfaces';
 import { Category } from '../../data/interfaces';
 import { CategoriesContext } from '../../data/contexts/CategoriesContext';
 import { formatTimeRange } from '../../utils/time';
 import { getIconComponent } from '../../assets/icons';
 import { Heart, IconProps } from '@phosphor-icons/react';
-import classNames from 'classnames/bind';
-
-const cx = classNames.bind(classes);
+import CategoryBadge from '../category-badge/CategoryBadge';
+import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
 
 const RATING_ICON_PROPS: IconProps = {
     weight: 'fill',
@@ -17,30 +16,31 @@ const RATING_ICON_PROPS: IconProps = {
     color: 'var(--color-heart)',
 };
 
-interface ActivityComponentProps extends IActivity {
-    onClick?: MouseEventHandler<HTMLDivElement>;
-}
+interface ActivityComponentProps extends IActivity {}
 
 const Activity = ({
-    iconId,
+    id,
+    iconKey,
     title,
     description,
     rating,
     startTime,
     endTime,
     categoryIds,
-    onClick,
 }: ActivityComponentProps) => {
     const { categories } = useContext(CategoriesContext);
+    const [isEditFormOpen, setIsEditFormOpen] = useState<boolean>(false);
+
+    const handleOnClick = () => setIsEditFormOpen(true);
 
     const associatedCategories: Category[] = categories.filter((category) =>
         category && category.id ? categoryIds.includes(category.id) : false
     );
 
-    const IconComponent = getIconComponent(iconId);
+    const IconComponent = getIconComponent(iconKey);
 
     return (
-        <article className={classes.activity} onClick={onClick}>
+        <article className={classes.activity} onClick={handleOnClick}>
             <div className={classes.content}>
                 <div className={classes.icon}>
                     <IconComponent />
@@ -57,20 +57,31 @@ const Activity = ({
                     {rating}
                 </span>
                 <div className={classes.categories}>
-                    {associatedCategories.map((category) => (
-                        <span
-                            className={cx({
-                                category: true,
-                                [`categoryColor${category.color}`]:
-                                    category.color,
-                            })}
-                            key={category.name}
-                        >
-                            {category.name}
-                        </span>
+                    {associatedCategories.map(({ id, name, color }) => (
+                        <CategoryBadge
+                            key={id.toString()}
+                            id={id}
+                            name={name}
+                            color={color}
+                        />
                     ))}
                 </div>
             </div>
+            {isEditFormOpen && (
+                <ActivityEditForm
+                    onClose={() => setIsEditFormOpen(false)}
+                    activity={{
+                        id,
+                        iconKey,
+                        title,
+                        description,
+                        rating,
+                        startTime,
+                        endTime,
+                        categoryIds,
+                    }}
+                />
+            )}
         </article>
     );
 };

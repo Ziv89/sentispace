@@ -25,6 +25,7 @@
 
     gap: var(--spacing-sm);
     text-decoration: underline;
+    position: relative;
 }
 
 .activitiesWrapper {
@@ -36,13 +37,11 @@
 }
 
 .activitiesContainer {
-    @include custom-scrollbar;
     @include flex(column);
 
-    overscroll-behavior: none;
     gap: var(--spacing-md);
     height: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
     border-radius: var(--border-radius-outer);
 }
 

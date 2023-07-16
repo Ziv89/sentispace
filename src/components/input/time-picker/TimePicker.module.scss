@@ -1,0 +1,107 @@
+@use '../../../styles/config/mixins' as *;
+@use '../../../styles/config/variables' as *;
+
+.label {
+    @include flex;
+
+    gap: var(--spacing-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-neutral-2);
+    font-size: var(--font-size-md);
+}
+
+.timeField input {
+    font-size: fit-content;
+}
+
+.inputWrapper {
+    @include flex;
+
+    margin: var(--spacing-sm) 0;
+    padding: 2px;
+
+    gap: var(--spacing-sm);
+
+    &:last-of-type {
+        margin: 0;
+    }
+}
+
+.inputContainer,
+.timePeriodToggle {
+    @include flex(row, center, center);
+
+    font-size: var(--font-size-xxl);
+    background-color: var(--color-neutral-5);
+    border-radius: var(--border-radius-inner);
+}
+
+.inputContainer {
+    @include focus;
+
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.timePeriodToggle {
+    @include focus;
+
+    aspect-ratio: 1/1;
+    color: var(--color-neutral-2);
+    width: 25%;
+}
+
+.timeInput {
+    border: none;
+    text-align: center;
+    background-color: transparent;
+    color: var(--color-neutral-2);
+
+    width: 5rem;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.endTimeToggle {
+    @include flex(row, space-between, center);
+}
+
+.endTimeWrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: var(--transition-md);
+
+    &.open {
+        grid-template-rows: 1fr;
+    }
+}
+
+.endtimeContainer {
+    margin-top: var(--spacing-sm);
+
+    min-height: 0;
+}
+
+.incrementButtons {
+    @include flex;
+
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    padding: 2px;
+
+    .incrementButton {
+        @include focus;
+
+        color: var(--color-neutral-2);
+        border: none;
+        padding: var(--spacing-sm);
+        text-align: center;
+        flex-grow: 1;
+        font-weight: var(--font-weight-medium);
+        background-color: var(--color-neutral-5);
+        border-radius: var(--border-radius-inner);
+    }
+}

@@ -1,9 +1,8 @@
 import { Rating } from './types/Rating';
 import { addDays, subWeeks } from 'date-fns';
-import { IconIdType } from '../assets/icons';
+import { getRandomIconKey } from '../assets/icons';
 import { Activity, Category } from './interfaces';
 import { db } from './Database';
-import * as Icon from '@phosphor-icons/react';
 
 const activityNames = [
     'Biking',
@@ -222,17 +221,6 @@ const excludeKeys = [
     'IconBase',
 ];
 
-function getRandomElement(array: any[]): any {
-    return array[Math.floor(Math.random() * array.length)];
-}
-
-function getRandomIconId(): IconIdType {
-    const keys = Object.keys(Icon).filter(
-        (key) => !excludeKeys.includes(key)
-    ) as Array<keyof typeof Icon>;
-    return getRandomElement(keys) as IconIdType;
-}
-
 function getRandomColor(): number {
     return Math.floor(Math.random() * 16) + 1;
 }
@@ -244,7 +232,7 @@ export async function generateData(): Promise<void> {
         return;
     }
 
-    const activities: Activity[] = activityNames.map((title) => {
+    const activities: Partial<Activity>[] = activityNames.map((title) => {
         const startTime = getRandomStartDate();
 
         return {
@@ -253,16 +241,16 @@ export async function generateData(): Promise<void> {
             rating: getRandomRating(),
             startTime,
             endTime: getRandomEndDate(startTime),
-            iconId: getRandomIconId(),
+            iconKey: getRandomIconKey(),
             categoryIds: getRandomCategoryIds(),
         };
     });
 
-    const categories: Category[] = categoryNames.map((name) => ({
+    const categories: Partial<Category>[] = categoryNames.map((name) => ({
         name,
         color: getRandomColor(),
     }));
 
-    await db.activities.bulkAdd(activities);
-    await db.categories.bulkAdd(categories);
+    await db.activities.bulkAdd(activities as Activity[]);
+    await db.categories.bulkAdd(categories as Category[]);
 }
