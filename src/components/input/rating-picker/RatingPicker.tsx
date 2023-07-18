@@ -26,7 +26,7 @@ const RatingPicker = ({ label, rating, onRatingChange }: RatingPicker) => {
     const [internalRating, setInternalRating] = useState<Rating>(rating);
     const [previousIndex, setPreviousIndex] = useState<number>(0);
 
-    const ref = useRef<HTMLDivElement>(null);
+    const heartsContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setInternalRating(rating);
@@ -63,18 +63,18 @@ const RatingPicker = ({ label, rating, onRatingChange }: RatingPicker) => {
             ? onRatingChange((index + 1) as Rating)
             : onRatingChange((index + 0.5) as Rating);
 
-        ref.current?.focus();
+        heartsContainerRef.current?.focus();
     };
 
     const handlePointerMove = (event: PointerEvent) => {
-        if (!ref.current) return;
+        if (!heartsContainerRef.current) return;
 
         if (event.pointerType === 'mouse' && event.pressure === 0) return;
 
-        ref.current.setPointerCapture(event.pointerId);
+        heartsContainerRef.current.setPointerCapture(event.pointerId);
 
-        const ratingContainer = event.currentTarget as HTMLElement;
-        const { width } = ratingContainer.getBoundingClientRect();
+        const heartsContainer = event.currentTarget as HTMLElement;
+        const { width } = heartsContainer.getBoundingClientRect();
         const sensitivity = 0.2;
         const stepDistance = width / 10;
 
@@ -133,7 +133,7 @@ const RatingPicker = ({ label, rating, onRatingChange }: RatingPicker) => {
                 className={classes.hearts}
                 tabIndex={0}
                 onKeyDown={handleArrowKeys}
-                ref={ref}
+                ref={heartsContainerRef}
             >
                 {Array.from({ length: 5 }, (_, index) => getHeartIcon(index))}
             </div>

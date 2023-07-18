@@ -1,18 +1,9 @@
-import {
-    KeyboardEvent,
-    MouseEvent,
-    ReactNode,
-    TouchEvent,
-    useRef,
-} from 'react';
 import classes from './ModalPopup.module.scss';
 
+import { KeyboardEvent, MouseEvent, ReactNode, TouchEvent } from 'react';
 import { X } from '@phosphor-icons/react';
 import { createPortal } from 'react-dom';
-import classNames from 'classnames/bind';
 import Button from '../input/button/Button';
-
-const cx = classNames.bind(classes);
 
 export type ButtonType = 'primary' | 'secondary' | 'close';
 export type onButtonClick = (button: ButtonType) => void;
@@ -40,16 +31,10 @@ const ModalPopup = ({
     onButtonClick,
     children,
 }: ModalPopupProps) => {
-    const ref = useRef<HTMLDivElement>(null);
-
-    const cantUsePrimaryButton =
-        typeof disabledPrimaryButton === 'boolean' &&
-        disabledPrimaryButton === true;
-
     const handlePrimaryButtonClick = (event: MouseEvent | TouchEvent) => {
         event.stopPropagation();
 
-        if (cantUsePrimaryButton) return;
+        if (disabledPrimaryButton) return;
 
         onButtonClick('primary');
     };
@@ -76,7 +61,6 @@ const ModalPopup = ({
             <div
                 className={classes.modalWindow}
                 onClick={handleModalClick}
-                ref={ref}
                 tabIndex={0}
             >
                 <div className={classes.title}>{title}</div>
@@ -93,7 +77,7 @@ const ModalPopup = ({
                         variant="primary"
                         onClick={handlePrimaryButtonClick}
                         tabIndex={0}
-                        disabled={cantUsePrimaryButton}
+                        disabled={disabledPrimaryButton}
                     >
                         {primaryButtonText}
                     </Button>

@@ -1,6 +1,5 @@
 @use '../../styles/config/variables' as *;
 @use '../../styles/config/mixins' as *;
-@use '../../styles/config/variables' as *;
 
 .dayItem {
     @include flex(column, start, center);
@@ -63,13 +62,7 @@
             font-weight: var(--font-weight-medium);
         }
 
-        &.ratingColor1,
-        &.ratingColor2,
-        &.ratingColor3,
-        &.ratingColor4,
-        &.ratingColor5,
-        &.ratingColor6,
-        &.ratingColor7 {
+        &[class*='ratingColor'] {
             overflow: hidden;
             position: relative;
 
@@ -85,32 +78,10 @@
             }
         }
 
-        &.ratingColor1::after {
-            background: $gradient-rating-1;
-        }
-
-        &.ratingColor2::after {
-            background: $gradient-rating-2;
-        }
-
-        &.ratingColor3::after {
-            background: $gradient-rating-3;
-        }
-
-        &.ratingColor4::after {
-            background: $gradient-rating-4;
-        }
-
-        &.ratingColor5::after {
-            background: $gradient-rating-5;
-        }
-
-        &.ratingColor6::after {
-            background: $gradient-rating-6;
-        }
-
-        &.ratingColor7::after {
-            background: $gradient-rating-7;
+        @for $i from 1 through 7 {
+            &.ratingColor#{$i}::after {
+                background: map-get($gradient-ratings, $i);
+            }
         }
     }
 }

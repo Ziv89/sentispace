@@ -29,7 +29,7 @@ const TextField = ({
     iconKey,
     label,
     className,
-    ...inputProps
+    ...props
 }: TextFieldProps) => {
     const uniqueId = useId();
 
@@ -41,9 +41,14 @@ const TextField = ({
                 </div>
             )}
             {multiline ? (
-                <TextArea id={uniqueId} {...inputProps} />
+                <TextArea id={uniqueId} {...props} />
             ) : (
-                <TextInput id={uniqueId} autoComplete="off" {...inputProps} />
+                <input
+                    id={uniqueId}
+                    autoComplete="off"
+                    type={props.type || 'text'}
+                    {...props}
+                />
             )}
         </div>
     );
@@ -58,10 +63,6 @@ const TextField = ({
         renderInput()
     );
 };
-
-const TextInput = (props: InputHTMLAttributes<HTMLInputElement>) => (
-    <input type={props.type || 'text'} {...props} />
-);
 
 const TextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);

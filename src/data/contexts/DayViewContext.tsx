@@ -18,7 +18,7 @@ interface ContextProviderProps {
     children: ReactNode;
 }
 
-export const today = new Date();
+const today = new Date();
 
 export const DayViewContext = createContext<IDayViewContext>({
     selectedDay: today,

@@ -4,10 +4,7 @@ import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
 import { X } from '@phosphor-icons/react';
 import TextField, { TextFieldElement } from '../input/text-field/TextField';
 import IconPicker from '../input/icon-picker/IconPicker';
-import { IconKeyType } from '../../assets/icons';
 import CategorySelect from '../input/category-select/CategorySelect';
-import { IndexableType } from 'dexie';
-import { Rating } from '../../data/types/Rating';
 import RatingPicker from '../input/rating-picker/RatingPicker';
 import { createPortal } from 'react-dom';
 import { Activity } from '../../data/interfaces';
@@ -15,11 +12,9 @@ import DatePicker from '../input/date-picker/DatePicker';
 import TimePicker from '../input/time-picker/TimePicker';
 import Button from '../input/button/Button';
 import Alert from '../generic/Alert';
-import useActivityForm, {
-    deleteGuardData,
-    validationData,
-} from '../../hooks/useActivityForm';
+import useActivityForm from './state/useActivityForm';
 import { db } from '../../data/Database';
+import { deleteGuardData, validationData } from './state/activityForm.data';
 
 interface ActivityEditFormProps {
     onClose: () => void;
@@ -104,28 +99,6 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
         setTime(startTime, endTime);
     };
 
-    const handleIconChange = (iconKey: IconKeyType): void => setIcon(iconKey);
-
-    const handleTitleChange = (event: ChangeEvent<TextFieldElement>): void => {
-        const { value } = event.target;
-        setTitle(value);
-    };
-
-    const handleDescriptionChange = (
-        event: ChangeEvent<TextFieldElement>
-    ): void => {
-        const { value } = event.target;
-        setDescription(value);
-    };
-
-    const handleCategoriesChange = (categoryIds: IndexableType[]): void => {
-        setCategories(categoryIds);
-    };
-
-    const handleRatingChange = (rating: Rating): void => setRating(rating);
-
-    const handleDateChange = (date: Date): void => setDate(date);
-
     const handlePrimaryButton = (event: MouseEvent | TouchEvent): void => {
         event.preventDefault();
         event.stopPropagation();
@@ -202,7 +175,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                             className={classes.iconPicker}
                             label="Select an Icon"
                             iconKey={iconKey}
-                            onIconChange={handleIconChange}
+                            onIconChange={(iconKey) => setIcon(iconKey)}
                         />
                         <TextField
                             label="Title"
@@ -211,7 +184,9 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                             max={50}
                             placeholder="What's the name of your activity?"
                             value={title}
-                            onChange={handleTitleChange}
+                            onChange={(event: ChangeEvent<TextFieldElement>) =>
+                                setTitle(event.target.value)
+                            }
                         />
                     </div>
                     <TextField
@@ -222,24 +197,28 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         max={250}
                         placeholder="Give a brief description of your activity."
                         value={description}
-                        onChange={handleDescriptionChange}
+                        onChange={(event: ChangeEvent<TextFieldElement>) =>
+                            setDescription(event.target.value)
+                        }
                     />
                     <CategorySelect
                         label="Category (optional)"
                         placeholder="Select a category for your activity."
                         categoryIds={categoryIds}
-                        onCategoriesChange={handleCategoriesChange}
+                        onCategoriesChange={(categoryIds) =>
+                            setCategories(categoryIds)
+                        }
                     />
                     <RatingPicker
                         label="How did you feel about this activity?"
                         rating={rating}
-                        onRatingChange={handleRatingChange}
+                        onRatingChange={(rating) => setRating(rating)}
                     />
                     <div className={classes.dateTime}>
                         <DatePicker
                             label="Date"
                             date={startTime}
-                            onDateChange={handleDateChange}
+                            onDateChange={(date) => setDate(date)}
                         />
                         <TimePicker
                             label="Time"

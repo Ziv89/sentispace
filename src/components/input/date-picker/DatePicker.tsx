@@ -21,7 +21,6 @@ import {
     useEffect,
     useState,
 } from 'react';
-import { today } from '../../../data/contexts/DayViewContext';
 import ModalPopup, { ButtonType } from '../../generic/ModalPopup';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import classNames from 'classnames/bind';
@@ -70,6 +69,8 @@ const DatePicker = ({ label, date, onDateChange }: DatePickerProps) => {
     const selectedMonth = addMonths(date, monthOffset);
     const weeksInMonths = getMonthWeeks(selectedMonth);
 
+    const today = new Date();
+
     const formattedDate = isSameDay(date, today)
         ? 'today'
         : format(date, 'dd/MM/yyyy');
@@ -90,7 +91,7 @@ const DatePicker = ({ label, date, onDateChange }: DatePickerProps) => {
         if (compareAsc(date, today) === 1) return;
 
         if (isSameMonth(date, selectedMonth)) {
-            setSelectedDate((prev) => date);
+            setSelectedDate(date);
             return;
         }
 

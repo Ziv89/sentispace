@@ -1,6 +1,6 @@
 /* css-variables globals */
 
-@mixin general {
+@mixin dimensions {
     /* Navbar */
     --navbar-height: 5rem;
 
@@ -13,8 +13,4 @@
     /* Scrollbar */
     --scrollbar-width: 0.5rem;
     --scrollbar-border-radius: 0.5rem;
-
-    --scrollbar-thumb-color: #dfdfdf;
-    --scrollbar-thumb-color-hover: #c7c7c7;
-    --scrollbar-track-color: var(--color-neutral-4);
 }

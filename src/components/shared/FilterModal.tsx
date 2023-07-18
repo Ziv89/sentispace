@@ -1,6 +1,6 @@
 import classes from './FilterModal.module.scss';
 
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { CategoriesContext } from '../../data/contexts/CategoriesContext';
 import { ICategoriesContext } from '../../data/contexts/CategoriesContext';
 import { Category } from '../../data/interfaces';
@@ -19,9 +19,9 @@ const FilterModal = ({ onClose }: FilterModalProps) => {
     const [temporarilySelectedCategories, setTemporarilySelectedCategories] =
         useState(selectedCategories);
 
-    const disabledPrimaryButton = deepEqual(
-        temporarilySelectedCategories,
-        selectedCategories
+    const disabledPrimaryButton = useMemo(
+        () => deepEqual(temporarilySelectedCategories, selectedCategories),
+        [temporarilySelectedCategories, selectedCategories]
     );
 
     const onButtonClick = (button: ButtonType) => {

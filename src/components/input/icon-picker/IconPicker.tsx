@@ -1,6 +1,6 @@
 import classes from './IconPicker.module.scss';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { IconKeyType, getIconComponent, iconKeys } from '../../../assets/icons';
 import ModalPopup, { ButtonType } from '../../generic/ModalPopup';
 import TextField from '../text-field/TextField';
@@ -46,7 +46,10 @@ const IconPicker = ({
             : setDisplayedIconKeys(iconKeys);
     }, [debouncedSearchQuery]);
 
-    const sameIcon = deepEqual(iconKey, selectedIconKey);
+    const sameIcon = useMemo(
+        () => deepEqual(iconKey, selectedIconKey),
+        [iconKey, selectedIconKey]
+    );
 
     const onButtonClick = useCallback(
         (button: ButtonType) => {

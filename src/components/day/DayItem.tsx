@@ -1,6 +1,6 @@
 import classes from './DayItem.module.scss';
 
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useMemo } from 'react';
 import classNames from 'classnames/bind';
 import { useFilteredActivities } from '../../hooks/useFilteredActivities';
 import { isAfter } from 'date-fns';
@@ -16,16 +16,26 @@ interface DayItemProps extends HTMLAttributes<HTMLDivElement> {
 const DayItem = ({ date, active, onClick }: DayItemProps) => {
     const [activities] = useFilteredActivities(date);
 
-    const dayLetter = date.toLocaleString('default', { weekday: 'long' })[0];
-    const dayNumber = date.getDate();
-    const count = activities.length;
-    const rating =
-        activities.reduce(
-            (accumulator, currentValue) => accumulator + currentValue.rating,
-            0
-        ) / activities.length;
-    const invalid = isAfter(date, new Date());
-    const mappedRating = rating && Math.round((rating / 5) * 6 + 1);
+    const memoizedValues = useMemo(() => {
+        const dayLetter = date.toLocaleString('default', {
+            weekday: 'long',
+        })[0];
+        const dayNumber = date.getDate();
+        const count = activities.length;
+        const rating =
+            activities.reduce(
+                (accumulator, currentValue) =>
+                    accumulator + currentValue.rating,
+                0
+            ) / activities.length;
+        const invalid = isAfter(date, new Date());
+        const mappedRating = rating && Math.round((rating / 5) * 6 + 1);
+
+        return { dayLetter, dayNumber, count, invalid, mappedRating };
+    }, [date, activities]);
+
+    const { dayLetter, dayNumber, count, invalid, mappedRating } =
+        memoizedValues;
 
     return (
         <div className={classes.dayItem}>

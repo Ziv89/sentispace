@@ -51,18 +51,8 @@ function DayView() {
             </div>
             <div className={classes.activitiesWrapper}>
                 <div className={classes.activitiesContainer}>
-                    {activities.map((activity) => (
-                        <Activity
-                            key={activity.id?.toString()}
-                            id={activity.id}
-                            iconKey={activity.iconKey}
-                            title={activity.title}
-                            startTime={activity.startTime}
-                            endTime={activity.endTime}
-                            description={activity.description}
-                            rating={activity.rating}
-                            categoryIds={activity.categoryIds}
-                        />
+                    {activities.map((activity, index) => (
+                        <Activity key={index} {...activity} />
                     ))}
                 </div>
             </div>

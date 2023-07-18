@@ -3,7 +3,7 @@ import classes from './DayCarousel.module.scss';
 import { isSameDay, isSameWeek } from 'date-fns';
 import DayItem from './DayItem';
 import { CaretLeft, CaretRight, IconProps } from '@phosphor-icons/react';
-import { DayViewContext, today } from '../../data/contexts/DayViewContext';
+import { DayViewContext } from '../../data/contexts/DayViewContext';
 import {
     MouseEvent,
     TouchEvent,
@@ -15,6 +15,7 @@ import {
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { getArrayOfWeekDatesFromDate } from '../../utils/time';
 import classNames from 'classnames/bind';
+import { usePrevious } from '../../hooks/usePrevious';
 
 const cx = classNames.bind(classes);
 
@@ -33,15 +34,6 @@ const swipeMagnitude = (offset: number, velocity: number): number => {
     return Math.abs(offset) * velocity;
 };
 
-const usePrevious = <T,>(state: T): T | null => {
-    const [tuple, setTuple] = useState<[T | null, T]>([null, state]);
-
-    if (tuple[1] !== state) {
-        setTuple([tuple[1], state]);
-    }
-
-    return tuple[0];
-};
 const DayCarousel = () => {
     const { selectedDay, setSelectedDay, displayedWeek, setDisplayedWeek } =
         useContext(DayViewContext);
@@ -50,6 +42,8 @@ const DayCarousel = () => {
     const [nextWeek, setNextWeek] = useState<Date[]>();
 
     const [isDragging, setIsDragging] = useState(false);
+
+    const today = new Date();
 
     const weekIndicator = displayedWeek[0];
     const previousWeekIndicator = usePrevious(weekIndicator);
