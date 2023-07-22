@@ -90,6 +90,16 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
         return true;
     };
 
+    const handleTitleChange = (event: ChangeEvent<TextFieldElement>) => {
+        const { value } = event.target;
+        setTitle(value);
+    };
+
+    const handleDescriptionChange = (event: ChangeEvent<TextFieldElement>) => {
+        const { value } = event.target;
+        setDescription(value);
+    };
+
     const handleTimeChange = (startTime: Date, endTime?: Date): void => {
         if (isNow) {
             const now = new Date();
@@ -175,7 +185,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                             className={classes.iconPicker}
                             label="Select an Icon"
                             iconKey={iconKey}
-                            onIconChange={(iconKey) => setIcon(iconKey)}
+                            onIconChange={setIcon}
                         />
                         <TextField
                             label="Title"
@@ -184,9 +194,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                             max={50}
                             placeholder="What's the name of your activity?"
                             value={title}
-                            onChange={(event: ChangeEvent<TextFieldElement>) =>
-                                setTitle(event.target.value)
-                            }
+                            onChange={handleTitleChange}
                         />
                     </div>
                     <TextField
@@ -197,28 +205,24 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         max={250}
                         placeholder="Give a brief description of your activity."
                         value={description}
-                        onChange={(event: ChangeEvent<TextFieldElement>) =>
-                            setDescription(event.target.value)
-                        }
+                        onChange={handleDescriptionChange}
                     />
                     <CategorySelect
                         label="Category (optional)"
                         placeholder="Select a category for your activity."
                         categoryIds={categoryIds}
-                        onCategoriesChange={(categoryIds) =>
-                            setCategories(categoryIds)
-                        }
+                        onCategoriesChange={setCategories}
                     />
                     <RatingPicker
                         label="How did you feel about this activity?"
                         rating={rating}
-                        onRatingChange={(rating) => setRating(rating)}
+                        onRatingChange={setRating}
                     />
                     <div className={classes.dateTime}>
                         <DatePicker
                             label="Date"
                             date={startTime}
-                            onDateChange={(date) => setDate(date)}
+                            onDateChange={setDate}
                         />
                         <TimePicker
                             label="Time"
