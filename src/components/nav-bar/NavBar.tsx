@@ -2,7 +2,9 @@ import classes from './NavBar.module.scss';
 
 import { GearSix, HouseSimple, Plus } from '@phosphor-icons/react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Paths } from '../../main';
+import { Paths } from '../../routes/enums/Paths';
+import { useState } from 'react';
+import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
 
 enum IconWeight {
     ACTIVE = 'fill',
@@ -13,11 +15,11 @@ const getIconWeight = (isActive: boolean): IconWeight => {
     return isActive ? IconWeight.ACTIVE : IconWeight.NOT_ACTIVE;
 };
 
-const BUTTON_ICON_WEIGHT = 'light';
-const ICON_SIZE = 32;
-
 const NavBar = () => {
     const location = useLocation();
+
+    const [isActivityModalOpen, setIsActivityModalOpen] =
+        useState<boolean>(false);
 
     return (
         <nav className={classes.navBar}>
@@ -27,24 +29,23 @@ const NavBar = () => {
             >
                 <HouseSimple
                     weight={getIconWeight(location.pathname === Paths.HOME)}
-                    size={ICON_SIZE}
                 />
                 Home
             </NavLink>
-            <NavLink to={Paths.ACTIVITIES}>
-                <Plus
-                    weight={BUTTON_ICON_WEIGHT}
-                    size={ICON_SIZE}
-                    className={classes.addButton}
-                />
-            </NavLink>
+            <div onClick={() => setIsActivityModalOpen(true)}>
+                <Plus className={classes.addButton} />
+                {isActivityModalOpen && (
+                    <ActivityEditForm
+                        onClose={() => setIsActivityModalOpen(false)}
+                    />
+                )}
+            </div>
             <NavLink
                 to={Paths.SETTINGS}
                 className={({ isActive }) => (isActive ? classes.active : '')}
             >
                 <GearSix
                     weight={getIconWeight(location.pathname === Paths.SETTINGS)}
-                    size={ICON_SIZE}
                 />
                 Settings
             </NavLink>

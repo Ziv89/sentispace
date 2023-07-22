@@ -1,46 +1,67 @@
 /* css-variables colors */
 
 @mixin colors {
-	/* Accent Colors */
-	--color-primary: #4bb3d9;
-	--color-secondary: #80cfa9;
+    /* Accent Colors */
+    --color-primary: #4bb3d9;
+    --color-secondary: #80cfa9;
 
-	/* Additional Colors */
-	--color-heart: #eb4f4f;
+    /* Scrollbar */
+    --scrollbar-thumb-color: #dfdfdf;
+    --scrollbar-thumb-color-hover: #c7c7c7;
+    --scrollbar-track-color: #ffffff;
 
-	/* Neutral Colors */
-	--color-neutral-1: #262626;
-	--color-neutral-2: #4d4d4d;
-	--color-neutral-3: #737373;
-	--color-neutral-4: #ffffff;
-	--color-neutral-5: #f2f2f2;
-	--color-neutral-6: #e6e6e6;
+    /* Additional Colors */
+    --color-heart: #eb4f4f;
+    --color-count: #ef8427;
+    --color-filter: #8b5ef4;
+    --color-dangerous: #d73636;
 
-	/* Rating Colors */
-	--color-rating-1: #ff7f7f;
-	--color-rating-2: #ffa87f;
-	--color-rating-3: #ffbb6f;
-	--color-rating-4: #ffc97f;
-	--color-rating-5: #b9f0a6;
-	--color-rating-6: #7fe6ad;
-	--color-rating-7: #47cc8c;
-	--color-rating-8: #2aa886; /* this is for gradient purposes */
+    --color-error-light: #ffc2c2;
+    --color-error-dark: #4a3b06;
 
-	/* Category Colors */
-	--color-category-1: #ffa500;
-	--color-category-2: #ffa07a;
-	--color-category-3: #ffb6c1;
-	--color-category-4: #ffdab9;
-	--color-category-5: #d8bfd8;
-	--color-category-6: #c8a2c8;
-	--color-category-7: #9370db;
-	--color-category-8: #add8e6;
-	--color-category-9: #87cefa;
-	--color-category-10: #00ced1;
-	--color-category-11: #48d1cc;
-	--color-category-12: #1e90ff;
-	--color-category-13: #8cc42d;
-	--color-category-14: #b2b45e;
-	--color-category-15: #1b9a18;
-	--color-category-16: #55731f;
+    --color-warning-light: #fff4a4;
+    --color-warning-dark: #5c2f06;
+
+    --color-info-light: #badeff;
+    --color-info-dark: #141d72;
+
+    --color-success-light: #d2ffd2;
+    --color-success-dark: #3a5205;
+
+    /* Neutral Colors */
+    --color-neutral-1: #262626;
+    --color-neutral-2: #4d4d4d;
+    --color-neutral-3: #737373;
+    --color-neutral-4: #ffffff;
+    --color-neutral-5: #f2f2f2;
+    --color-neutral-6: #e6e6e6;
+    --color-neutral-7: #d9d9d9;
+
+    /* Rating Colors */
+    --color-rating-1: #ff7f7f;
+    --color-rating-2: #ffa87f;
+    --color-rating-3: #ffbb6f;
+    --color-rating-4: #ffc97f;
+    --color-rating-5: #b9f0a6;
+    --color-rating-6: #7fe6ad;
+    --color-rating-7: #47cc8c;
+    --color-rating-8: #2aa886; /* this is for gradient purposes */
+
+    /* Category Colors */
+    --color-category-1: #ffa500;
+    --color-category-2: #ffa07a;
+    --color-category-3: #ffb6c1;
+    --color-category-4: #ffdab9;
+    --color-category-5: #d8bfd8;
+    --color-category-6: #c8a2c8;
+    --color-category-7: #9370db;
+    --color-category-8: #add8e6;
+    --color-category-9: #87cefa;
+    --color-category-10: #00ced1;
+    --color-category-11: #48d1cc;
+    --color-category-12: #1e90ff;
+    --color-category-13: #8cc42d;
+    --color-category-14: #b2b45e;
+    --color-category-15: #1b9a18;
+    --color-category-16: #55731f;
 }

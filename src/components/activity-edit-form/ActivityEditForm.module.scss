@@ -1,0 +1,56 @@
+@use '../../styles/config/mixins' as *;
+
+.activityEditWrapper {
+    gap: var(--spacing-md);
+    z-index: 100;
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-neutral-4);
+    overflow-y: scroll;
+}
+
+.form {
+    @include flex(column, space-between);
+
+    padding: var(--spacing-lg);
+    min-height: 100vh;
+
+    gap: var(--spacing-md);
+    position: relative;
+
+    .header {
+        @include flex(row, space-between);
+
+        .title {
+            font-size: calc(var(--font-size-xl));
+            margin: 0;
+            line-height: 1;
+        }
+    }
+
+    .titleAndIcon {
+        position: relative;
+
+        .iconPicker {
+            position: absolute;
+            right: 0;
+        }
+    }
+
+    .dateTime {
+        @include flex(row, space-between);
+
+        gap: var(--spacing-md);
+
+        & > * {
+            width: calc(50% - var(--spacing-md) / 2);
+        }
+    }
+
+    .buttons {
+        @include flex(column, flex-end);
+
+        gap: var(--spacing-md);
+        flex-grow: 1;
+    }
+}

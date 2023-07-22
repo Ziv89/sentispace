@@ -1,0 +1,32 @@
+@use '../../styles/config/mixins' as *;
+
+.heading {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-sm);
+}
+
+.colorsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(2rem, 1fr));
+    grid-auto-rows: min-content;
+    gap: var(--spacing-sm);
+}
+
+.colorSquare {
+    border-radius: var(--border-radius-inner);
+    aspect-ratio: 1 / 1;
+    transition: transform var(--transition-md);
+    -webkit-tap-highlight-color: transparent;
+
+    &.currentColor {
+        box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.25);
+        transform: scale(1.2);
+    }
+
+    @for $i from 1 through 16 {
+        &.color#{$i} {
+            background-color: var(--color-category-#{$i});
+        }
+    }
+}

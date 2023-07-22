@@ -1,0 +1,110 @@
+@use '../../../styles/config/mixins' as *;
+
+$gap: 2px;
+
+.categorySelect {
+    @include flex(column);
+}
+
+.label {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-neutral-2);
+    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.select {
+    @include flex(row, space-between, center);
+    @include focus;
+
+    background-color: var(--color-neutral-5);
+    color: var(--color-neutral-2);
+    border-radius: var(--border-radius-inner);
+
+    .placeholder {
+        @include text-truncate;
+
+        padding-right: var(--spacing-sm);
+        flex-grow: 1;
+    }
+
+    &.isOpen {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        margin-bottom: 0;
+    }
+}
+
+.sideButton,
+.toggleSelect,
+.selectIcon {
+    @include flex(row, center, center);
+
+    box-sizing: content-box;
+
+    color: var(--color-neutral-3);
+
+    svg {
+        max-width: fit-content;
+    }
+}
+
+.selectIcon {
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+}
+
+.sideButton,
+.toggleSelect {
+    border-left: $gap solid var(--color-neutral-4);
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.selectionList,
+.selectedList {
+    border-radius: var(--border-radius-inner);
+}
+
+.selectionList {
+    color: var(--color-neutral-2);
+    margin-top: $gap;
+}
+
+.selectedList {
+    margin-top: var(--spacing-md);
+
+    .selectItem:first-child {
+        border-top-left-radius: var(--border-radius-inner);
+        border-top-right-radius: var(--border-radius-inner);
+    }
+}
+
+.selectItem {
+    @include flex(row, space-between, center);
+    @include focus;
+
+    height: var(--category-select-item-height);
+    background-color: var(--color-neutral-5);
+    border-bottom: $gap solid var(--color-neutral-4);
+
+    &Content {
+        padding: 0 var(--spacing-md);
+    }
+
+    .createNewCategory {
+        outline: none;
+        text-decoration: underline;
+        padding: 0 var(--spacing-md);
+    }
+
+    &:last-of-type {
+        border-bottom: none;
+    }
+}
+
+.selectItem:last-of-type {
+    border-bottom-left-radius: var(--border-radius-inner);
+    border-bottom-right-radius: var(--border-radius-inner);
+}

@@ -2,10 +2,12 @@
 @use 'css-variables/sizes';
 @use 'css-variables/colors';
 @use 'css-variables/animations';
+@use 'css-variables/dimensions';
 
 :root {
-	@include fonts.fonts;
-	@include sizes.sizes;
-	@include colors.colors;
-	@include animations.animations;
+    @include fonts.fonts;
+    @include sizes.sizes;
+    @include colors.colors;
+    @include animations.animations;
+    @include dimensions.dimensions;
 }
