@@ -1,0 +1,24 @@
+/* css-variables fonts */
+
+@mixin fonts {
+    /* Font families */
+    --font-family-default: 'Roboto', sans-serif;
+
+    /* Font weights */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    /* Font sizes */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-xxl: 2rem;
+
+    /* Font underlines */
+    --font-underline-regular: 0.0625em;
+    --font-underline-bold: 0.125em;
+}
