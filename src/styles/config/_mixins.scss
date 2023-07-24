@@ -64,3 +64,12 @@
         outline: 2px solid var(--color-neutral-2);
     }
 }
+
+@mixin ios-fix($selector) {
+    @media screen and (display-mode: standalone) {
+        #{$selector} {
+            margin-top: env(safe-area-inset-top);
+            margin-bottom: calc(env(safe-area-inset-bottom) / 3);
+        }
+    }
+}

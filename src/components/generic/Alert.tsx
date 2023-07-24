@@ -7,6 +7,7 @@ import {
     WarningCircle,
 } from '@phosphor-icons/react';
 import classNames from 'classnames/bind';
+import { useEffect, useRef } from 'react';
 
 const cx = classNames.bind(classes);
 
@@ -19,6 +20,7 @@ interface AlertProps {
     marginTop?: boolean;
     marginButton?: boolean;
     className?: string;
+    isScrollIntoView?: boolean;
 }
 
 const getAlertIcon = (severity: SeverityType) => {
@@ -41,21 +43,33 @@ const Alert = ({
     marginTop,
     marginButton,
     className,
-}: AlertProps) => (
-    <div
-        className={cx(className, {
-            alert: true,
-            [severity]: true,
-            marginTop,
-            marginButton,
-        })}
-    >
-        {getAlertIcon(severity)}
-        <div className={classes.content}>
-            {!!title && <div className={classes.title}>{title}</div>}
-            {description}
+    isScrollIntoView,
+}: AlertProps) => {
+    const alertRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (isScrollIntoView && alertRef.current) {
+            alertRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, []);
+
+    return (
+        <div
+            className={cx(className, {
+                alert: true,
+                [severity]: true,
+                marginTop,
+                marginButton,
+            })}
+            ref={alertRef}
+        >
+            {getAlertIcon(severity)}
+            <div className={classes.content}>
+                {!!title && <div className={classes.title}>{title}</div>}
+                {description}
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default Alert;

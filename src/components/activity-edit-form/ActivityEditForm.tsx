@@ -1,6 +1,6 @@
 import classes from './ActivityEditForm.module.scss';
 
-import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
+import { ChangeEvent, MouseEvent, TouchEvent, useEffect, useRef } from 'react';
 import { X } from '@phosphor-icons/react';
 import TextField, { TextFieldElement } from '../input/text-field/TextField';
 import IconPicker from '../input/icon-picker/IconPicker';
@@ -170,16 +170,14 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
 
     return createPortal(
         <div className={classes.activityEditWrapper}>
-            <div className={classes.activityEditContainer}>
-                <form className={classes.form}>
-                    <div className={classes.header}>
-                        <h1 className={classes.title}>
-                            {activity
-                                ? 'Edit Activity'
-                                : 'Create a new activity'}
-                        </h1>
-                        <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
-                    </div>
+            <form className={classes.form}>
+                <div className={classes.header}>
+                    <h1 className={classes.title}>
+                        {activity ? 'Edit Activity' : 'Create a new activity'}
+                    </h1>
+                    <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
+                </div>
+                <div className={classes.inputs}>
                     <div className={classes.titleAndIcon}>
                         <IconPicker
                             className={classes.iconPicker}
@@ -234,31 +232,32 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                     </div>
                     {!!alert && (
                         <Alert
+                            isScrollIntoView
                             severity={alert.severity}
                             title={alert.title}
                             description={alert.description}
                         />
                     )}
-                    <div className={classes.buttons}>
-                        <Button
-                            variant="primary"
-                            onClick={handlePrimaryButton}
-                            disabled={!isChanged}
-                        >
-                            {activity ? 'Save Changes' : 'Create Activity'}
-                        </Button>
-                        <Button
-                            variant="secondary"
-                            onClick={handleSecondaryButton}
-                            underline
-                            isDangerous={!!activity}
-                            disabled={!activity && !isChanged}
-                        >
-                            {activity ? 'Delete Activity' : 'Reset'}
-                        </Button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div className={classes.buttons}>
+                    <Button
+                        variant="primary"
+                        onClick={handlePrimaryButton}
+                        disabled={!isChanged}
+                    >
+                        {activity ? 'Save Changes' : 'Create Activity'}
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        onClick={handleSecondaryButton}
+                        underline
+                        isDangerous={!!activity}
+                        disabled={!activity && !isChanged}
+                    >
+                        {activity ? 'Delete Activity' : 'Reset'}
+                    </Button>
+                </div>
+            </form>
         </div>,
         document.body
     );

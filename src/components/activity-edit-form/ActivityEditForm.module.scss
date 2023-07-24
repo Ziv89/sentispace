@@ -1,6 +1,8 @@
 @use '../../styles/config/mixins' as *;
 
 .activityEditWrapper {
+    @include flex(column);
+
     gap: var(--spacing-md);
     z-index: 100;
     position: fixed;
@@ -10,16 +12,22 @@
 }
 
 .form {
-    @include flex(column, space-between);
+    @include flex(column);
 
-    padding: var(--spacing-lg);
-    min-height: 100vh;
-
-    gap: var(--spacing-md);
+    min-height: 100%;
     position: relative;
+
+    .header,
+    .inputs,
+    .buttons {
+        padding: var(--spacing-lg);
+    }
 
     .header {
         @include flex(row, space-between);
+
+        padding-bottom: var(--spacing-lg);
+        border-bottom: 1px solid var(--color-neutral-6);
 
         .title {
             font-size: calc(var(--font-size-xl));
@@ -28,29 +36,39 @@
         }
     }
 
-    .titleAndIcon {
-        position: relative;
-
-        .iconPicker {
-            position: absolute;
-            right: 0;
-        }
-    }
-
-    .dateTime {
-        @include flex(row, space-between);
+    .inputs {
+        @include flex(column);
 
         gap: var(--spacing-md);
+        flex-grow: 1;
+        overflow-y: scroll;
 
-        & > * {
-            width: calc(50% - var(--spacing-md) / 2);
+        .titleAndIcon {
+            position: relative;
+
+            .iconPicker {
+                position: absolute;
+                right: 0;
+            }
+        }
+
+        .dateTime {
+            @include flex(row, space-between);
+
+            gap: var(--spacing-md);
+
+            & > * {
+                width: calc(50% - var(--spacing-md) / 2);
+            }
         }
     }
 
     .buttons {
-        @include flex(column, flex-end);
+        @include flex(column);
 
+        border-top: 1px solid var(--color-neutral-6);
         gap: var(--spacing-md);
-        flex-grow: 1;
     }
 }
+
+@include ios-fix('.activityEditWrapper');
