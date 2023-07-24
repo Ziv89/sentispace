@@ -51,16 +51,6 @@
                 right: 0;
             }
         }
-
-        .dateTime {
-            @include flex(row, space-between);
-
-            gap: var(--spacing-md);
-
-            & > * {
-                width: calc(50% - var(--spacing-md) / 2);
-            }
-        }
     }
 
     .buttons {

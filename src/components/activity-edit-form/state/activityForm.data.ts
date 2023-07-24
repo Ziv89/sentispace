@@ -49,6 +49,6 @@ export const validationData: AlertsData[] = [
 export const deleteGuardData: AlertsData = {
     type: Alerts.DELETE_GUARD,
     title: 'Are you sure about this?',
-    message: "This can't be undone",
+    message: 'Click "Delete Activity" again to proceed.',
     severity: 'warning',
 };

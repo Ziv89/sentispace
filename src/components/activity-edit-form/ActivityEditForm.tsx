@@ -216,20 +216,18 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         rating={rating}
                         onRatingChange={setRating}
                     />
-                    <div className={classes.dateTime}>
-                        <DatePicker
-                            label="Date"
-                            date={startTime}
-                            onDateChange={setDate}
-                        />
-                        <TimePicker
-                            label="Time"
-                            startTime={startTime}
-                            endTime={endTime}
-                            isNow={isNow}
-                            onTimeChange={handleTimeChange}
-                        />
-                    </div>
+                    <DatePicker
+                        label="Date"
+                        date={startTime}
+                        onDateChange={setDate}
+                    />
+                    <TimePicker
+                        label="Time"
+                        startTime={startTime}
+                        endTime={endTime}
+                        isNow={isNow}
+                        onTimeChange={handleTimeChange}
+                    />
                     {!!alert && (
                         <Alert
                             isScrollIntoView
