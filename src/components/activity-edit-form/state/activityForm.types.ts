@@ -1,8 +1,8 @@
 import { IndexableType } from 'dexie';
 import { IconKeyType } from '../../../assets/icons';
 import { Rating } from '../../../data/types/Rating';
-import { ActionType, Alerts } from './activityForm.enums';
-import { SeverityType } from '../../generic/Alert';
+import { ActionType, ActivityFormAlerts } from './activityForm.enums';
+import { AlertType } from '../../generic/Alert';
 
 export type ActivityFormState = {
     iconKey: IconKeyType;
@@ -14,7 +14,7 @@ export type ActivityFormState = {
     endTime?: Date;
     isNow: boolean;
     deleteGuard: boolean;
-    alert: Alert | null;
+    alert: ActivityFormAlert | null;
 };
 
 export type DefaultState = Omit<
@@ -36,23 +36,13 @@ export type Action =
     | { type: ActionType.SET_RATING; payload: Rating }
     | { type: ActionType.SET_START_TIME; payload: Date }
     | { type: ActionType.SET_END_TIME; payload: Date | undefined }
-    | { type: ActionType.SET_ALERT; payload: Alert }
+    | { type: ActionType.SET_ALERT; payload: ActivityFormAlert }
     | { type: ActionType.CLEAR_ALERT }
     | { type: ActionType.SET_IS_NOW; payload: boolean }
     | { type: ActionType.SET_TIME; payload: SetTimeType }
     | { type: ActionType.RESET; payload: ActivityFormState }
     | { type: ActionType.SET_DELETE_GUARD; payload: boolean };
 
-type Alert = {
-    type: Alerts;
-    severity: SeverityType;
-    title: string;
-    description: string;
-};
-
-export type AlertsData = {
-    type: Alerts;
-    title: string;
-    message: string;
-    severity: SeverityType;
-};
+export interface ActivityFormAlert extends AlertType {
+    type: ActivityFormAlerts;
+}

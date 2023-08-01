@@ -23,6 +23,12 @@ interface AlertProps {
     isScrollIntoView?: boolean;
 }
 
+export type AlertType = {
+    severity: SeverityType;
+    title: string;
+    description: string;
+};
+
 const getAlertIcon = (severity: SeverityType) => {
     switch (severity) {
         case 'error':
@@ -63,7 +69,7 @@ const Alert = ({
             })}
             ref={alertRef}
         >
-            {getAlertIcon(severity)}
+            <div className={classes.icon}>{getAlertIcon(severity)}</div>
             <div className={classes.content}>
                 {!!title && <div className={classes.title}>{title}</div>}
                 {description}

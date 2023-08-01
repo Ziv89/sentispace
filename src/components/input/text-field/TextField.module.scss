@@ -17,6 +17,10 @@
     border-radius: var(--border-radius-inner);
     height: auto;
 
+    &.noLabel {
+        margin-top: 0;
+    }
+
     .inputIcon {
         @include flex(row, center);
 

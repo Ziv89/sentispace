@@ -1,54 +1,54 @@
-import { Alerts } from './activityForm.enums';
-import { AlertsData } from './activityForm.types';
+import { ActivityFormAlerts } from './activityForm.enums';
+import { ActivityFormAlert } from './activityForm.types';
 
-export const validationData: AlertsData[] = [
+export const validationAlerts: ActivityFormAlert[] = [
     {
-        type: Alerts.ICON_KEY,
+        type: ActivityFormAlerts.ICON_KEY,
         title: 'Invalid Icon',
-        message: 'Please select a valid icon',
+        description: 'Please select a valid icon',
         severity: 'error',
     },
     {
-        type: Alerts.TITLE,
+        type: ActivityFormAlerts.TITLE,
         title: 'Invalid Title',
-        message: 'Title length must be between 1 and 50 characters',
+        description: 'Title length must be between 1 and 50 characters',
         severity: 'error',
     },
     {
-        type: Alerts.DESCRIPTION,
+        type: ActivityFormAlerts.DESCRIPTION,
         title: 'Invalid Description',
-        message: 'Description length must not exceed 250 characters',
+        description: 'Description length must not exceed 250 characters',
         severity: 'error',
     },
     {
-        type: Alerts.RATING,
+        type: ActivityFormAlerts.RATING,
         title: 'Invalid Rating',
-        message: 'Rating must be between 0 and 5',
+        description: 'Rating must be between 0 and 5',
         severity: 'error',
     },
     {
-        type: Alerts.CATEGORIES,
+        type: ActivityFormAlerts.CATEGORIES,
         title: 'Invalid Category',
-        message: 'Category must be a valid list',
+        description: 'Category must be a valid list',
         severity: 'error',
     },
     {
-        type: Alerts.START_TIME,
+        type: ActivityFormAlerts.START_TIME,
         title: 'Invalid Start Date',
-        message: 'Start date must not be in the future',
+        description: 'Start date must not be in the future',
         severity: 'error',
     },
     {
-        type: Alerts.END_TIME,
+        type: ActivityFormAlerts.END_TIME,
         title: 'Invalid End Date',
-        message: 'End date must not be in the future',
+        description: 'End date must not be in the future',
         severity: 'error',
     },
 ];
 
-export const deleteGuardData: AlertsData = {
-    type: Alerts.DELETE_GUARD,
+export const deleteGuardAlert: ActivityFormAlert = {
+    type: ActivityFormAlerts.DELETE_GUARD,
     title: 'Are you sure about this?',
-    message: 'Click "Delete Activity" again to proceed.',
+    description: 'Click "Delete Activity" again to proceed.',
     severity: 'warning',
 };

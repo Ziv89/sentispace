@@ -13,7 +13,7 @@ export enum ActionType {
     RESET = 'RESET',
     SET_DELETE_GUARD = 'SET_DELETE_GUARD',
 }
-export enum Alerts {
+export enum ActivityFormAlerts {
     ICON_KEY = 'iconKey',
     TITLE = 'title',
     DESCRIPTION = 'description',

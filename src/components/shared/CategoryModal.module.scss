@@ -3,7 +3,11 @@
 .heading {
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-medium);
-    margin-bottom: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
+}
+
+.alert {
+    margin-top: var(--spacing-md);
 }
 
 .colorsContainer {

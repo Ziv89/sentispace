@@ -8,7 +8,6 @@ const cx = classNames.bind(classes);
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant: 'primary' | 'secondary';
     children: string;
-    usable?: boolean;
     isDangerous?: boolean;
     underline?: boolean;
     className?: string;

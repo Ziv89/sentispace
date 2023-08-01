@@ -1,6 +1,6 @@
 import classes from './ActivityEditForm.module.scss';
 
-import { ChangeEvent, MouseEvent, TouchEvent, useEffect, useRef } from 'react';
+import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
 import { X } from '@phosphor-icons/react';
 import TextField, { TextFieldElement } from '../input/text-field/TextField';
 import IconPicker from '../input/icon-picker/IconPicker';
@@ -14,7 +14,7 @@ import Button from '../input/button/Button';
 import Alert from '../generic/Alert';
 import useActivityForm from './state/useActivityForm';
 import { db } from '../../data/Database';
-import { deleteGuardData, validationData } from './state/activityForm.data';
+import { deleteGuardAlert, validationAlerts } from './state/activityForm.data';
 
 interface ActivityEditFormProps {
     onClose: () => void;
@@ -79,10 +79,10 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
     ]);
 
     const isFormValid = (): boolean => {
-        for (let i = 0; i < validationData.length; i++) {
-            const { type, title, message, severity } = validationData[i];
+        for (let i = 0; i < validationAlerts.length; i++) {
+            const { type } = validationAlerts[i];
             if (type !== 'deleteGuard' && !validations[type]) {
-                setAlert(type, title, message, severity);
+                setAlert(validationAlerts[i]);
                 return false;
             }
         }
@@ -142,19 +142,22 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
         onClose();
     };
 
-    const handleSecondaryButton = (event: MouseEvent | TouchEvent): void => {
+    const handleSecondaryButton = async (
+        event: MouseEvent | TouchEvent
+    ): Promise<void> => {
         event.preventDefault();
         event.stopPropagation();
 
         if (activity) {
             if (deleteGuard) {
-                const { type, title, message, severity } = deleteGuardData;
-                setAlert(type, title, message, severity);
+                setAlert(deleteGuardAlert);
                 disableDeleteGuard();
 
                 return;
             }
-            db.activities.delete(activity.id);
+
+            await db.activities.delete(activity.id);
+            onClose();
             return;
         }
 
