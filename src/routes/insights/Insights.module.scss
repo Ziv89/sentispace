@@ -1,0 +1,21 @@
+@use '../../styles/config/mixins' as *;
+
+.insights {
+    @include flex(column);
+
+    flex-grow: 1;
+
+    .header {
+        padding: var(--spacing-md) var(--spacing-lg);
+        margin: 0;
+        font-size: calc(var(--font-size-xl));
+    }
+
+    .content {
+        @include flex(column, center, center);
+
+        border-radius: var(--border-radius-outer);
+        background-color: var(--color-neutral-5);
+        flex-grow: 1;
+    }
+}

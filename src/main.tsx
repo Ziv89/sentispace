@@ -11,6 +11,9 @@ import DayViewContextProvider from './data/contexts/DayViewContext';
 import DayView from './routes/day/DayView';
 import { IconContext, IconProps } from '@phosphor-icons/react';
 import { generateData } from './data/MOCK_DATA';
+import Settings from './routes/settings/Settings';
+import Insights from './routes/insights/Insights';
+import Categories from './routes/categories/Categories';
 
 if (import.meta.env.DEV) generateData();
 
@@ -32,8 +35,9 @@ const router = createBrowserRouter([
                     </DayViewContextProvider>
                 ),
             },
-            { path: Paths.ACTIVITIES, element: <></> },
-            { path: Paths.SETTINGS, element: <></> },
+            { path: Paths.CATEGORIES, element: <Categories /> },
+            { path: Paths.INSIGHTS, element: <Insights /> },
+            { path: Paths.SETTINGS, element: <Settings /> },
         ],
     },
 ]);

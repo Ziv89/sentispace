@@ -1,37 +1,23 @@
 import classes from './NavBar.module.scss';
 
-import { GearSix, HouseSimple, Plus } from '@phosphor-icons/react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Plus } from '@phosphor-icons/react';
 import { Paths } from '../../routes/enums/Paths';
 import { useState } from 'react';
 import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
-
-enum IconWeight {
-    ACTIVE = 'fill',
-    NOT_ACTIVE = 'light',
-}
-
-const getIconWeight = (isActive: boolean): IconWeight => {
-    return isActive ? IconWeight.ACTIVE : IconWeight.NOT_ACTIVE;
-};
+import NavItem from './NavItem';
 
 const NavBar = () => {
-    const location = useLocation();
-
     const [isActivityModalOpen, setIsActivityModalOpen] =
         useState<boolean>(false);
 
     return (
         <nav className={classes.navBar}>
-            <NavLink
-                to={Paths.HOME}
-                className={({ isActive }) => (isActive ? classes.active : '')}
-            >
-                <HouseSimple
-                    weight={getIconWeight(location.pathname === Paths.HOME)}
-                />
-                Home
-            </NavLink>
+            <NavItem label="Home" iconKey="HouseSimple" path={Paths.HOME} />
+            <NavItem
+                label="Categories"
+                iconKey="SquaresFour"
+                path={Paths.CATEGORIES}
+            />
             <div onClick={() => setIsActivityModalOpen(true)}>
                 <Plus className={classes.addButton} />
                 {isActivityModalOpen && (
@@ -40,15 +26,12 @@ const NavBar = () => {
                     />
                 )}
             </div>
-            <NavLink
-                to={Paths.SETTINGS}
-                className={({ isActive }) => (isActive ? classes.active : '')}
-            >
-                <GearSix
-                    weight={getIconWeight(location.pathname === Paths.SETTINGS)}
-                />
-                Settings
-            </NavLink>
+            <NavItem
+                label="Insights"
+                iconKey="Sunglasses"
+                path={Paths.INSIGHTS}
+            />
+            <NavItem label="Settings" iconKey="GearSix" path={Paths.SETTINGS} />
         </nav>
     );
 };
