@@ -82,15 +82,15 @@ const Categories = () => {
         prevCategoriesIdsRef.current = categoriesIds;
     }, [categories, activities]);
 
-    if (typeof activities === 'undefined' || typeof categories === 'undefined')
-        return;
-
-    const sortedCategories = countAndSortCategories(
-        categories,
-        activities,
-        sortType,
-        isAscending
-    );
+    const sortedCategories =
+        categories && activities
+            ? countAndSortCategories(
+                  categories,
+                  activities,
+                  sortType,
+                  isAscending
+              )
+            : [];
 
     const handleSortClick = (newSortType: SortType) => {
         setSortType(newSortType);
@@ -128,10 +128,10 @@ const Categories = () => {
                 <div
                     className={cx({
                         container: true,
-                        noCategories: categories.length === 0,
+                        noCategories: sortedCategories.length === 0,
                     })}
                 >
-                    {categories.length > 0 ? (
+                    {sortedCategories.length > 0 ? (
                         sortedCategories.map((category) => (
                             <CategoryRow
                                 key={category.name}
