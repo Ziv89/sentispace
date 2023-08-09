@@ -99,8 +99,8 @@ export const importData = async (data: Data): Promise<void> => {
         };
     });
 
-    await db.activities.bulkPut(updatedActivities);
-    await db.categories.bulkPut(data.categories);
+    await db.activities.bulkAdd(updatedActivities);
+    await db.categories.bulkAdd(data.categories);
 };
 
 export const mergeData = async (data: Data): Promise<void> => {
@@ -121,10 +121,11 @@ export const mergeData = async (data: Data): Promise<void> => {
                 categoryIdMapping[originalId] =
                     matchingCategory?.id || originalId;
             } else {
-                categoryIdMapping[originalId] = await db.categories.add({
+                const newId = await db.categories.add({
                     name,
                     color,
                 } as Category);
+                categoryIdMapping[originalId] = newId;
             }
         }
 
@@ -132,13 +133,13 @@ export const mergeData = async (data: Data): Promise<void> => {
             .map((activity) => {
                 return {
                     ...activity,
-                    categoryIds: activity.categoryIds.map(
-                        (id) => categoryIdMapping[String(id)] || id
-                    ),
                     startTime: new Date(activity.startTime),
                     endTime: activity.endTime
                         ? new Date(activity.endTime)
                         : undefined,
+                    categoryIds: activity.categoryIds.map(
+                        (id) => categoryIdMapping[String(id)] || id
+                    ),
                 };
             })
             .map(({ id, ...rest }) => ({ ...rest }));

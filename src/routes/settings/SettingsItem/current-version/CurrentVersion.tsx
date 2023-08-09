@@ -1,7 +1,7 @@
 import SettingsItem from '../SettingsItem';
 import { Link } from 'react-router-dom';
 
-const VERSION = '02/08/2023 0.0.1a';
+const VERSION = 'RELEASE_DATE VERSION';
 
 const CurrentVersion = () => {
     return (

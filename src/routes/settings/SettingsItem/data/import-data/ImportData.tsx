@@ -1,7 +1,6 @@
 import classes from './ImportData.module.scss';
 
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { CircleNotch } from '@phosphor-icons/react';
 import ImportDataModal from './ImportDataModal';
 import { Data } from '../data.interfaces';
 import { AlertType } from '../../../../../components/generic/Alert';
@@ -13,6 +12,7 @@ import {
     IMPORT_NO_FILE,
     IMPORT_WRONG_FORMAT,
 } from '../data.data';
+import LoadingIcon from '../../../../../components/generic/LoadingIcon';
 
 type loadingState = {
     isLoading: boolean;
@@ -117,11 +117,7 @@ const ImportData = () => {
             {loadingState.isLoading && (
                 <>
                     {loadingState.loadingMessage}
-                    <CircleNotch
-                        size={24}
-                        color="var(--color-neutral-3)"
-                        className={classes.loadingIcon}
-                    />
+                    <LoadingIcon />
                 </>
             )}
 
