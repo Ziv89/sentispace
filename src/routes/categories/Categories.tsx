@@ -73,10 +73,7 @@ const Categories = () => {
                 (category) => !prevCategoriesIds.includes(category.id)
             );
 
-            if (newCategory) {
-                console.log(newCategory.id);
-                setNewCategoryId(newCategory.id);
-            }
+            if (newCategory) setNewCategoryId(newCategory.id);
         }
 
         prevCategoriesIdsRef.current = categoriesIds;

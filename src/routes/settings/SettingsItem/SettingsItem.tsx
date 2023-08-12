@@ -8,15 +8,25 @@ import {
 import { ReactNode, useEffect } from 'react';
 import Alert, { AlertType } from '../../../components/generic/Alert';
 
-interface SettingsItemProps {
+interface BaseSettingsItemProps {
     label: string;
     iconKey: IconKeyType;
-    value?: string;
-    children?: ReactNode;
     alert?: AlertType | null;
     onAlertRemove?: () => void;
     onClick?: () => void;
 }
+
+interface ValueProps extends BaseSettingsItemProps {
+    value?: string;
+    children?: never;
+}
+
+interface ChildrenProps extends BaseSettingsItemProps {
+    children: ReactNode;
+    value?: never;
+}
+
+type SettingsItemProps = ValueProps | ChildrenProps;
 
 const SettingsItem = ({
     label,

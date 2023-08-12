@@ -1,6 +1,11 @@
 import * as Icon from '@phosphor-icons/react';
 import { FunctionComponent } from 'react';
 
+export const iconConfig: Icon.IconProps = {
+    size: 32,
+    weight: 'light',
+};
+
 type ExcludeKeys =
     | 'Icon'
     | 'IconProps'
