@@ -63,13 +63,12 @@ const InstallApp = () => {
                 iconKey="DeviceMobile"
                 onClick={() => setIsApplePromptModalOpen(true)}
             >
-                {isApplePromptModalOpen ? (
+                {browserInfo}
+                {isApplePromptModalOpen && (
                     <ApplePrompt
                         isOpen={isApplePromptModalOpen}
                         onClose={() => setIsApplePromptModalOpen(false)}
                     />
-                ) : (
-                    browserInfo
                 )}
             </SettingsItem>
         );
