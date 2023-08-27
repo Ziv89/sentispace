@@ -2,7 +2,6 @@ import { useMemo, useReducer } from 'react';
 import { IconKeyType, getRandomIconKey, iconKeys } from '../../../assets/icons';
 import { IndexableType } from 'dexie';
 import { Rating } from '../../../data/types/Rating';
-import { SeverityType } from '../../generic/Alert';
 import { addDays, isAfter, isFuture } from 'date-fns';
 import { Activity } from '../../../data/interfaces';
 import { deepEqual } from '../../../utils/comparison';

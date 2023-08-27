@@ -1,32 +1,29 @@
 import classes from './Categories.module.scss';
 
-import { useLiveQuery } from 'dexie-react-hooks';
-import { Activity, Category } from '../../data/interfaces';
-import { db } from '../../data/Database';
 import classNames from 'classnames/bind';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import CategoryModal from '../../components/shared/CategoryModal';
 import Button from '../../components/input/button/Button';
 import { IndexableType } from 'dexie';
 import CategoryRow from './CategoryRow';
-import { countAndSortCategories } from './categories.functions';
 import SortingIcon from '../../components/generic/SortIcon';
 import { SmileyXEyes } from '@phosphor-icons/react';
+import { CategoriesContext } from '../../data/contexts/CategoriesContext';
+import { sortObjectByKey } from '../../utils/sorting';
 
 const cx = classNames.bind(classes);
 
-const SORT_TYPE = {
+const SORT_BY = {
     NAME: 'name',
-    COUNT: 'count',
+    COLOR: 'color',
 } as const;
 
-export type SortType = (typeof SORT_TYPE)[keyof typeof SORT_TYPE];
+export type SortType = (typeof SORT_BY)[keyof typeof SORT_BY];
 
 const Categories = () => {
-    const activities = useLiveQuery<Activity[]>(() => db.activities.toArray());
-    const categories = useLiveQuery<Category[]>(() => db.categories.toArray());
+    const { categories } = useContext(CategoriesContext);
 
-    const [sortType, setSortType] = useState<SortType>(SORT_TYPE.NAME);
+    const [sortBy, setSortBy] = useState<SortType>(SORT_BY.NAME);
     const [isAscending, setIsAscending] = useState<boolean>(false);
 
     const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] =
@@ -42,26 +39,15 @@ const Categories = () => {
     useEffect(() => {
         if (newCategoryRef.current) {
             newCategoryRef.current.scrollIntoView({ behavior: 'smooth' });
-            newCategoryRef.current.classList.add(classes.newCategory);
-
-            const id = setTimeout(() => {
-                newCategoryRef.current?.classList.remove(classes.newCategory);
-            }, 3000);
-
-            setNewCategoryId(undefined);
 
             return () => {
-                clearTimeout(id);
+                setNewCategoryId(undefined);
             };
         }
     }, [newCategoryId, newCategoryRef.current]);
 
     useEffect(() => {
-        if (
-            typeof activities === 'undefined' ||
-            typeof categories === 'undefined'
-        )
-            return;
+        if (typeof categories === 'undefined') return;
 
         const categoriesIds = categories.map((category) => category.id);
 
@@ -77,48 +63,42 @@ const Categories = () => {
         }
 
         prevCategoriesIdsRef.current = categoriesIds;
-    }, [categories, activities]);
+    }, [categories]);
 
-    const sortedCategories =
-        categories && activities
-            ? countAndSortCategories(
-                  categories,
-                  activities,
-                  sortType,
-                  isAscending
-              )
-            : [];
+    const sortedCategories = categories
+        ? sortObjectByKey(categories, sortBy, isAscending)
+        : [];
 
     const handleSortClick = (newSortType: SortType) => {
-        setSortType(newSortType);
-        if (sortType !== newSortType) return;
+        setSortBy(newSortType);
+        if (sortBy !== newSortType) return;
         setIsAscending((prev) => !prev);
     };
 
     return (
         <div className={classes.categories}>
             <h1 className={classes.header}>Categories</h1>
-            <div className={classes.headers}>
+            <div className={classes.sortingRow}>
                 <span
                     className={classes.columnName}
-                    onClick={() => handleSortClick(SORT_TYPE.NAME)}
+                    onClick={() => handleSortClick(SORT_BY.NAME)}
                 >
-                    Category name
+                    name
                 </span>
-                <span className={classes.sortIcon}>
+                <span className={classes.sortingIcon}>
                     <span
                         className={cx({
                             iconPusher: true,
-                            isPushed: sortType === SORT_TYPE.COUNT,
+                            isPushed: sortBy === SORT_BY.COLOR,
                         })}
                     />
                     <SortingIcon isAscending={isAscending} />
                 </span>
                 <span
                     className={classes.columnName}
-                    onClick={() => handleSortClick(SORT_TYPE.COUNT)}
+                    onClick={() => handleSortClick(SORT_BY.COLOR)}
                 >
-                    Total activities
+                    color
                 </span>
             </div>
             <div className={classes.wrapper}>
@@ -129,17 +109,20 @@ const Categories = () => {
                     })}
                 >
                     {sortedCategories.length > 0 ? (
-                        sortedCategories.map((category) => (
-                            <CategoryRow
-                                key={category.name}
-                                {...category}
-                                ref={
-                                    category.id === newCategoryId
-                                        ? newCategoryRef
-                                        : undefined
-                                }
-                            />
-                        ))
+                        sortedCategories.map((category) => {
+                            const isNew = category.id === newCategoryId;
+
+                            return (
+                                <CategoryRow
+                                    key={category.name}
+                                    {...category}
+                                    className={cx({
+                                        newCategory: isNew,
+                                    })}
+                                    ref={isNew ? newCategoryRef : undefined}
+                                />
+                            );
+                        })
                     ) : (
                         <>
                             <SmileyXEyes size={48} />

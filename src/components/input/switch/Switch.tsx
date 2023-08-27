@@ -17,19 +17,17 @@ const Switch = ({
     checked,
     onChange,
     ...props
-}: SwitchProps) => {
-    return (
-        <label className={cx(className, { switch: true })}>
-            <input
-                type="checkbox"
-                name={name}
-                checked={checked}
-                onChange={onChange}
-                {...props}
-            />
-            <span className={classes.slider} />
-        </label>
-    );
-};
+}: SwitchProps) => (
+    <label className={cx(className, { switch: true })}>
+        <input
+            type="checkbox"
+            name={name}
+            checked={checked}
+            onChange={onChange}
+            {...props}
+        />
+        <span className={classes.slider} />
+    </label>
+);
 
 export default Switch;

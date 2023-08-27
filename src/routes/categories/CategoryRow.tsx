@@ -8,21 +8,20 @@ import CategoryModal from '../../components/shared/CategoryModal';
 const cx = classNames.bind(classes);
 
 interface CategoryRowProps extends Category {
-    count: number;
-    isNew?: boolean;
+    className?: string;
 }
 
 const CategoryRow = (
-    { id, name, color, count }: CategoryRowProps,
+    { id, name, color, className }: CategoryRowProps,
     ref: ForwardedRef<HTMLDivElement>
 ) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
         <div
-            ref={ref}
-            className={classes.category}
+            className={cx(className, { category: true })}
             onClick={() => setIsModalOpen(true)}
+            ref={ref}
         >
             {name}
             <div
@@ -30,9 +29,7 @@ const CategoryRow = (
                     activities: true,
                     [`color${color}`]: color,
                 })}
-            >
-                {count}
-            </div>
+            />
             {isModalOpen && (
                 <CategoryModal
                     category={{ id, name, color }}

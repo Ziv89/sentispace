@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SettingsItem from '../../SettingsItem';
 import { AlertType } from '../../../../../components/generic/Alert';
 import { db } from '../../../../../data/Database';
-import { DELETE_GUARD, DELETE_SUCCESS } from '../data.data';
+import { DELETE_GUARD, DELETE_SUCCESS } from '../userData.constants';
 
 const DeleteData = () => {
     const [alert, setAlert] = useState<AlertType | null>(null);

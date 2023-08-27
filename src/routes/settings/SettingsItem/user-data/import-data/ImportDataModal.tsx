@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Data } from '../data.interfaces';
+import { UserData } from '../userData.interfaces';
 import classes from './ImportData.module.scss';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Activity, Category } from '../../../../../data/interfaces';
@@ -11,14 +11,14 @@ import { format } from 'date-fns';
 import Checkbox from '../../../../../components/input/checkbox/Checkbox';
 import { Database, Disc } from '@phosphor-icons/react';
 import classNames from 'classnames/bind';
-import { importData, mergeData } from '../data.functions';
+import { importData, mergeData } from '../userData.functions';
 import { AlertType } from '../../../../../components/generic/Alert';
-import { IMPORT_SUCCESS, MERGE_SUCCESS } from '../data.data';
+import { IMPORT_SUCCESS, MERGE_SUCCESS } from '../userData.constants';
 
 const cx = classNames.bind(classes);
 
 interface ImportDataModalProps {
-    data: Data;
+    data: UserData;
     onClose: () => void;
     onAlertChange: (alert: AlertType) => void;
 }

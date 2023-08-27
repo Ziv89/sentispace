@@ -1,7 +1,7 @@
 import { ActivityFormAlerts } from './activityForm.enums';
 import { ActivityFormAlert } from './activityForm.types';
 
-export const validationAlerts: ActivityFormAlert[] = [
+export const VALIDATION_ALERTS: ActivityFormAlert[] = [
     {
         type: ActivityFormAlerts.ICON_KEY,
         title: 'Invalid Icon',
@@ -46,7 +46,7 @@ export const validationAlerts: ActivityFormAlert[] = [
     },
 ];
 
-export const deleteGuardAlert: ActivityFormAlert = {
+export const DELETE_GUARD_ALERT: ActivityFormAlert = {
     type: ActivityFormAlerts.DELETE_GUARD,
     title: 'Are you sure about this?',
     description: 'Click "Delete Activity" again to proceed.',

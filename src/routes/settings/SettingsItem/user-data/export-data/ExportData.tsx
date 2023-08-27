@@ -1,5 +1,5 @@
 import SettingsItem from '../../SettingsItem';
-import { exportData } from '../data.functions';
+import { exportData } from '../userData.functions';
 
 const ExportData = () => (
     <SettingsItem

@@ -2,16 +2,16 @@ import classes from './ImportData.module.scss';
 
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import ImportDataModal from './ImportDataModal';
-import { Data } from '../data.interfaces';
+import { UserData } from '../userData.interfaces';
 import { AlertType } from '../../../../../components/generic/Alert';
 import SettingsItem from '../../SettingsItem';
-import { isValidData } from '../data.functions';
+import { isValidData } from '../userData.functions';
 import {
     IMPORT_FAIL_PARSE,
     IMPORT_INVALID,
     IMPORT_NO_FILE,
     IMPORT_WRONG_FORMAT,
-} from '../data.data';
+} from '../userData.constants';
 import LoadingIcon from '../../../../../components/generic/LoadingIcon';
 
 type loadingState = {
@@ -21,7 +21,7 @@ type loadingState = {
 
 const ImportData = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [loadedData, setLoadedData] = useState<Data | null>(null);
+    const [loadedData, setLoadedData] = useState<UserData | null>(null);
     const [loadingState, setLoadingState] = useState<loadingState>({
         isLoading: false,
         loadingMessage: null,
@@ -67,7 +67,7 @@ const ImportData = () => {
 
         const fileContent = await file.text();
 
-        let data: Data;
+        let data: UserData;
 
         try {
             data = JSON.parse(fileContent);

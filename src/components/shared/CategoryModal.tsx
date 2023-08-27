@@ -1,12 +1,13 @@
 import classes from './CategoryModal.module.scss';
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ModalPopup, { ButtonType } from '../generic/ModalPopup';
 import { Category } from '../../data/interfaces';
 import TextField from '../input/text-field/TextField';
 import classNames from 'classnames/bind';
 import { db } from '../../data/Database';
 import Alert, { SeverityType } from '../generic/Alert';
+import { CategoriesContext } from '../../data/contexts/CategoriesContext';
 
 const cx = classNames.bind(classes);
 
@@ -22,6 +23,7 @@ type AlertType = {
 };
 
 const CategoryModal = ({ onClose, category }: CategoryModalProps) => {
+    const { categories } = useContext(CategoriesContext);
     const [name, setName] = useState<string>(category?.name || '');
     const [color, setColor] = useState<number>(category?.color || 0);
     const [deleteGuard, setDeleteGuard] = useState<boolean>(true);
@@ -39,20 +41,17 @@ const CategoryModal = ({ onClose, category }: CategoryModalProps) => {
     const secondaryButtonText = category ? 'Delete Category' : 'Cancel';
 
     const disabledPrimaryButton =
-        (category && category.name === name && category.color === color) ||
+        (category?.name === name && category.color === color) ||
         (!category && (!name.length || !color));
 
     const onButtonClick = async (button: ButtonType) => {
         switch (button) {
             case 'primary':
-                const categories: Category[] = await db
-                    .table('categories')
-                    .toArray();
-                const categoryNames: string[] = categories.map(
+                const categoryNames: string[] | undefined = categories?.map(
                     (category) => category.name
                 );
 
-                if (categoryNames.includes(name) && category?.name !== name) {
+                if (categoryNames?.includes(name)) {
                     setAlert({
                         severity: 'error',
                         title: 'Category already exists',

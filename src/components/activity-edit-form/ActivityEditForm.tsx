@@ -14,7 +14,10 @@ import Button from '../input/button/Button';
 import Alert from '../generic/Alert';
 import useActivityForm from './state/useActivityForm';
 import { db } from '../../data/Database';
-import { deleteGuardAlert, validationAlerts } from './state/activityForm.data';
+import {
+    DELETE_GUARD_ALERT,
+    VALIDATION_ALERTS,
+} from './state/activityForm.constants';
 
 interface ActivityEditFormProps {
     onClose: () => void;
@@ -79,10 +82,10 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
     ]);
 
     const isFormValid = (): boolean => {
-        for (let i = 0; i < validationAlerts.length; i++) {
-            const { type } = validationAlerts[i];
+        for (let i = 0; i < VALIDATION_ALERTS.length; i++) {
+            const { type } = VALIDATION_ALERTS[i];
             if (type !== 'deleteGuard' && !validations[type]) {
-                setAlert(validationAlerts[i]);
+                setAlert(VALIDATION_ALERTS[i]);
                 return false;
             }
         }
@@ -150,7 +153,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
 
         if (activity) {
             if (deleteGuard) {
-                setAlert(deleteGuardAlert);
+                setAlert(DELETE_GUARD_ALERT);
                 disableDeleteGuard();
 
                 return;

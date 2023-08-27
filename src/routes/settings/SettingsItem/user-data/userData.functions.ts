@@ -2,10 +2,10 @@ import { format } from 'date-fns';
 import { iconKeys } from '../../../../assets/icons';
 import { db } from '../../../../data/Database';
 import { Activity, Category } from '../../../../data/interfaces';
-import { Data } from './data.interfaces';
+import { UserData } from './userData.interfaces';
 import { IndexableType } from 'dexie';
 
-export const isValidData = (data: Data): boolean => {
+export const isValidData = (data: UserData): boolean => {
     const { activities, categories } = data;
 
     if (!Array.isArray(activities)) return false;
@@ -68,7 +68,7 @@ export const exportData = async (): Promise<void> => {
     const activities: Activity[] = await db.table('activities').toArray();
     const categories: Category[] = await db.table('categories').toArray();
 
-    const data: Data = { activities, categories };
+    const data: UserData = { activities, categories };
 
     const backupTime = format(new Date(), 'yyyyMMdd_HHmmss');
     const fileName = `FeelingTracker_backup_${backupTime}.json`;
@@ -84,10 +84,11 @@ export const exportData = async (): Promise<void> => {
 
     link.click();
 
+    link.remove();
     URL.revokeObjectURL(url);
 };
 
-export const importData = async (data: Data): Promise<void> => {
+export const importData = async (data: UserData): Promise<void> => {
     await db.activities.clear();
     await db.categories.clear();
 
@@ -103,7 +104,7 @@ export const importData = async (data: Data): Promise<void> => {
     await db.categories.bulkAdd(data.categories);
 };
 
-export const mergeData = async (data: Data): Promise<void> => {
+export const mergeData = async (data: UserData): Promise<void> => {
     const categories = await db.categories.toArray();
 
     const existingCategoryNames = categories.map((category) => category.name);
