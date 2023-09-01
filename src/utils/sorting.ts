@@ -33,20 +33,19 @@ const compareNumbers = (
 };
 
 /**
- * Sorts an array of objects by a specified key.
+ * Creates a comparator function for sorting an array of objects by a specified key.
+ * Intended to be used as a comparator function in `Array.prototype.sort`.
  *
  * @template T - The type of the objects in the array.
- * @param {T[]} items - The array of objects to sort.
  * @param {keyof T} key - The key to sort by.
  * @param {boolean} [isAscending=true] - Whether to sort in ascending order.
- * @returns {T[]} Sorted array.
+ * @returns {(a: T, b: T) => number} - A comparator function that can be used in array sorting.
  */
-export const sortObjectByKey = <T>(
-    items: T[],
+export function sortObjectByKeyFactory<T>(
     key: keyof T,
     isAscending: boolean = true
-): T[] => {
-    return [...items].sort((a, b) => {
+): (a: T, b: T) => number {
+    return function (a: T, b: T): number {
         const valueA = a[key];
         const valueB = b[key];
 
@@ -59,5 +58,5 @@ export const sortObjectByKey = <T>(
         }
 
         return 0;
-    });
-};
+    };
+}

@@ -1,7 +1,7 @@
 import classes from './Categories.module.scss';
 
 import classNames from 'classnames/bind';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import CategoryModal from '../../components/shared/CategoryModal';
 import Button from '../../components/input/button/Button';
 import { IndexableType } from 'dexie';
@@ -9,7 +9,8 @@ import CategoryRow from './CategoryRow';
 import SortingIcon from '../../components/generic/SortIcon';
 import { SmileyXEyes } from '@phosphor-icons/react';
 import { CategoriesContext } from '../../data/contexts/CategoriesContext';
-import { sortObjectByKey } from '../../utils/sorting';
+import { sortObjectByKeyFactory } from '../../utils/sorting';
+import { Category } from '../../data/interfaces';
 
 const cx = classNames.bind(classes);
 
@@ -25,6 +26,11 @@ const Categories = () => {
 
     const [sortBy, setSortBy] = useState<SortType>(SORT_BY.NAME);
     const [isAscending, setIsAscending] = useState<boolean>(false);
+
+    const comparator = useMemo(
+        () => sortObjectByKeyFactory<Category>(sortBy, isAscending),
+        [sortBy, isAscending]
+    );
 
     const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] =
         useState<boolean>(false);
@@ -65,9 +71,7 @@ const Categories = () => {
         prevCategoriesIdsRef.current = categoriesIds;
     }, [categories]);
 
-    const sortedCategories = categories
-        ? sortObjectByKey(categories, sortBy, isAscending)
-        : [];
+    const sortedCategories = categories?.sort(comparator) || [];
 
     const handleSortClick = (newSortType: SortType) => {
         setSortBy(newSortType);
