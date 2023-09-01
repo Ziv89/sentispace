@@ -51,7 +51,7 @@ const CategoryModal = ({ onClose, category }: CategoryModalProps) => {
                     (category) => category.name
                 );
 
-                if (categoryNames?.includes(name)) {
+                if (categoryNames?.includes(name) && category?.name !== name) {
                     setAlert({
                         severity: 'error',
                         title: 'Category already exists',
