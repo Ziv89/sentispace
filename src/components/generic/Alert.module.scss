@@ -7,6 +7,14 @@
     padding: var(--spacing-md);
     border-radius: var(--border-radius-inner);
 
+    .icon {
+        box-sizing: content-box;
+
+        svg {
+            max-width: fit-content;
+        }
+    }
+
     &.marginTop,
     &.marginBottom {
         margin-top: var(--spacing-xl);

@@ -2,13 +2,16 @@ import { useMemo, useReducer } from 'react';
 import { IconKeyType, getRandomIconKey, iconKeys } from '../../../assets/icons';
 import { IndexableType } from 'dexie';
 import { Rating } from '../../../data/types/Rating';
-import { SeverityType } from '../../generic/Alert';
 import { addDays, isAfter, isFuture } from 'date-fns';
 import { Activity } from '../../../data/interfaces';
 import { deepEqual } from '../../../utils/comparison';
-import { ActivityFormState, DefaultState } from './activityForm.types';
+import {
+    ActivityFormAlert,
+    ActivityFormState,
+    DefaultState,
+} from './activityForm.types';
 import { reducer } from './activityForm.reducer';
-import { ActionType, Alerts } from './activityForm.enums';
+import { ActionType, ActivityFormAlerts } from './activityForm.enums';
 import { copyDate } from '../../../utils/time';
 
 const defaultState: DefaultState = {
@@ -50,14 +53,14 @@ const useActivityForm = (activity?: Activity) => {
     } = state;
 
     const validations = {
-        [Alerts.ICON_KEY]: iconKeys.includes(iconKey),
-        [Alerts.TITLE]: title.length >= 1 && title.length <= 50,
-        [Alerts.DESCRIPTION]:
+        [ActivityFormAlerts.ICON_KEY]: iconKeys.includes(iconKey),
+        [ActivityFormAlerts.TITLE]: title.length >= 1 && title.length <= 50,
+        [ActivityFormAlerts.DESCRIPTION]:
             description.length >= 0 && description.length <= 250,
-        [Alerts.RATING]: rating >= 0 && rating <= 5,
-        [Alerts.CATEGORIES]: Array.isArray(categoryIds),
-        [Alerts.START_TIME]: !isFuture(startTime),
-        [Alerts.END_TIME]: !endTime || !isFuture(endTime),
+        [ActivityFormAlerts.RATING]: rating >= 0 && rating <= 5,
+        [ActivityFormAlerts.CATEGORIES]: Array.isArray(categoryIds),
+        [ActivityFormAlerts.START_TIME]: !isFuture(startTime),
+        [ActivityFormAlerts.END_TIME]: !endTime || !isFuture(endTime),
     };
 
     const isChanged = useMemo(
@@ -69,17 +72,8 @@ const useActivityForm = (activity?: Activity) => {
         [initialState, state]
     );
 
-    const setAlert = (
-        type: Alerts,
-        title: string,
-        description: string,
-        severity: SeverityType
-    ) => {
-        dispatch({
-            type: ActionType.SET_ALERT,
-            payload: { type, title, description, severity },
-        });
-    };
+    const setAlert = (alert: ActivityFormAlert) =>
+        dispatch({ type: ActionType.SET_ALERT, payload: alert });
 
     const clearAlert = () => dispatch({ type: ActionType.CLEAR_ALERT });
 

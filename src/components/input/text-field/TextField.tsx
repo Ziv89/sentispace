@@ -34,7 +34,7 @@ const TextField = ({
     const uniqueId = useId();
 
     const renderInput = () => (
-        <div className={classes.input}>
+        <div className={cx({ input: true, noLabel: !label })}>
             {Icon && (
                 <div className={classes.inputIcon}>
                     <Icon />

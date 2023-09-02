@@ -11,7 +11,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../Database';
 
 export interface ICategoriesContext {
-    categories: Category[];
+    categories?: Category[];
     selectedCategories: IndexableType[];
     setSelectedCategories: Dispatch<SetStateAction<IndexableType[]>>;
 }
@@ -21,14 +21,13 @@ interface ContextProviderProps {
 }
 
 export const CategoriesContext = createContext<ICategoriesContext>({
-    categories: [],
+    categories: undefined,
     selectedCategories: [],
     setSelectedCategories: () => {},
 });
 
 export default function ContextProvider({ children }: ContextProviderProps) {
-    const categories =
-        useLiveQuery<Category[]>(() => db.categories.toArray()) ?? [];
+    const categories = useLiveQuery<Category[]>(() => db.categories.toArray());
     const [selectedCategories, setSelectedCategories] = useState<
         IndexableType[]
     >([]);

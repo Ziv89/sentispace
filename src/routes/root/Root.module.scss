@@ -7,3 +7,5 @@
     inset: 0;
     background-color: var(--color-neutral-4);
 }
+
+@include ios-fix('.app');

@@ -33,8 +33,9 @@ const Activity = ({
 
     const handleOnClick = () => setIsEditFormOpen(true);
 
-    const associatedCategories: Category[] = categories.filter((category) =>
-        category && category.id ? categoryIds.includes(category.id) : false
+    const associatedCategories: Category[] | undefined = categories?.filter(
+        (category) =>
+            category && category.id ? categoryIds.includes(category.id) : false
     );
 
     const IconComponent = getIconComponent(iconKey);
@@ -57,7 +58,7 @@ const Activity = ({
                     {rating}
                 </span>
                 <div className={classes.categories}>
-                    {associatedCategories.map(({ id, name, color }) => (
+                    {associatedCategories?.map(({ id, name, color }) => (
                         <CategoryBadge
                             key={id.toString()}
                             id={id}

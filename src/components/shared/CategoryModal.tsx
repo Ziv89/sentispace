@@ -1,12 +1,13 @@
 import classes from './CategoryModal.module.scss';
 
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ModalPopup, { ButtonType } from '../generic/ModalPopup';
 import { Category } from '../../data/interfaces';
 import TextField from '../input/text-field/TextField';
 import classNames from 'classnames/bind';
 import { db } from '../../data/Database';
-import Alert from '../generic/Alert';
+import Alert, { SeverityType } from '../generic/Alert';
+import { CategoriesContext } from '../../data/contexts/CategoriesContext';
 
 const cx = classNames.bind(classes);
 
@@ -15,22 +16,50 @@ interface CategoryModalProps {
     category?: Category;
 }
 
+type AlertType = {
+    severity: SeverityType;
+    title: string;
+    description: string;
+};
+
 const CategoryModal = ({ onClose, category }: CategoryModalProps) => {
+    const { categories } = useContext(CategoriesContext);
     const [name, setName] = useState<string>(category?.name || '');
     const [color, setColor] = useState<number>(category?.color || 0);
     const [deleteGuard, setDeleteGuard] = useState<boolean>(true);
+    const [alert, setAlert] = useState<AlertType | null>();
+
+    useEffect(() => {
+        if (alert) {
+            !deleteGuard && setDeleteGuard(true);
+            setAlert(null);
+        }
+    }, [name, color]);
 
     const title = category ? 'Edit Category' : 'Create Category';
     const primaryButtonText = category ? 'Save' : 'Create Category';
     const secondaryButtonText = category ? 'Delete Category' : 'Cancel';
 
     const disabledPrimaryButton =
-        (category && category.name === name && category.color === color) ||
+        (category?.name === name && category.color === color) ||
         (!category && (!name.length || !color));
 
-    const onButtonClick = (button: ButtonType) => {
+    const onButtonClick = async (button: ButtonType) => {
         switch (button) {
             case 'primary':
+                const categoryNames: string[] | undefined = categories?.map(
+                    (category) => category.name
+                );
+
+                if (categoryNames?.includes(name) && category?.name !== name) {
+                    setAlert({
+                        severity: 'error',
+                        title: 'Category already exists',
+                        description: 'Try something else.',
+                    });
+                    return;
+                }
+
                 if (!category) {
                     db.categories.add({ name, color } as Category);
                 } else {
@@ -41,7 +70,13 @@ const CategoryModal = ({ onClose, category }: CategoryModalProps) => {
                 onClose();
                 break;
             case 'secondary':
-                if (deleteGuard) {
+                if (category && deleteGuard) {
+                    setAlert({
+                        severity: 'warning',
+                        title: 'Are you sure about this?',
+                        description:
+                            'Click "Delete Category" again to proceed.',
+                    });
                     setDeleteGuard(false);
                     return;
                 }
@@ -98,12 +133,12 @@ const CategoryModal = ({ onClose, category }: CategoryModalProps) => {
                     );
                 })}
             </div>
-            {!deleteGuard && (
+            {alert && (
                 <Alert
-                    severity="warning"
-                    title="Are you sure about this?"
-                    description="This can't be undone"
-                    marginTop
+                    className={classes.alert}
+                    severity={alert.severity}
+                    title={alert.title}
+                    description={alert.description}
                 />
             )}
         </ModalPopup>
