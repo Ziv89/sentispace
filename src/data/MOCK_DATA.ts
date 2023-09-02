@@ -3,6 +3,7 @@ import { addDays, subWeeks } from 'date-fns';
 import { getRandomIconKey } from '../assets/icons';
 import { Activity, Category } from './interfaces';
 import { db } from './Database';
+import { IndexableType } from 'dexie';
 
 const activityNames = [
     'Biking',
@@ -202,27 +203,15 @@ function getRandomEndDate(startTime: Date): Date {
     return new Date(startTime.getTime() + Math.random() * 3600000);
 }
 
-function getRandomCategoryIds(): number[] {
-    const numOfCategories = Math.floor(Math.random() * 5);
-    let indices = new Set<number>();
-
-    while (indices.size < numOfCategories) {
-        indices.add(Math.floor(Math.random() * categoryNames.length));
-    }
-
-    return Array.from(indices);
-}
-
-const excludeKeys = [
-    'Icon',
-    'IconProps',
-    'IconWeight',
-    'IconContext',
-    'IconBase',
-];
-
 function getRandomColor(): number {
     return Math.floor(Math.random() * 16) + 1;
+}
+
+function getRandomCategoryIds(categoryIds: IndexableType[], count: number) {
+    return Array.from(
+        { length: count },
+        () => categoryIds[Math.floor(Math.random() * categoryIds.length)]
+    );
 }
 
 export async function generateData(): Promise<void> {
@@ -231,6 +220,15 @@ export async function generateData(): Promise<void> {
     if (dbLen !== 0) {
         return;
     }
+
+    const categories: Partial<Category>[] = categoryNames.map((name) => ({
+        name,
+        color: getRandomColor(),
+    }));
+
+    const categoryIds = await db.categories.bulkAdd(categories as Category[], {
+        allKeys: true,
+    });
 
     const activities: Partial<Activity>[] = activityNames.map((title) => {
         const startTime = getRandomStartDate();
@@ -242,15 +240,12 @@ export async function generateData(): Promise<void> {
             startTime,
             endTime: getRandomEndDate(startTime),
             iconKey: getRandomIconKey(),
-            categoryIds: getRandomCategoryIds(),
+            categoryIds: getRandomCategoryIds(
+                categoryIds,
+                Math.floor(Math.random() * 2) + 2
+            ),
         };
     });
 
-    const categories: Partial<Category>[] = categoryNames.map((name) => ({
-        name,
-        color: getRandomColor(),
-    }));
-
     await db.activities.bulkAdd(activities as Activity[]);
-    await db.categories.bulkAdd(categories as Category[]);
 }

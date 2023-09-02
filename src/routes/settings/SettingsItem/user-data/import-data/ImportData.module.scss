@@ -1,0 +1,110 @@
+@use '../../../../../styles/config/mixins' as *;
+@use '../../../../../styles/config/variables' as *;
+
+.content {
+    @include flex(column);
+
+    gap: var(--spacing-sm);
+}
+
+.fileUpload {
+    &::file-selector-button {
+        cursor: pointer;
+        border: none;
+        border-radius: var(--border-radius-inner);
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--font-size-md);
+        text-align: center;
+        color: var(--color-neutral-1);
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    }
+}
+
+input[type='file'] {
+    display: none;
+}
+
+.loadingIcon {
+    animation: spin 1s linear infinite;
+    color: var(--color-neutral-3);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.dataCard {
+    @include flex(column);
+
+    border-radius: var(--border-radius-inner);
+    border: 1px solid var(--color-neutral-6);
+    overflow: hidden;
+
+    .header {
+        @include flex(row, space-between, center);
+
+        border-bottom: 1px solid var(--color-neutral-6);
+        background-color: var(--color-neutral-5);
+        font-size: var(--font-size-xs);
+        text-transform: uppercase;
+        padding: var(--spacing-md);
+        color: var(--color-neutral-2);
+    }
+
+    .content {
+        @include flex(row, flex-start, center);
+
+        flex-grow: 1;
+        gap: var(--spacing-md);
+        border-radius: var(--border-radius-inner);
+        margin: var(--spacing-md);
+
+        .icon {
+            align-self: flex-start;
+            background: $gradient-accent;
+            border-radius: var(--border-radius-inner);
+            box-sizing: content-box;
+
+            svg {
+                max-width: fit-content;
+                color: var(--color-neutral-4);
+                margin: var(--spacing-xs);
+            }
+        }
+
+        .property {
+            margin: var(--spacing-sm);
+            flex-grow: 1;
+
+            .label,
+            .value {
+                text-transform: uppercase;
+            }
+
+            .label {
+                font-size: var(--font-size-xs);
+                color: var(--color-neutral-2);
+            }
+
+            .value {
+                font-size: var(--font-size-md);
+                color: var(--color-neutral-1);
+                font-weight: var(--font-weight-medium);
+            }
+        }
+    }
+}
+
+.info {
+    font-size: var(--font-size-sm);
+    color: var(--color-neutral-2);
+}

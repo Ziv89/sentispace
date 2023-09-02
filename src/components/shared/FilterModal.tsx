@@ -79,7 +79,7 @@ const FilterModal = ({ onClose }: FilterModalProps) => {
                         onChange={handleAllCategoriesCheckboxChange}
                     />
                 </label>
-                {categories.map(({ name, id }, index) => (
+                {categories?.map(({ name, id }, index) => (
                     <Checkbox
                         label={name}
                         key={index}

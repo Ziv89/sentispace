@@ -85,7 +85,7 @@ const CategorySelect = ({
             {isOpen && (
                 <div className={classes.selectionList}>
                     {categories
-                        .filter(({ id }) => !categoryIds.includes(id))
+                        ?.filter(({ id }) => !categoryIds.includes(id))
                         .map(({ id, name, color }) => (
                             <CategoryItem
                                 name={name}
@@ -115,7 +115,7 @@ const CategorySelect = ({
             {categoryIds.length > 0 && (
                 <div className={classes.selectedList}>
                     {categories
-                        .filter(({ id }) => categoryIds.includes(id))
+                        ?.filter(({ id }) => categoryIds.includes(id))
                         .map(({ id, name, color }) => (
                             <CategoryItem
                                 name={name}

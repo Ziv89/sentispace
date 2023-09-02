@@ -4,7 +4,6 @@
 .dayItem {
     @include flex(column, start, center);
     width: 100%;
-    -webkit-tap-highlight-color: transparent;
 
     .dayActivityCount {
         margin-bottom: var(--spacing-sm);
@@ -20,7 +19,6 @@
         @include invalid;
 
         width: 100%;
-        -webkit-tap-highlight-color: transparent;
 
         background-color: var(--color-neutral-5);
         border-radius: var(--border-radius-inner);

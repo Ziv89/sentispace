@@ -3,14 +3,10 @@
 
 .primary,
 .secondary {
-    cursor: pointer;
-    border: none;
-}
-
-.primary,
-.secondary {
     @include focus;
 
+    cursor: pointer;
+    border: none;
     border-radius: var(--border-radius-inner);
     padding: var(--spacing-md);
     text-align: center;

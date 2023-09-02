@@ -14,7 +14,10 @@ import Button from '../input/button/Button';
 import Alert from '../generic/Alert';
 import useActivityForm from './state/useActivityForm';
 import { db } from '../../data/Database';
-import { deleteGuardData, validationData } from './state/activityForm.data';
+import {
+    DELETE_GUARD_ALERT,
+    VALIDATION_ALERTS,
+} from './state/activityForm.constants';
 
 interface ActivityEditFormProps {
     onClose: () => void;
@@ -79,10 +82,10 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
     ]);
 
     const isFormValid = (): boolean => {
-        for (let i = 0; i < validationData.length; i++) {
-            const { type, title, message, severity } = validationData[i];
+        for (let i = 0; i < VALIDATION_ALERTS.length; i++) {
+            const { type } = VALIDATION_ALERTS[i];
             if (type !== 'deleteGuard' && !validations[type]) {
-                setAlert(type, title, message, severity);
+                setAlert(VALIDATION_ALERTS[i]);
                 return false;
             }
         }
@@ -142,19 +145,22 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
         onClose();
     };
 
-    const handleSecondaryButton = (event: MouseEvent | TouchEvent): void => {
+    const handleSecondaryButton = async (
+        event: MouseEvent | TouchEvent
+    ): Promise<void> => {
         event.preventDefault();
         event.stopPropagation();
 
         if (activity) {
             if (deleteGuard) {
-                const { type, title, message, severity } = deleteGuardData;
-                setAlert(type, title, message, severity);
+                setAlert(DELETE_GUARD_ALERT);
                 disableDeleteGuard();
 
                 return;
             }
-            db.activities.delete(activity.id);
+
+            await db.activities.delete(activity.id);
+            onClose();
             return;
         }
 
@@ -170,16 +176,14 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
 
     return createPortal(
         <div className={classes.activityEditWrapper}>
-            <div className={classes.activityEditContainer}>
-                <form className={classes.form}>
-                    <div className={classes.header}>
-                        <h1 className={classes.title}>
-                            {activity
-                                ? 'Edit Activity'
-                                : 'Create a new activity'}
-                        </h1>
-                        <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
-                    </div>
+            <form className={classes.form}>
+                <div className={classes.header}>
+                    <h1 className={classes.title}>
+                        {activity ? 'Edit Activity' : 'Create a new activity'}
+                    </h1>
+                    <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
+                </div>
+                <div className={classes.inputs}>
                     <div className={classes.titleAndIcon}>
                         <IconPicker
                             className={classes.iconPicker}
@@ -218,47 +222,46 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         rating={rating}
                         onRatingChange={setRating}
                     />
-                    <div className={classes.dateTime}>
-                        <DatePicker
-                            label="Date"
-                            date={startTime}
-                            onDateChange={setDate}
-                        />
-                        <TimePicker
-                            label="Time"
-                            startTime={startTime}
-                            endTime={endTime}
-                            isNow={isNow}
-                            onTimeChange={handleTimeChange}
-                        />
-                    </div>
+                    <DatePicker
+                        label="Date"
+                        date={startTime}
+                        onDateChange={setDate}
+                    />
+                    <TimePicker
+                        label="Time"
+                        startTime={startTime}
+                        endTime={endTime}
+                        isNow={isNow}
+                        onTimeChange={handleTimeChange}
+                    />
                     {!!alert && (
                         <Alert
+                            isScrollIntoView
                             severity={alert.severity}
                             title={alert.title}
                             description={alert.description}
                         />
                     )}
-                    <div className={classes.buttons}>
-                        <Button
-                            variant="primary"
-                            onClick={handlePrimaryButton}
-                            disabled={!isChanged}
-                        >
-                            {activity ? 'Save Changes' : 'Create Activity'}
-                        </Button>
-                        <Button
-                            variant="secondary"
-                            onClick={handleSecondaryButton}
-                            underline
-                            isDangerous={!!activity}
-                            disabled={!activity && !isChanged}
-                        >
-                            {activity ? 'Delete Activity' : 'Reset'}
-                        </Button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div className={classes.buttons}>
+                    <Button
+                        variant="primary"
+                        onClick={handlePrimaryButton}
+                        disabled={!isChanged}
+                    >
+                        {activity ? 'Save Changes' : 'Create Activity'}
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        onClick={handleSecondaryButton}
+                        underline
+                        isDangerous={!!activity}
+                        disabled={!activity && !isChanged}
+                    >
+                        {activity ? 'Delete Activity' : 'Reset'}
+                    </Button>
+                </div>
+            </form>
         </div>,
         document.body
     );

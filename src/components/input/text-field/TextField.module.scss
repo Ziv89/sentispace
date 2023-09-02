@@ -17,6 +17,10 @@
     border-radius: var(--border-radius-inner);
     height: auto;
 
+    &.noLabel {
+        margin-top: 0;
+    }
+
     .inputIcon {
         @include flex(row, center);
 
@@ -32,7 +36,6 @@
     textarea {
         border: none;
         background-color: transparent;
-        -webkit-tap-highlight-color: transparent;
         font-weight: var(--font-weight-regular);
         color: var(--color-neutral-2);
         width: 100%;
