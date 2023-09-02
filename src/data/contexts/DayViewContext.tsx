@@ -6,6 +6,7 @@ import {
     ReactNode,
 } from 'react';
 import { getArrayOfWeekDatesFromDate } from '../../utils/time';
+import { startOfDay } from 'date-fns';
 
 export interface IDayViewContext {
     selectedDay: Date;
@@ -18,7 +19,7 @@ interface ContextProviderProps {
     children: ReactNode;
 }
 
-const today = new Date();
+const today = startOfDay(new Date());
 
 export const DayViewContext = createContext<IDayViewContext>({
     selectedDay: today,
