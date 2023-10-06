@@ -1,6 +1,6 @@
 import classes from './CategorySelect.module.scss';
 
-import { CaretDown, CaretUp, Hash } from '@phosphor-icons/react';
+import { CaretDown, CaretUp, Hash, CaretRight } from '@phosphor-icons/react';
 import { IconKeyType } from '../../../assets/icons';
 import { CategoriesContext } from '../../../data/contexts/CategoriesContext';
 import { MouseEvent, useContext, useState } from 'react';
@@ -8,6 +8,7 @@ import { IndexableType } from 'dexie';
 import classNames from 'classnames/bind';
 import CategoryItem from './CategoryItem';
 import CategoryModal from '../../shared/CategoryModal';
+import CategoryBadge from '../../category-badge/CategoryBadge';
 
 const cx = classNames.bind(classes);
 
@@ -57,10 +58,7 @@ const CategorySelect = ({
                 setSelectedCategories([...categoryIds, categoryId]);
                 break;
             case 'remove':
-                setSelectedCategories(
-                    categoryIds.filter((id) => id !== categoryId)
-                );
-
+                setSelectedCategories(categoryIds.filter((id) => id !== categoryId));
                 break;
         }
     };
@@ -77,7 +75,24 @@ const CategorySelect = ({
                 <div className={classes.selectIcon}>
                     <Hash />
                 </div>
-                <span className={classes.placeholder}>{placeholder}</span>
+                {categoryIds.length > 0
+                    ? (
+                        <div className={classes.selectedCategoriesWrapper}>
+                            <div className={classes.selectedCategories}>
+                                {categories?.filter(({ id }) => categoryIds.includes(id)).map(cat => (
+                                    <CategoryBadge 
+                                        {...cat} 
+                                        onClick={() => handleCategorySelection(cat.id, 'remove')} 
+                                        deletable 
+                                        key={cat.id.toString()}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <span className={classes.placeholder}>{placeholder}</span>
+                    )
+                }
                 <div className={classes.toggleSelect}>
                     {isOpen ? <CaretUp /> : <CaretDown />}
                 </div>
@@ -112,7 +127,7 @@ const CategorySelect = ({
                 </div>
             )}
 
-            {categoryIds.length > 0 && (
+            {/* {categoryIds.length > 0 && (
                 <div className={classes.selectedList}>
                     {categories
                         ?.filter(({ id }) => categoryIds.includes(id))
@@ -127,7 +142,7 @@ const CategorySelect = ({
                             />
                         ))}
                 </div>
-            )}
+            )} */}
         </div>
     );
 };

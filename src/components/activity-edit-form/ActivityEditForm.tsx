@@ -212,7 +212,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         onChange={handleDescriptionChange}
                     />
                     <CategorySelect
-                        label="Category (optional)"
+                        label="Categories (optional)"
                         placeholder="Select a category for your activity."
                         categoryIds={categoryIds}
                         onCategoriesChange={setCategories}

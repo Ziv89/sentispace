@@ -1,4 +1,8 @@
+@use '../../styles/config/mixins' as *;
+
 .categoryBadge {
+    @include flex;
+    gap: 10px;
     border-radius: var(--border-radius-outer);
     padding: var(--spacing-xs) var(--spacing-sm);
     font-weight: var(--font-weight-medium);
@@ -12,5 +16,9 @@
         &.categoryColor#{$i} {
             background-color: var(--color-category-#{$i});
         }
+    }
+
+    span {
+        white-space: nowrap;
     }
 }

@@ -7,25 +7,40 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(classes);
 
-const CategoryBadge = ({ id, name, color }: Category) => {
+export interface CategoryBadgeProps extends Category {
+    onClick?: () => void;
+    deletable?: boolean;
+}
+
+const CategoryBadge = ({ 
+    id, 
+    name, 
+    color, 
+    onClick, 
+    deletable 
+}: CategoryBadgeProps) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const handleOnClick = (event: MouseEvent | TouchEvent) => {
         event.stopPropagation();
-        setIsModalOpen(true);
+        // TODO remove monkey patch
+        onClick ? onClick() : setIsModalOpen(true);
     };
 
     return (
         <>
-            <span
+            <div
                 onClick={handleOnClick}
                 className={cx({
                     categoryBadge: true,
                     [`categoryColor${color}`]: color,
                 })}
             >
-                {name}
-            </span>
+                <span>
+                    {name}
+                </span>
+                {deletable && <span>×</span>}  
+            </div>
             {isModalOpen && (
                 <CategoryModal
                     onClose={() => setIsModalOpen(false)}

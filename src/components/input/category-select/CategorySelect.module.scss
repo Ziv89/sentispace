@@ -108,3 +108,14 @@ $gap: 2px;
     border-bottom-left-radius: var(--border-radius-inner);
     border-bottom-right-radius: var(--border-radius-inner);
 }
+
+.selectedCategoriesWrapper {
+    width: 100%;
+    max-width: 260px;
+    .selectedCategories {
+        @include flex(row, flex-start, center);
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 5% 0;
+    }
+}
