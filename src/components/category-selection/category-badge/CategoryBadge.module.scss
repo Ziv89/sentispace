@@ -1,4 +1,4 @@
-@use '../../styles/config/mixins' as *;
+@use '../../../styles/config/mixins' as *;
 
 .categoryBadge {
     @include flex;

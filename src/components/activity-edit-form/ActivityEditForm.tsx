@@ -4,7 +4,6 @@ import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
 import { X } from '@phosphor-icons/react';
 import TextField, { TextFieldElement } from '../input/text-field/TextField';
 import IconPicker from '../input/icon-picker/IconPicker';
-import CategorySelect from '../input/category-select/CategorySelect';
 import RatingPicker from '../input/rating-picker/RatingPicker';
 import { createPortal } from 'react-dom';
 import { Activity } from '../../data/interfaces';
@@ -18,6 +17,7 @@ import {
     DELETE_GUARD_ALERT,
     VALIDATION_ALERTS,
 } from './state/activityForm.constants';
+import CategorySelect from '../category-selection/CategorySelect';
 
 interface ActivityEditFormProps {
     onClose: () => void;
@@ -175,10 +175,10 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
     };
 
     return createPortal(
-        <div className={classes.activityEditWrapper}>
+        <div className="fullscreen-modal">
             <form className={classes.form}>
-                <div className={classes.header}>
-                    <h1 className={classes.title}>
+                <div className="header">
+                    <h1 className="title">
                         {activity ? 'Edit Activity' : 'Create a new activity'}
                     </h1>
                     <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
@@ -243,7 +243,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         />
                     )}
                 </div>
-                <div className={classes.buttons}>
+                <div className="buttons-panel">
                     <Button
                         variant="primary"
                         onClick={handlePrimaryButton}

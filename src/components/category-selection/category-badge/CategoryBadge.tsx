@@ -1,8 +1,8 @@
 import classes from './CategoryBadge.module.scss';
 
 import { MouseEvent, TouchEvent, useState } from 'react';
-import CategoryModal from '../shared/CategoryModal';
-import { Category } from '../../data/interfaces';
+import CategoryModal from '../../shared/CategoryModal';
+import { Category } from '../../../data/interfaces';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(classes);

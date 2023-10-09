@@ -1,15 +1,13 @@
 import classes from './CategorySelect.module.scss';
 
 import { CaretDown, CaretUp, Hash, CaretRight } from '@phosphor-icons/react';
-import { IconKeyType } from '../../../assets/icons';
-import { CategoriesContext } from '../../../data/contexts/CategoriesContext';
 import { MouseEvent, useContext, useState } from 'react';
 import { IndexableType } from 'dexie';
 import classNames from 'classnames/bind';
 import CategoryItem from './CategoryItem';
-import CategoryModal from '../../shared/CategoryModal';
-import CategoryBadge from '../../category-selection/category-badge/CategoryBadge';
-import CategorySelectionModal from '../../category-selection/CategorySelectionModal';
+import { CategoriesContext } from '../../data/contexts/CategoriesContext';
+import CategoryBadge from './category-badge/CategoryBadge';
+import CategorySelectionModal from './CategorySelectionModal';
 
 const cx = classNames.bind(classes);
 
@@ -37,6 +35,13 @@ const CategorySelect = ({
     const { categories } = useContext(CategoriesContext);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
+    const [isNewCategoryModalOpen, setIsNewCategoryModalOpen] =
+        useState<boolean>(false);
+
+    const handleOnClick = (event: MouseEvent | TouchEvent) => {
+        event.stopPropagation();
+        setIsNewCategoryModalOpen(true);
+    };
 
     const handleSelectToggle = () => {
         setIsOpen((prev) => !prev);

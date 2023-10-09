@@ -1,9 +1,9 @@
 import classes from './CategorySelect.module.scss';
 
-import { Category } from '../../../data/interfaces';
+import { Category } from '../../data/interfaces';
 import { CategorySelectionFunction } from './CategorySelect';
 import { Plus, X } from '@phosphor-icons/react';
-import CategoryBadge from '../../category-badge/CategoryBadge';
+import CategoryBadge from './category-badge/CategoryBadge';
 
 interface CategoryItemProps extends Category {
     onChange: CategorySelectionFunction;
