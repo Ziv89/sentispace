@@ -1,23 +1,23 @@
 import classes from './ActivityEditForm.module.scss';
 
-import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
 import { X } from '@phosphor-icons/react';
-import TextField, { TextFieldElement } from '../input/text-field/TextField';
+import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { db } from '../../data/Database';
+import { Activity } from '../../data/interfaces';
+import CategorySelect from '../category-selection/CategorySelect';
+import Alert from '../generic/Alert';
+import Button from '../input/button/Button';
+import DatePicker from '../input/date-picker/DatePicker';
 import IconPicker from '../input/icon-picker/IconPicker';
 import RatingPicker from '../input/rating-picker/RatingPicker';
-import { createPortal } from 'react-dom';
-import { Activity } from '../../data/interfaces';
-import DatePicker from '../input/date-picker/DatePicker';
+import TextField, { TextFieldElement } from '../input/text-field/TextField';
 import TimePicker from '../input/time-picker/TimePicker';
-import Button from '../input/button/Button';
-import Alert from '../generic/Alert';
-import useActivityForm from './state/useActivityForm';
-import { db } from '../../data/Database';
 import {
     DELETE_GUARD_ALERT,
-    VALIDATION_ALERTS,
+    VALIDATION_ALERTS
 } from './state/activityForm.constants';
-import CategorySelect from '../category-selection/CategorySelect';
+import useActivityForm from './state/useActivityForm';
 
 interface ActivityEditFormProps {
     onClose: () => void;

@@ -8,6 +8,7 @@ import CategoryItem from './CategoryItem';
 import { CategoriesContext } from '../../data/contexts/CategoriesContext';
 import CategoryBadge from './category-badge/CategoryBadge';
 import CategorySelectionModal from './CategorySelectionModal';
+import { IconKeyType } from '../../assets/icons';
 
 const cx = classNames.bind(classes);
 
