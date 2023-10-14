@@ -4,6 +4,7 @@ import { MouseEvent, TouchEvent, useState } from 'react';
 import CategoryModal from '../../shared/CategoryModal';
 import { Category } from '../../../data/interfaces';
 import classNames from 'classnames/bind';
+import { XCircle } from '@phosphor-icons/react';
 
 const cx = classNames.bind(classes);
 
@@ -36,10 +37,10 @@ const CategoryBadge = ({
                     [`categoryColor${color}`]: color,
                 })}
             >
-                <span>
+                {deletable && <XCircle weight='fill' size={17}/>}
+                <span className={classes.badgeText}>
                     {name}
                 </span>
-                {deletable && <span>×</span>}  
             </div>
             {isModalOpen && (
                 <CategoryModal

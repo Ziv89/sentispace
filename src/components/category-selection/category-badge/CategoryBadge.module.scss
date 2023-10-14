@@ -2,13 +2,11 @@
 
 .categoryBadge {
     @include flex;
-    gap: 10px;
+    gap: var(--spacing-xs);
     border-radius: var(--border-radius-outer);
     padding: var(--spacing-xs) var(--spacing-sm);
-    font-weight: var(--font-weight-medium);
     color: var(--color-neutral-4);
     background-color: var(--color);
-    font-size: var(--font-size-xs);
     text-transform: capitalize;
     width: fit-content;
 
@@ -18,7 +16,10 @@
         }
     }
 
-    span {
+    .badgeText {
         white-space: nowrap;
+        text-transform: uppercase;
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
     }
 }
