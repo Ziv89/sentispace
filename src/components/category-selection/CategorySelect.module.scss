@@ -64,10 +64,10 @@ $gap: 2px;
 
 .selectedCategoriesWrapper {
   width: 100%;
-  max-width: 260px;
+  max-width: 63vw;
   .selectedCategories {
     @include flex(row, flex-start, center);
-    gap: 12px;
+    gap: var(--spacing-md);
     flex-wrap: wrap;
     margin: 5% 0;
   }
@@ -93,7 +93,7 @@ $gap: 2px;
 
   .categoryBadges {
     @include flex(row);
-    gap: 12px;
+    gap: var(--spacing-md);
     flex-wrap: wrap;
   }
 }
