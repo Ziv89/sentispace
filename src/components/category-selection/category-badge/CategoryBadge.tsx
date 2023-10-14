@@ -24,7 +24,7 @@ const CategoryBadge = ({
 
     const handleOnClick = (event: MouseEvent | TouchEvent) => {
         event.stopPropagation();
-        // TODO remove monkey patch
+        // TODO remove monkey patch (issue #39)
         onClick ? onClick() : setIsModalOpen(true);
     };
 
