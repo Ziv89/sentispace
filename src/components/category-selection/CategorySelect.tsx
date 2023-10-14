@@ -36,14 +36,6 @@ const CategorySelect = ({
     const { categories } = useContext(CategoriesContext);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const [isNewCategoryModalOpen, setIsNewCategoryModalOpen] =
-        useState<boolean>(false);
-
-    const handleOnClick = (event: MouseEvent | TouchEvent) => {
-        event.stopPropagation();
-        setIsNewCategoryModalOpen(true);
-    };
-
     const handleSelectToggle = () => {
         setIsOpen((prev) => !prev);
     };
@@ -97,52 +89,6 @@ const CategorySelect = ({
                         <CaretRight/>
                     </div>
                 </div>
-                {/* {isOpen && (
-                    <div className={classes.selectionList}>
-                        {categories
-                            ?.filter(({ id }) => !categoryIds.includes(id))
-                            .map(({ id, name, color }) => (
-                                <CategoryItem
-                                    name={name}
-                                    color={color}
-                                    id={id}
-                                    key={id.toString()}
-                                    onChange={handleCategorySelection}
-                                />
-                            ))}
-                        <div className={classes.selectItem}>
-                            <div
-                                tabIndex={0}
-                                className={classes.createNewCategory}
-                                onClick={handleOnClick}
-                            >
-                                Create a new category
-                            </div>
-                            {isNewCategoryModalOpen && (
-                                <CategoryModal
-                                    onClose={() => setIsNewCategoryModalOpen(false)}
-                                />
-                            )}
-                        </div>
-                    </div>
-                )} */}
-
-                {/* {categoryIds.length > 0 && (
-                    <div className={classes.selectedList}>
-                        {categories
-                            ?.filter(({ id }) => categoryIds.includes(id))
-                            .map(({ id, name, color }) => (
-                                <CategoryItem
-                                    name={name}
-                                    color={color}
-                                    id={id}
-                                    key={id.toString()}
-                                    onChange={handleCategorySelection}
-                                    isSelected
-                                />
-                            ))}
-                    </div>
-                )} */}
             </div>
             {isOpen && 
                 <CategorySelectionModal 
