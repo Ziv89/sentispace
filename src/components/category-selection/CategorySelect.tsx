@@ -75,7 +75,6 @@ const CategorySelect = ({
                                         <CategoryBadge 
                                             {...cat} 
                                             onClick={() => handleCategorySelection(cat.id, 'remove')} 
-                                            deletable 
                                             key={cat.id.toString()}
                                         />
                                     ))}

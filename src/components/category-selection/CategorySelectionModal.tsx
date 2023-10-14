@@ -11,6 +11,7 @@ import CategoryItem from "./CategoryItem";
 import { CategorySelectionFunction } from "./CategorySelect";
 import CategoryModal from "../shared/CategoryModal";
 import Button from "../input/button/Button";
+import FullscreenModal from "../shared/FullscreenModal";
 
 type CategorySelectionModalProps = {
   onClose: () => void;
@@ -48,12 +49,14 @@ const CategorySelectionModal = ({
     }
   };
 
-  return createPortal(
-    <div className="fullscreen-modal">
-      <div className="header">
+  return (
+    <FullscreenModal>
+      <FullscreenModal.Header>
         <ArrowLeft size={24} onClick={onClose} />
-        <h1 className={`title ${classes.title}`}>Category Selection</h1>
-      </div>
+        <FullscreenModal.Title className={classes.modalTitle}>
+          Category Selection
+        </FullscreenModal.Title>
+      </FullscreenModal.Header>
       <div className={classes.modalContent}>
         <TextField
           placeholder="Type in what you're looking for"
@@ -61,18 +64,6 @@ const CategorySelectionModal = ({
           value={searchQuery}
           onChange={(event) => setSearchQuery(event.target.value)}
         />
-        <div className={classes.categoryBadges}>
-          {categories
-            ?.filter(({ id }) => categoryIds.includes(id))
-            .map((cat) => (
-              <CategoryBadge
-                {...cat}
-                onClick={() => handleCategorySelection(cat.id, "remove")}
-                deletable
-                key={cat.id.toString()}
-              />
-            ))}
-        </div>
         <div className={classes.selectionList}>
           <div className={classes.selectItem}>
             <div
@@ -99,17 +90,28 @@ const CategorySelectionModal = ({
             ))}
         </div>
       </div>
-      <div className={`buttons-panel ${classes.buttons}`}>
+      <FullscreenModal.ButtonsPanel className={classes.buttons}>
+        <div className={classes.categoryBadges}>
+          {categories
+            ?.filter(({ id }) => categoryIds.includes(id))
+            .map((cat) => (
+              <CategoryBadge
+                {...cat}
+                onClick={() => handleCategorySelection(cat.id, "remove")}
+                deletable
+                key={cat.id.toString()}
+              />
+            ))}
+        </div>
         <Button
           variant="secondary"
           onClick={onClose}
           underline
         >
-          Close
+          Go Back
         </Button>
-      </div>
-    </div>,
-    document.body
+      </FullscreenModal.ButtonsPanel>
+    </FullscreenModal>
   );
 };
 

@@ -18,6 +18,7 @@ import {
     VALIDATION_ALERTS
 } from './state/activityForm.constants';
 import useActivityForm from './state/useActivityForm';
+import FullscreenModal from '../shared/FullscreenModal';
 
 interface ActivityEditFormProps {
     onClose: () => void;
@@ -174,15 +175,15 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
         onClose();
     };
 
-    return createPortal(
-        <div className="fullscreen-modal">
+    return (
+        <FullscreenModal>
             <form className={classes.form}>
-                <div className="header">
-                    <h1 className="title">
+                <FullscreenModal.Header>
+                    <FullscreenModal.Title>
                         {activity ? 'Edit Activity' : 'Create a new activity'}
-                    </h1>
+                    </FullscreenModal.Title>
                     <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
-                </div>
+                </FullscreenModal.Header>
                 <div className={classes.inputs}>
                     <div className={classes.titleAndIcon}>
                         <IconPicker
@@ -243,7 +244,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         />
                     )}
                 </div>
-                <div className="buttons-panel">
+                <FullscreenModal.ButtonsPanel>
                     <Button
                         variant="primary"
                         onClick={handlePrimaryButton}
@@ -260,11 +261,10 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                     >
                         {activity ? 'Delete Activity' : 'Reset'}
                     </Button>
-                </div>
+                </FullscreenModal.ButtonsPanel>
             </form>
-        </div>,
-        document.body
-    );
+        </FullscreenModal>
+    )
 };
 
 export default ActivityEditForm;
