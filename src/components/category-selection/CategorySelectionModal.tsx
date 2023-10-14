@@ -23,7 +23,7 @@ const CategorySelectionModal = ({
   categoryIds,
   onCategoriesChange,
 }: CategorySelectionModalProps) => {
-  const [searchQuery, setSearchQuery] = useState<string>();
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const { categories } = useContext(CategoriesContext);
   const filteredCategories = useMemo(() => categories?.filter(c => c.name.toLocaleLowerCase().includes(searchQuery?.toLocaleLowerCase() ?? '')), [searchQuery, categories]);
 
