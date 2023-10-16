@@ -1,6 +1,6 @@
+import classNames from "classnames";
 import { FC } from "react";
 import { createPortal } from "react-dom";
-import { mergeOptionalStrings } from "../../utils/mergeOptionalStrings";
 import { ChildrenProps, ClassNameProps } from "../../utils/types";
 import classes from "./FullscreenModal.module.scss";
 
@@ -30,9 +30,9 @@ const FullscreenModal: FSModalComp = ({ children }) => {
         document.body
     )
 }
-FullscreenModal.ButtonsPanel = ({ className, children }) => <div className={mergeOptionalStrings(classes.buttonsPanel, className)}>{children}</div>;
-FullscreenModal.Header = ({ className, children }) => <div className={mergeOptionalStrings(classes.header, className)}>{children}</div>;
-FullscreenModal.Title = ({ className, children }) => <h1 className={mergeOptionalStrings(classes.title, className)}>{children}</h1>;
+FullscreenModal.ButtonsPanel = ({ className, children }) => <div className={classNames(classes.buttonsPanel, className)}>{children}</div>;
+FullscreenModal.Header = ({ className, children }) => <div className={classNames(classes.header, className)}>{children}</div>;
+FullscreenModal.Title = ({ className, children }) => <h1 className={classNames(classes.title, className)}>{children}</h1>;
 
 
 export default FullscreenModal;
