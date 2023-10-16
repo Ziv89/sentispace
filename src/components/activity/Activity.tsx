@@ -7,7 +7,7 @@ import { CategoriesContext } from '../../data/contexts/CategoriesContext';
 import { formatTimeRange } from '../../utils/time';
 import { getIconComponent } from '../../assets/icons';
 import { Heart, IconProps } from '@phosphor-icons/react';
-import CategoryBadge from '../category-badge/CategoryBadge';
+import CategoryBadge from '../category-selection/category-badge/CategoryBadge';
 import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
 
 const RATING_ICON_PROPS: IconProps = {
