@@ -1,6 +1,6 @@
 export enum Paths {
     HOME = '/',
-    ACTIVITIES = '/activity',
+    ACTIVITIES = '/activities',
     CATEGORIES = '/categories',
     INSIGHTS = '/insights',
     SETTINGS = '/settings',
