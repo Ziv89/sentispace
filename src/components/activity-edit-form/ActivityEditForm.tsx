@@ -15,7 +15,7 @@ import TextField, { TextFieldElement } from '../input/text-field/TextField';
 import TimePicker from '../input/time-picker/TimePicker';
 import {
     DELETE_GUARD_ALERT,
-    VALIDATION_ALERTS
+    VALIDATION_ALERTS,
 } from './state/activityForm.constants';
 import useActivityForm from './state/useActivityForm';
 import FullscreenModal from '../shared/FullscreenModal';
@@ -142,7 +142,6 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
             endTime: endTime,
             iconKey,
             categoryIds,
-            isTemplate: false,
         } as Activity);
         onClose();
     };
@@ -181,7 +180,9 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
             <form className={classes.form}>
                 <FullscreenModal.Header>
                     <FullscreenModal.Title>
-                        {activity ? 'Edit Activity' : 'Create a new activity'}
+                        {activity?.id
+                            ? 'Edit Activity'
+                            : 'Create a new activity'}
                     </FullscreenModal.Title>
                     <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
                 </FullscreenModal.Header>
@@ -265,7 +266,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                 </FullscreenModal.ButtonsPanel>
             </form>
         </FullscreenModal>
-    )
+    );
 };
 
 export default ActivityEditForm;

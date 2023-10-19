@@ -26,7 +26,9 @@ export const CategoriesContext = createContext<ICategoriesContext>({
     setSelectedCategories: () => {},
 });
 
-export default function ContextProvider({ children }: ContextProviderProps) {
+export default function CategoryContextProvider({
+    children,
+}: ContextProviderProps) {
     const categories = useLiveQuery<Category[]>(() => db.categories.toArray());
     const [selectedCategories, setSelectedCategories] = useState<
         IndexableType[]

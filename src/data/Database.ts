@@ -18,11 +18,11 @@ class Database extends Dexie implements IDatabase {
 
         const stores: { [storeName in StoreName]: string } = {
             [Stores.ACTIVITY]:
-                '++id,title,description,rating,startTime,endTime,iconKey,categoryIds, isTemplate',
+                '++id,title,description,rating,startTime,endTime,iconKey,categoryIds,isTemplate',
             [Stores.CATEGORY]: '++id,name,color',
         };
 
-        this.version(2).stores(stores);
+        this.version(1).stores(stores);
     }
 }
 

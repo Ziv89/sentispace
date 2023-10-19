@@ -11,7 +11,5 @@ export interface Activity {
     endTime?: Date;
     iconKey: IconKeyType;
     categoryIds: IndexableType[];
-    isTemplate?: boolean;
+    isTemplate?: 1 | 0;
 }
-
-export type ActivityTemplate = Omit<Activity, 'id | startTime | endTime'>;

@@ -26,6 +26,8 @@ const RATING_ICON_PROPS: IconProps = {
 interface ActivityComponentProps extends IActivity {
     isSelected: boolean;
     onSelectedActivityChange: (id: IndexableType) => void;
+    templateView?: boolean;
+    onCloseTemplateModal?: () => void;
 }
 
 const Activity = ({
@@ -40,10 +42,13 @@ const Activity = ({
     isTemplate,
     isSelected,
     onSelectedActivityChange,
+    templateView,
+    onCloseTemplateModal,
 }: ActivityComponentProps) => {
-    const { setSelectedDay } = useContext(DayViewContext);
     const { categories } = useContext(CategoriesContext);
     const [isEditFormOpen, setIsEditFormOpen] = useState<boolean>(false);
+
+    const { setSelectedDay } = useContext(DayViewContext);
 
     const activityRef = useRef<HTMLElement>(null);
 
@@ -52,7 +57,7 @@ const Activity = ({
             category && category.id ? categoryIds.includes(category.id) : false
     );
 
-    const handleOnEdit = (event: MouseEvent | TouchEvent) => {
+    const handleOnFormOpen = (event: MouseEvent | TouchEvent) => {
         event.stopPropagation();
         setIsEditFormOpen(true);
         onSelectedActivityChange(0);
@@ -60,7 +65,7 @@ const Activity = ({
 
     const handleOnTemplateChange = (event: MouseEvent | TouchEvent) => {
         event.stopPropagation();
-        db.activities.update(id, { isTemplate: !isTemplate });
+        db.activities.update(id, { isTemplate: isTemplate === 1 ? 0 : 1 });
     };
 
     const handleOnDuplicateActivity = (event: MouseEvent | TouchEvent) => {
@@ -76,6 +81,7 @@ const Activity = ({
         } as IActivity);
         setSelectedDay(new Date());
         onSelectedActivityChange(0);
+        if (onCloseTemplateModal) onCloseTemplateModal();
     };
 
     const IconComponent = getIconComponent(iconKey);
@@ -90,19 +96,30 @@ const Activity = ({
         >
             {isSelected && (
                 <div className={classes.blurred}>
-                    <ActivityOption
-                        onClick={handleOnEdit}
-                        label="Edit"
-                        iconKey="NotePencil"
-                    />
-                    <ActivityOption
-                        onClick={handleOnDuplicateActivity}
-                        label="Duplicate"
-                        iconKey="Copy"
-                    />
+                    {!templateView && (
+                        <>
+                            <ActivityOption
+                                onClick={handleOnFormOpen}
+                                label="Edit"
+                                iconKey="NotePencil"
+                            />
+                            <ActivityOption
+                                onClick={handleOnDuplicateActivity}
+                                label="Duplicate"
+                                iconKey="Copy"
+                            />
+                        </>
+                    )}
+                    {templateView && (
+                        <ActivityOption
+                            onClick={handleOnDuplicateActivity}
+                            label="Create Activity"
+                            iconKey="FilePlus"
+                        />
+                    )}
                     <ActivityOption
                         onClick={handleOnTemplateChange}
-                        label="Template"
+                        label={templateView ? 'Remove' : 'Template'}
                         iconKey={isTemplate ? 'File' : 'FileDashed'}
                         iconWeight={isTemplate ? 'fill' : 'light'}
                     />
@@ -113,9 +130,11 @@ const Activity = ({
                     <IconComponent />
                 </div>
                 <h3 className={classes.title}>{title}</h3>
-                <time className={classes.time}>
-                    {formatTimeRange(startTime, endTime)}
-                </time>
+                {!templateView && (
+                    <time className={classes.time}>
+                        {formatTimeRange(startTime, endTime)}
+                    </time>
+                )}
                 <span className={classes.description}>{description}</span>
             </div>
             <div className={classes.footer}>
