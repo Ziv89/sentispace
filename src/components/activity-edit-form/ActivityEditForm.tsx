@@ -1,23 +1,24 @@
 import classes from './ActivityEditForm.module.scss';
 
-import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
 import { X } from '@phosphor-icons/react';
-import TextField, { TextFieldElement } from '../input/text-field/TextField';
-import IconPicker from '../input/icon-picker/IconPicker';
-import CategorySelect from '../input/category-select/CategorySelect';
-import RatingPicker from '../input/rating-picker/RatingPicker';
+import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Activity } from '../../data/interfaces';
-import DatePicker from '../input/date-picker/DatePicker';
-import TimePicker from '../input/time-picker/TimePicker';
-import Button from '../input/button/Button';
-import Alert from '../generic/Alert';
-import useActivityForm from './state/useActivityForm';
 import { db } from '../../data/Database';
+import { Activity } from '../../data/interfaces';
+import CategorySelect from '../category-selection/CategorySelect';
+import Alert from '../generic/Alert';
+import Button from '../input/button/Button';
+import DatePicker from '../input/date-picker/DatePicker';
+import IconPicker from '../input/icon-picker/IconPicker';
+import RatingPicker from '../input/rating-picker/RatingPicker';
+import TextField, { TextFieldElement } from '../input/text-field/TextField';
+import TimePicker from '../input/time-picker/TimePicker';
 import {
     DELETE_GUARD_ALERT,
-    VALIDATION_ALERTS,
+    VALIDATION_ALERTS
 } from './state/activityForm.constants';
+import useActivityForm from './state/useActivityForm';
+import FullscreenModal from '../shared/FullscreenModal';
 
 interface ActivityEditFormProps {
     onClose: () => void;
@@ -175,15 +176,15 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
         onClose();
     };
 
-    return createPortal(
-        <div className={classes.activityEditWrapper}>
+    return (
+        <FullscreenModal>
             <form className={classes.form}>
-                <div className={classes.header}>
-                    <h1 className={classes.title}>
+                <FullscreenModal.Header>
+                    <FullscreenModal.Title>
                         {activity ? 'Edit Activity' : 'Create a new activity'}
-                    </h1>
+                    </FullscreenModal.Title>
                     <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
-                </div>
+                </FullscreenModal.Header>
                 <div className={classes.inputs}>
                     <div className={classes.titleAndIcon}>
                         <IconPicker
@@ -213,7 +214,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         onChange={handleDescriptionChange}
                     />
                     <CategorySelect
-                        label="Category (optional)"
+                        label="Categories (optional)"
                         placeholder="Select a category for your activity."
                         categoryIds={categoryIds}
                         onCategoriesChange={setCategories}
@@ -244,7 +245,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         />
                     )}
                 </div>
-                <div className={classes.buttons}>
+                <FullscreenModal.ButtonsPanel>
                     <Button
                         variant="primary"
                         onClick={handlePrimaryButton}
@@ -261,11 +262,10 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                     >
                         {activity?.id ? 'Delete Activity' : 'Reset'}
                     </Button>
-                </div>
+                </FullscreenModal.ButtonsPanel>
             </form>
-        </div>,
-        document.body
-    );
+        </FullscreenModal>
+    )
 };
 
 export default ActivityEditForm;

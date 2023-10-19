@@ -7,7 +7,7 @@ import { CategoriesContext } from '../../data/contexts/CategoriesContext';
 import { formatTimeRange } from '../../utils/time';
 import { getIconComponent } from '../../assets/icons';
 import { Heart, IconProps } from '@phosphor-icons/react';
-import CategoryBadge from '../category-badge/CategoryBadge';
+import CategoryBadge from '../category-selection/category-badge/CategoryBadge';
 import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
 import classNames from 'classnames/bind';
 import ActivityOption from './activity-option/ActivityOption';
@@ -52,6 +52,12 @@ const Activity = ({
             category && category.id ? categoryIds.includes(category.id) : false
     );
 
+    const handleOnEdit = (event: MouseEvent | TouchEvent) => {
+        event.stopPropagation();
+        setIsEditFormOpen(true);
+        onSelectedActivityChange(0);
+    };
+
     const handleOnTemplateChange = (event: MouseEvent | TouchEvent) => {
         event.stopPropagation();
         db.activities.update(id, { isTemplate: !isTemplate });
@@ -85,7 +91,7 @@ const Activity = ({
             {isSelected && (
                 <div className={classes.blurred}>
                     <ActivityOption
-                        onClick={() => {}}
+                        onClick={handleOnEdit}
                         label="Edit"
                         iconKey="NotePencil"
                     />
