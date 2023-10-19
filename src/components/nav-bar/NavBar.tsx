@@ -2,36 +2,72 @@ import classes from './NavBar.module.scss';
 
 import { Plus } from '@phosphor-icons/react';
 import { Paths } from '../../routes/enums/Paths';
-import { useState } from 'react';
-import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
+import { useEffect, useState } from 'react';
 import NavItem from './NavItem';
+import Button from '../input/button/Button';
+import classNames from 'classnames/bind';
+import { useLocation } from 'react-router-dom';
+import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
+
+const cx = classNames.bind(classes);
 
 const NavBar = () => {
+    const [isPopup, setIsPopup] = useState(false);
     const [isActivityModalOpen, setIsActivityModalOpen] =
         useState<boolean>(false);
 
+    const { pathname } = useLocation();
+
+    const handleCreateActivity = (): void => {
+        setIsActivityModalOpen(true);
+        setIsPopup(false);
+    };
+
+    useEffect(() => {
+        if (isPopup) setIsPopup(false);
+    }, [pathname]);
+
     return (
         <nav className={classes.navBar}>
-            <NavItem label="Home" iconKey="HouseSimple" path={Paths.HOME} />
-            <NavItem
-                label="Categories"
-                iconKey="SquaresFour"
-                path={Paths.CATEGORIES}
-            />
-            <div onClick={() => setIsActivityModalOpen(true)}>
-                <Plus className={classes.addButton} />
-                {isActivityModalOpen && (
-                    <ActivityEditForm
-                        onClose={() => setIsActivityModalOpen(false)}
-                    />
-                )}
+            <div
+                className={cx(classes.createButtonsWrapper, { open: isPopup })}
+            >
+                <div className={classes.createButtonsContainer}>
+                    <Button variant="primary" onClick={handleCreateActivity}>
+                        Create Activity
+                    </Button>
+                    {isActivityModalOpen && (
+                        <ActivityEditForm
+                            onClose={() => setIsActivityModalOpen(false)}
+                        />
+                    )}
+                    <Button variant="secondary">Create from Template</Button>
+                </div>
             </div>
-            <NavItem
-                label="Insights"
-                iconKey="Sunglasses"
-                path={Paths.INSIGHTS}
-            />
-            <NavItem label="Settings" iconKey="GearSix" path={Paths.SETTINGS} />
+            <div className={classes.navButtons}>
+                <NavItem label="Home" iconKey="HouseSimple" path={Paths.HOME} />
+                <NavItem
+                    label="Categories"
+                    iconKey="SquaresFour"
+                    path={Paths.CATEGORIES}
+                />
+                <div>
+                    <Plus
+                        className={cx(classes.addButton, { active: isPopup })}
+                        onClick={() => setIsPopup((prev) => !prev)}
+                    />
+                </div>
+                <NavItem
+                    label="Insights"
+                    iconKey="Sunglasses"
+                    path={Paths.INSIGHTS}
+                />
+                <NavItem
+                    label="Settings"
+                    iconKey="GearSix"
+                    path={Paths.SETTINGS}
+                />
+            </div>
         </nav>
     );
 };

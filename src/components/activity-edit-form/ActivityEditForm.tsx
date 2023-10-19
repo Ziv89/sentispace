@@ -21,7 +21,7 @@ import {
 
 interface ActivityEditFormProps {
     onClose: () => void;
-    activity?: Activity;
+    activity?: Partial<Activity>;
 }
 
 const CLOSE_ICON_PROPS = {
@@ -118,7 +118,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
 
         if (!isFormValid()) return;
 
-        if (activity) {
+        if (activity?.id) {
             db.activities.update(activity.id, {
                 title,
                 description,
@@ -141,6 +141,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
             endTime: endTime,
             iconKey,
             categoryIds,
+            isTemplate: false,
         } as Activity);
         onClose();
     };
@@ -151,7 +152,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
         event.preventDefault();
         event.stopPropagation();
 
-        if (activity) {
+        if (activity?.id) {
             if (deleteGuard) {
                 setAlert(DELETE_GUARD_ALERT);
                 disableDeleteGuard();
@@ -249,7 +250,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         onClick={handlePrimaryButton}
                         disabled={!isChanged}
                     >
-                        {activity ? 'Save Changes' : 'Create Activity'}
+                        {activity?.id ? 'Save Changes' : 'Create Activity'}
                     </Button>
                     <Button
                         variant="secondary"
@@ -258,7 +259,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         isDangerous={!!activity}
                         disabled={!activity && !isChanged}
                     >
-                        {activity ? 'Delete Activity' : 'Reset'}
+                        {activity?.id ? 'Delete Activity' : 'Reset'}
                     </Button>
                 </div>
             </form>

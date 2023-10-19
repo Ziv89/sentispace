@@ -10,6 +10,7 @@ import classNames from 'classnames/bind';
 import FilterModal from '../../components/shared/FilterModal';
 import { useFilteredActivities } from '../../hooks/useFilteredActivities';
 import Badge from '../../components/generic/Badge';
+import { IndexableType } from 'dexie';
 
 const cx = classNames.bind(classes);
 
@@ -18,6 +19,7 @@ function DayView() {
     const [activities, selectedCategories] = useFilteredActivities(selectedDay);
 
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+    const [selectedActivity, setSelectedActivity] = useState<IndexableType>(0);
 
     return (
         <div className={classes.viewContainer}>
@@ -52,7 +54,12 @@ function DayView() {
             <div className={classes.activitiesWrapper}>
                 <div className={classes.activitiesContainer}>
                     {activities.map((activity, index) => (
-                        <Activity key={index} {...activity} />
+                        <Activity
+                            key={index}
+                            {...activity}
+                            isSelected={activity.id === selectedActivity}
+                            onSelectedActivityChange={setSelectedActivity}
+                        />
                     ))}
                 </div>
             </div>

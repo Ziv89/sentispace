@@ -4,8 +4,10 @@ import {
     SetStateAction,
     createContext,
     ReactNode,
+    useEffect,
 } from 'react';
 import { getArrayOfWeekDatesFromDate } from '../../utils/time';
+import { isSameWeek, startOfDay } from 'date-fns';
 
 export interface IDayViewContext {
     selectedDay: Date;
@@ -34,6 +36,11 @@ export default function DayViewContextProvider({
     const [displayedWeek, setDisplayedWeek] = useState<Date[]>(
         getArrayOfWeekDatesFromDate(today)
     );
+
+    useEffect(() => {
+        if (!isSameWeek(startOfDay(selectedDay), displayedWeek[0]))
+            setDisplayedWeek(getArrayOfWeekDatesFromDate(selectedDay));
+    }, [selectedDay]);
 
     return (
         <DayViewContext.Provider
