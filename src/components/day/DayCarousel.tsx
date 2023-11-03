@@ -4,14 +4,7 @@ import { isSameDay, isSameWeek } from 'date-fns';
 import DayItem from './DayItem';
 import { CaretLeft, CaretRight, IconProps } from '@phosphor-icons/react';
 import { DayViewContext } from '../../data/contexts/DayViewContext';
-import {
-    MouseEvent,
-    TouchEvent,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
-} from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { getArrayOfWeekDatesFromDate } from '../../utils/time';
 import classNames from 'classnames/bind';
@@ -83,8 +76,7 @@ const DayCarousel = () => {
     );
 
     const handleDaySelection = useCallback(
-        (event: MouseEvent | TouchEvent, date: Date) => {
-            event.stopPropagation();
+        (date: Date) => {
             if (isDragging) return;
 
             if (!isSameDay(date, selectedDay)) {
@@ -139,9 +131,7 @@ const DayCarousel = () => {
                                     key={date.toDateString()}
                                     date={date}
                                     active={isSameDay(date, selectedDay)}
-                                    onClick={(event) =>
-                                        handleDaySelection(event, date)
-                                    }
+                                    onClick={() => handleDaySelection(date)}
                                 />
                             ))}
                         </div>

@@ -7,6 +7,7 @@ import {
 } from '../../../assets/icons';
 import { ReactNode, useEffect } from 'react';
 import Alert, { AlertType } from '../../../components/generic/Alert';
+import { Link, To } from 'react-router-dom';
 
 interface BaseSettingsItemProps {
     label: string;
@@ -14,6 +15,7 @@ interface BaseSettingsItemProps {
     alert?: AlertType | null;
     onAlertRemove?: () => void;
     onClick?: () => void;
+    to?: To;
 }
 
 interface ValueProps extends BaseSettingsItemProps {
@@ -36,6 +38,7 @@ const SettingsItem = ({
     alert,
     onAlertRemove,
     onClick,
+    to,
 }: SettingsItemProps) => {
     const IconComponent: IconComponentType = getIconComponent(iconKey);
 
@@ -47,7 +50,9 @@ const SettingsItem = ({
     return (
         <div className={classes.row} onClick={onClick}>
             <IconComponent size={24} />
-            <div className={classes.label}>{label}</div>
+            <div className={classes.label}>
+                {to ? <Link to={to}>{label}</Link> : label}
+            </div>
             <div className={classes.content}>{children || value}</div>
 
             {alert && (

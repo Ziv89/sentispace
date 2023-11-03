@@ -3,7 +3,8 @@ import './styles/main.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import ContextProvider from './data/contexts/CategoriesContext';
+import CategoryContextProvider from './data/contexts/CategoriesContext';
+import DayViewContextProvider from './data/contexts/DayViewContext';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { IconContext } from '@phosphor-icons/react';
 import { generateData } from './data/MOCK_DATA';
@@ -17,12 +18,14 @@ const router = createBrowserRouter([routesConfig]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <ContextProvider>
-            <InstallPromptProvider>
-                <IconContext.Provider value={iconConfig}>
-                    <RouterProvider router={router} />
-                </IconContext.Provider>
-            </InstallPromptProvider>
-        </ContextProvider>
+        <CategoryContextProvider>
+            <DayViewContextProvider>
+                <InstallPromptProvider>
+                    <IconContext.Provider value={iconConfig}>
+                        <RouterProvider router={router} />
+                    </IconContext.Provider>
+                </InstallPromptProvider>
+            </DayViewContextProvider>
+        </CategoryContextProvider>
     </React.StrictMode>
 );

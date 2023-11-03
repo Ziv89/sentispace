@@ -12,6 +12,12 @@ $gradient-accent: linear-gradient(
     var(--color-secondary) $gradient-end
 );
 
+$gradient-secondary: linear-gradient(
+    $gradient-direction,
+    var(--color-secondary) $gradient-start,
+    var(--color-primary) $gradient-end
+);
+
 $gradient-rating-1: linear-gradient(
     $gradient-direction,
     var(--color-rating-1) $gradient-start,
