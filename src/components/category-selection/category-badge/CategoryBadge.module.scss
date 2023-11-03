@@ -7,7 +7,6 @@
     padding: var(--spacing-xs) var(--spacing-sm);
     color: var(--color-neutral-4);
     background-color: var(--color);
-    text-transform: capitalize;
     width: fit-content;
 
     @for $i from 1 through 16 {
@@ -18,7 +17,7 @@
 
     .badgeText {
         white-space: nowrap;
-        text-transform: uppercase;
+        text-transform: capitalize;
         font-size: var(--font-size-xs);
         font-weight: var(--font-weight-medium);
     }

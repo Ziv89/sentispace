@@ -24,7 +24,7 @@ const defaultState: DefaultState = {
     endTime: undefined,
 };
 
-const useActivityForm = (activity?: Activity) => {
+const useActivityForm = (activity?: Partial<Activity>) => {
     const initialState: ActivityFormState = {
         iconKey: activity?.iconKey || defaultState.iconKey,
         title: activity?.title || defaultState.title,

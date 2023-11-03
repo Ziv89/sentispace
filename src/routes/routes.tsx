@@ -11,14 +11,7 @@ export const routesConfig: RouteObject = {
     path: '/',
     element: <Root />,
     children: [
-        {
-            path: Paths.HOME,
-            element: (
-                <DayViewContextProvider>
-                    <DayView />
-                </DayViewContextProvider>
-            ),
-        },
+        { path: Paths.HOME, element: <DayView /> },
         { path: Paths.CATEGORIES, element: <Categories /> },
         { path: Paths.INSIGHTS, element: <Insights /> },
         { path: Paths.SETTINGS, element: <Settings /> },

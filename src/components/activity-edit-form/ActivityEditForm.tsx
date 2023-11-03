@@ -2,7 +2,6 @@ import classes from './ActivityEditForm.module.scss';
 
 import { X } from '@phosphor-icons/react';
 import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import { db } from '../../data/Database';
 import { Activity } from '../../data/interfaces';
 import CategorySelect from '../category-selection/CategorySelect';
@@ -15,21 +14,26 @@ import TextField, { TextFieldElement } from '../input/text-field/TextField';
 import TimePicker from '../input/time-picker/TimePicker';
 import {
     DELETE_GUARD_ALERT,
-    VALIDATION_ALERTS
+    VALIDATION_ALERTS,
 } from './state/activityForm.constants';
 import useActivityForm from './state/useActivityForm';
 import FullscreenModal from '../shared/FullscreenModal';
 
 interface ActivityEditFormProps {
     onClose: () => void;
-    activity?: Activity;
+    activity?: Partial<Activity>;
+    onCloseTemplateSelection?: () => void;
 }
 
 const CLOSE_ICON_PROPS = {
     size: 24,
 };
 
-const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
+const ActivityEditForm = ({
+    onClose,
+    activity,
+    onCloseTemplateSelection,
+}: ActivityEditFormProps) => {
     const {
         state,
         validations,
@@ -115,11 +119,10 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
 
     const handlePrimaryButton = (event: MouseEvent | TouchEvent): void => {
         event.preventDefault();
-        event.stopPropagation();
 
         if (!isFormValid()) return;
 
-        if (activity) {
+        if (activity?.id) {
             db.activities.update(activity.id, {
                 title,
                 description,
@@ -129,21 +132,19 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                 iconKey,
                 categoryIds,
             });
-
-            onClose();
-            return;
+        } else {
+            db.activities.add({
+                title,
+                description,
+                rating,
+                startTime,
+                endTime: endTime,
+                iconKey,
+                categoryIds,
+            } as Activity);
         }
 
-        db.activities.add({
-            title,
-            description,
-            rating,
-            startTime,
-            endTime: endTime,
-            iconKey,
-            categoryIds,
-        } as Activity);
-        onClose();
+        onCloseTemplateSelection ? onCloseTemplateSelection() : onClose();
     };
 
     const handleSecondaryButton = async (
@@ -152,7 +153,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
         event.preventDefault();
         event.stopPropagation();
 
-        if (activity) {
+        if (activity?.id) {
             if (deleteGuard) {
                 setAlert(DELETE_GUARD_ALERT);
                 disableDeleteGuard();
@@ -180,7 +181,9 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
             <form className={classes.form}>
                 <FullscreenModal.Header>
                     <FullscreenModal.Title>
-                        {activity ? 'Edit Activity' : 'Create a new activity'}
+                        {activity?.id
+                            ? 'Edit Activity'
+                            : 'Create a new activity'}
                     </FullscreenModal.Title>
                     <X {...CLOSE_ICON_PROPS} onClick={handleClose} />
                 </FullscreenModal.Header>
@@ -248,23 +251,23 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                     <Button
                         variant="primary"
                         onClick={handlePrimaryButton}
-                        disabled={!isChanged}
+                        disabled={!isChanged && !!activity?.id}
                     >
-                        {activity ? 'Save Changes' : 'Create Activity'}
+                        {activity?.id ? 'Save Changes' : 'Create Activity'}
                     </Button>
                     <Button
                         variant="secondary"
                         onClick={handleSecondaryButton}
                         underline
                         isDangerous={!!activity}
-                        disabled={!activity && !isChanged}
+                        disabled={!activity?.id && !isChanged}
                     >
-                        {activity ? 'Delete Activity' : 'Reset'}
+                        {activity?.id ? 'Delete Activity' : 'Reset'}
                     </Button>
                 </FullscreenModal.ButtonsPanel>
             </form>
         </FullscreenModal>
-    )
+    );
 };
 
 export default ActivityEditForm;

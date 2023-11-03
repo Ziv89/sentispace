@@ -1,6 +1,14 @@
 import classes from './Activity.module.scss';
 
-import { useContext, useState } from 'react';
+import {
+    MouseEvent,
+    TouchEvent,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import { Activity as IActivity } from '../../data/interfaces';
 import { Category } from '../../data/interfaces';
 import { CategoriesContext } from '../../data/contexts/CategoriesContext';
@@ -9,6 +17,13 @@ import { getIconComponent } from '../../assets/icons';
 import { Heart, IconProps } from '@phosphor-icons/react';
 import CategoryBadge from '../category-selection/category-badge/CategoryBadge';
 import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
+import classNames from 'classnames/bind';
+import ActivityOption, { ActivityOptionProps } from './activity-option/ActivityOption';
+import { IndexableType } from 'dexie';
+import { db } from '../../data/Database';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
+
+const cx = classNames.bind(classes);
 
 const RATING_ICON_PROPS: IconProps = {
     weight: 'fill',
@@ -16,7 +31,12 @@ const RATING_ICON_PROPS: IconProps = {
     color: 'var(--color-heart)',
 };
 
-interface ActivityComponentProps extends IActivity {}
+interface ActivityComponentProps extends IActivity {
+    isSelected: boolean;
+    onSelectedActivityChange: (id: IndexableType) => void;
+    templateView?: boolean;
+    onCloseTemplateModal?: () => void;
+}
 
 const Activity = ({
     id,
@@ -27,29 +47,129 @@ const Activity = ({
     startTime,
     endTime,
     categoryIds,
+    isTemplate,
+    isSelected,
+    onSelectedActivityChange,
+    templateView,
+    onCloseTemplateModal,
 }: ActivityComponentProps) => {
     const { categories } = useContext(CategoriesContext);
     const [isEditFormOpen, setIsEditFormOpen] = useState<boolean>(false);
+    const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
 
-    const handleOnClick = () => setIsEditFormOpen(true);
+    const activityRef = useRef<HTMLElement>(null);
+
+    useOutsideClick(activityRef, () => onSelectedActivityChange(0));
+
+    const editFormActivity = useMemo(() => {
+        const activityProps = {
+            iconKey,
+            title,
+            description,
+            rating,
+            categoryIds,
+        };
+        if (!(templateView || isDuplicate)) {
+            Object.assign(activityProps, {
+                id,
+                startTime,
+                endTime,
+            })
+        }
+        return activityProps;
+    }, [templateView, isDuplicate])
+
+    useEffect(() => {
+        if (isEditFormOpen && isDuplicate) return;
+
+        setIsDuplicate(false);
+    }, [isEditFormOpen]);
 
     const associatedCategories: Category[] | undefined = categories?.filter(
         (category) =>
             category && category.id ? categoryIds.includes(category.id) : false
     );
 
+    const handleOnClick = (event: MouseEvent | TouchEvent) => {
+        event.stopPropagation();
+        onSelectedActivityChange(isSelected ? 0 : id);
+    };
+
+    const handleOnFormOpen = () => {
+        setIsEditFormOpen(true);
+        onSelectedActivityChange(0);
+    };
+
+    const handleOnTemplateChange = (event: MouseEvent | TouchEvent) => {
+        event.stopPropagation();
+        db.activities.update(id, { isTemplate: isTemplate === 1 ? 0 : 1 });
+    };
+
+    const handleOnDuplicateActivity = () => {
+        setIsDuplicate(true);
+        handleOnFormOpen();
+    };
+
+    const activityOptions: ActivityOptionProps[] = useMemo(() => ([
+        {
+            onClick: handleOnFormOpen,
+            label: "Edit",
+            iconKey: "NotePencil"
+        },
+        {
+            onClick: handleOnDuplicateActivity,
+            label: "Duplicate",
+            iconKey: "Copy"
+        },
+        {
+            onClick: handleOnTemplateChange,
+            label: 'Template',
+            iconKey: isTemplate ? 'File' : 'FileDashed',
+            iconWeight: isTemplate ? 'fill' : 'light',
+        }
+    ]), [isTemplate])
+
+    const templateOptions: ActivityOptionProps[] = useMemo(() => ([
+        {
+            onClick: handleOnDuplicateActivity,
+            label: "Create Activity",
+            iconKey: "FilePlus"
+        },
+        {
+            onClick: handleOnTemplateChange,
+            label: 'Remove',
+            iconKey: isTemplate ? 'File' : 'FileDashed',
+            iconWeight: isTemplate ? 'fill' : 'light',
+        }
+    ]), [isTemplate])
+
     const IconComponent = getIconComponent(iconKey);
 
     return (
-        <article className={classes.activity} onClick={handleOnClick}>
+        <article
+            className={cx(classes.activity, {
+                options: isSelected,
+            })}
+            onClick={handleOnClick}
+            ref={activityRef}
+        >
+            {isSelected && (
+                <div className={classes.blurred}>
+                    {(templateView ? templateOptions : activityOptions).map(option => (
+                        <ActivityOption {...option} />
+                    ))}
+                </div>
+            )}
             <div className={classes.content}>
                 <div className={classes.icon}>
                     <IconComponent />
                 </div>
                 <h3 className={classes.title}>{title}</h3>
-                <time className={classes.time}>
-                    {formatTimeRange(startTime, endTime)}
-                </time>
+                {!templateView && (
+                    <time className={classes.time}>
+                        {formatTimeRange(startTime, endTime)}
+                    </time>
+                )}
                 <span className={classes.description}>{description}</span>
             </div>
             <div className={classes.footer}>
@@ -71,16 +191,10 @@ const Activity = ({
             {isEditFormOpen && (
                 <ActivityEditForm
                     onClose={() => setIsEditFormOpen(false)}
-                    activity={{
-                        id,
-                        iconKey,
-                        title,
-                        description,
-                        rating,
-                        startTime,
-                        endTime,
-                        categoryIds,
-                    }}
+                    onCloseTemplateSelection={
+                        onCloseTemplateModal ? onCloseTemplateModal : undefined
+                    }
+                    activity={editFormActivity}
                 />
             )}
         </article>

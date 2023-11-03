@@ -11,4 +11,5 @@ export interface Activity {
     endTime?: Date;
     iconKey: IconKeyType;
     categoryIds: IndexableType[];
+    isTemplate?: 1 | 0;
 }
