@@ -19,11 +19,6 @@
         z-index: 10;
         border-radius: inherit;
         padding: var(--spacing-lg);
-
-        a {
-            @include flex(column, center, center);
-            gap: var(--spacing-sm);
-        }
     }
 
     &.options > *:not(.blurred) {
