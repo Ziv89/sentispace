@@ -1,27 +1,28 @@
 import classes from './ActivityOption.module.scss';
 
-import { HTMLAttributes } from 'react';
 import { IconKeyType, getIconComponent } from '../../../assets/icons';
 import { IconWeight } from '@phosphor-icons/react';
+import { MouseEvent, TouchEvent } from 'react';
 
-interface ActivityOptionProps extends HTMLAttributes<HTMLDivElement> {
+interface ActivityOptionProps {
     iconKey: IconKeyType;
     iconWeight?: IconWeight;
     label: string;
+    onClick: (event: MouseEvent | TouchEvent) => void;
 }
 
 const ActivityOption = ({
     iconKey,
     iconWeight = 'light',
     label,
-    ...props
+    onClick,
 }: ActivityOptionProps) => {
     const IconComponent = getIconComponent(iconKey);
 
     return (
-        <div className={classes.activityOption} {...props}>
-            <IconComponent weight={iconWeight} />
-            {label}
+        <div className={classes.activityOption}>
+            <IconComponent weight={iconWeight} onClick={onClick} />
+            <span onClick={onClick}>{label}</span>
         </div>
     );
 };

@@ -2,14 +2,13 @@ import classes from './NavBar.module.scss';
 
 import { Plus } from '@phosphor-icons/react';
 import { Paths } from '../../routes/enums/Paths';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavItem from './NavItem';
 import Button from '../input/button/Button';
 import classNames from 'classnames/bind';
 import { useLocation } from 'react-router-dom';
 import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
 import TemplateSelection from '../template-selection/TemplateSelection';
-import { DayViewContext } from '../../data/contexts/DayViewContext';
 
 const cx = classNames.bind(classes);
 

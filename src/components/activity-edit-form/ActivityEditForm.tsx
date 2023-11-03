@@ -2,7 +2,6 @@ import classes from './ActivityEditForm.module.scss';
 
 import { X } from '@phosphor-icons/react';
 import { ChangeEvent, MouseEvent, TouchEvent, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import { db } from '../../data/Database';
 import { Activity } from '../../data/interfaces';
 import CategorySelect from '../category-selection/CategorySelect';
@@ -23,13 +22,18 @@ import FullscreenModal from '../shared/FullscreenModal';
 interface ActivityEditFormProps {
     onClose: () => void;
     activity?: Partial<Activity>;
+    onCloseTemplateSelection?: () => void;
 }
 
 const CLOSE_ICON_PROPS = {
     size: 24,
 };
 
-const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
+const ActivityEditForm = ({
+    onClose,
+    activity,
+    onCloseTemplateSelection,
+}: ActivityEditFormProps) => {
     const {
         state,
         validations,
@@ -115,7 +119,6 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
 
     const handlePrimaryButton = (event: MouseEvent | TouchEvent): void => {
         event.preventDefault();
-        event.stopPropagation();
 
         if (!isFormValid()) return;
 
@@ -129,21 +132,19 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                 iconKey,
                 categoryIds,
             });
-
-            onClose();
-            return;
+        } else {
+            db.activities.add({
+                title,
+                description,
+                rating,
+                startTime,
+                endTime: endTime,
+                iconKey,
+                categoryIds,
+            } as Activity);
         }
 
-        db.activities.add({
-            title,
-            description,
-            rating,
-            startTime,
-            endTime: endTime,
-            iconKey,
-            categoryIds,
-        } as Activity);
-        onClose();
+        onCloseTemplateSelection ? onCloseTemplateSelection() : onClose();
     };
 
     const handleSecondaryButton = async (
@@ -250,7 +251,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                     <Button
                         variant="primary"
                         onClick={handlePrimaryButton}
-                        disabled={!isChanged}
+                        disabled={!isChanged && !!activity?.id}
                     >
                         {activity?.id ? 'Save Changes' : 'Create Activity'}
                     </Button>
@@ -259,7 +260,7 @@ const ActivityEditForm = ({ onClose, activity }: ActivityEditFormProps) => {
                         onClick={handleSecondaryButton}
                         underline
                         isDangerous={!!activity}
-                        disabled={!activity && !isChanged}
+                        disabled={!activity?.id && !isChanged}
                     >
                         {activity?.id ? 'Delete Activity' : 'Reset'}
                     </Button>

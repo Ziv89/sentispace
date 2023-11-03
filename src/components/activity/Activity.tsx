@@ -1,6 +1,13 @@
 import classes from './Activity.module.scss';
 
-import { MouseEvent, TouchEvent, useContext, useRef, useState } from 'react';
+import {
+    MouseEvent,
+    TouchEvent,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import { Activity as IActivity } from '../../data/interfaces';
 import { Category } from '../../data/interfaces';
 import { CategoriesContext } from '../../data/contexts/CategoriesContext';
@@ -13,7 +20,7 @@ import classNames from 'classnames/bind';
 import ActivityOption from './activity-option/ActivityOption';
 import { IndexableType } from 'dexie';
 import { db } from '../../data/Database';
-import { DayViewContext } from '../../data/contexts/DayViewContext';
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 const cx = classNames.bind(classes);
 
@@ -47,18 +54,29 @@ const Activity = ({
 }: ActivityComponentProps) => {
     const { categories } = useContext(CategoriesContext);
     const [isEditFormOpen, setIsEditFormOpen] = useState<boolean>(false);
-
-    const { setSelectedDay } = useContext(DayViewContext);
+    const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
 
     const activityRef = useRef<HTMLElement>(null);
+
+    useOutsideClick(activityRef, () => onSelectedActivityChange(0));
+
+    useEffect(() => {
+        if (isEditFormOpen && isDuplicate) return;
+
+        setIsDuplicate(false);
+    }, [isEditFormOpen]);
 
     const associatedCategories: Category[] | undefined = categories?.filter(
         (category) =>
             category && category.id ? categoryIds.includes(category.id) : false
     );
 
-    const handleOnFormOpen = (event: MouseEvent | TouchEvent) => {
+    const handleOnClick = (event: MouseEvent | TouchEvent) => {
         event.stopPropagation();
+        onSelectedActivityChange(isSelected ? 0 : id);
+    };
+
+    const handleOnFormOpen = () => {
         setIsEditFormOpen(true);
         onSelectedActivityChange(0);
     };
@@ -68,20 +86,9 @@ const Activity = ({
         db.activities.update(id, { isTemplate: isTemplate === 1 ? 0 : 1 });
     };
 
-    const handleOnDuplicateActivity = (event: MouseEvent | TouchEvent) => {
-        event.stopPropagation();
-        db.activities.add({
-            iconKey,
-            title,
-            description,
-            rating,
-            startTime: new Date(),
-            endTime: undefined,
-            categoryIds,
-        } as IActivity);
-        setSelectedDay(new Date());
-        onSelectedActivityChange(0);
-        if (onCloseTemplateModal) onCloseTemplateModal();
+    const handleOnDuplicateActivity = () => {
+        setIsDuplicate(true);
+        handleOnFormOpen();
     };
 
     const IconComponent = getIconComponent(iconKey);
@@ -91,7 +98,7 @@ const Activity = ({
             className={cx(classes.activity, {
                 options: isSelected,
             })}
-            onClick={() => onSelectedActivityChange(isSelected ? 0 : id)}
+            onClick={handleOnClick}
             ref={activityRef}
         >
             {isSelected && (
@@ -156,16 +163,29 @@ const Activity = ({
             {isEditFormOpen && (
                 <ActivityEditForm
                     onClose={() => setIsEditFormOpen(false)}
-                    activity={{
-                        id,
-                        iconKey,
-                        title,
-                        description,
-                        rating,
-                        startTime,
-                        endTime,
-                        categoryIds,
-                    }}
+                    onCloseTemplateSelection={
+                        onCloseTemplateModal ? onCloseTemplateModal : undefined
+                    }
+                    activity={
+                        templateView || isDuplicate
+                            ? {
+                                  iconKey,
+                                  title,
+                                  description,
+                                  rating,
+                                  categoryIds,
+                              }
+                            : {
+                                  id,
+                                  iconKey,
+                                  title,
+                                  description,
+                                  rating,
+                                  startTime,
+                                  endTime,
+                                  categoryIds,
+                              }
+                    }
                 />
             )}
         </article>
