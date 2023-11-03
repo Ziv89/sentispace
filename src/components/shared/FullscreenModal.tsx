@@ -24,8 +24,11 @@ type FSModalComp = FC<ClassNameProps & ChildrenProps> & {
  */
 const FullscreenModal: FSModalComp = ({ children, className }) => {
     return createPortal(
-        <div className={classNames(classes.fullscreenModal, className)}>
-            {children}
+        <div
+            className={classNames(classes.fullscreenModal, className)}
+            onClick={(event) => event.stopPropagation()}
+        >
+            <div className={classes.container}>{children}</div>
         </div>,
         document.body
     );
