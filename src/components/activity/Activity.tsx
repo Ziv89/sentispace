@@ -5,6 +5,7 @@ import {
     TouchEvent,
     useContext,
     useEffect,
+    useMemo,
     useRef,
     useState,
 } from 'react';
@@ -17,7 +18,7 @@ import { Heart, IconProps } from '@phosphor-icons/react';
 import CategoryBadge from '../category-selection/category-badge/CategoryBadge';
 import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
 import classNames from 'classnames/bind';
-import ActivityOption from './activity-option/ActivityOption';
+import ActivityOption, { ActivityOptionProps } from './activity-option/ActivityOption';
 import { IndexableType } from 'dexie';
 import { db } from '../../data/Database';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
@@ -60,6 +61,24 @@ const Activity = ({
 
     useOutsideClick(activityRef, () => onSelectedActivityChange(0));
 
+    const editFormActivity = useMemo(() => {
+        const activityProps = {
+            iconKey,
+            title,
+            description,
+            rating,
+            categoryIds,
+        };
+        if (!(templateView || isDuplicate)) {
+            Object.assign(activityProps, {
+                id,
+                startTime,
+                endTime,
+            })
+        }
+        return activityProps;
+    }, [templateView, isDuplicate])
+
     useEffect(() => {
         if (isEditFormOpen && isDuplicate) return;
 
@@ -91,6 +110,39 @@ const Activity = ({
         handleOnFormOpen();
     };
 
+    const activityOptions: ActivityOptionProps[] = useMemo(() => ([
+        {
+            onClick: handleOnFormOpen,
+            label: "Edit",
+            iconKey: "NotePencil"
+        },
+        {
+            onClick: handleOnDuplicateActivity,
+            label: "Duplicate",
+            iconKey: "Copy"
+        },
+        {
+            onClick: handleOnTemplateChange,
+            label: 'Template',
+            iconKey: isTemplate ? 'File' : 'FileDashed',
+            iconWeight: isTemplate ? 'fill' : 'light',
+        }
+    ]), [isTemplate])
+
+    const templateOptions: ActivityOptionProps[] = useMemo(() => ([
+        {
+            onClick: handleOnDuplicateActivity,
+            label: "Create Activity",
+            iconKey: "FilePlus"
+        },
+        {
+            onClick: handleOnTemplateChange,
+            label: 'Remove',
+            iconKey: isTemplate ? 'File' : 'FileDashed',
+            iconWeight: isTemplate ? 'fill' : 'light',
+        }
+    ]), [isTemplate])
+
     const IconComponent = getIconComponent(iconKey);
 
     return (
@@ -103,33 +155,9 @@ const Activity = ({
         >
             {isSelected && (
                 <div className={classes.blurred}>
-                    {!templateView && (
-                        <>
-                            <ActivityOption
-                                onClick={handleOnFormOpen}
-                                label="Edit"
-                                iconKey="NotePencil"
-                            />
-                            <ActivityOption
-                                onClick={handleOnDuplicateActivity}
-                                label="Duplicate"
-                                iconKey="Copy"
-                            />
-                        </>
-                    )}
-                    {templateView && (
-                        <ActivityOption
-                            onClick={handleOnDuplicateActivity}
-                            label="Create Activity"
-                            iconKey="FilePlus"
-                        />
-                    )}
-                    <ActivityOption
-                        onClick={handleOnTemplateChange}
-                        label={templateView ? 'Remove' : 'Template'}
-                        iconKey={isTemplate ? 'File' : 'FileDashed'}
-                        iconWeight={isTemplate ? 'fill' : 'light'}
-                    />
+                    {(templateView ? templateOptions : activityOptions).map(option => (
+                        <ActivityOption {...option} />
+                    ))}
                 </div>
             )}
             <div className={classes.content}>
@@ -166,26 +194,7 @@ const Activity = ({
                     onCloseTemplateSelection={
                         onCloseTemplateModal ? onCloseTemplateModal : undefined
                     }
-                    activity={
-                        templateView || isDuplicate
-                            ? {
-                                  iconKey,
-                                  title,
-                                  description,
-                                  rating,
-                                  categoryIds,
-                              }
-                            : {
-                                  id,
-                                  iconKey,
-                                  title,
-                                  description,
-                                  rating,
-                                  startTime,
-                                  endTime,
-                                  categoryIds,
-                              }
-                    }
+                    activity={editFormActivity}
                 />
             )}
         </article>

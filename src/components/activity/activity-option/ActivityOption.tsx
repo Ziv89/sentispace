@@ -4,7 +4,7 @@ import { IconKeyType, getIconComponent } from '../../../assets/icons';
 import { IconWeight } from '@phosphor-icons/react';
 import { MouseEvent, TouchEvent } from 'react';
 
-interface ActivityOptionProps {
+export interface ActivityOptionProps {
     iconKey: IconKeyType;
     iconWeight?: IconWeight;
     label: string;
