@@ -156,7 +156,7 @@ const Activity = ({
             {isSelected && (
                 <div className={classes.blurred}>
                     {(templateView ? templateOptions : activityOptions).map(option => (
-                        <ActivityOption {...option} />
+                        <ActivityOption key={`option_${option.label}_${option.iconKey}`} {...option} />
                     ))}
                 </div>
             )}
