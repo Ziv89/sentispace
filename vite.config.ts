@@ -1,6 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa';
+import { readFileSync } from 'fs';
+import path from 'path';
+
+const packageJson = JSON.parse(
+    readFileSync(path.resolve(__dirname, './package.json'), 'utf8')
+);
 
 const pwaOptions: Partial<VitePWAOptions> = {
     devOptions: {
@@ -14,10 +20,10 @@ const pwaOptions: Partial<VitePWAOptions> = {
         maximumFileSizeToCacheInBytes: 5_000_000,
     },
     manifest: {
-        name: 'Feeling Tracker',
-        short_name: 'Feeling Tracker',
+        name: 'Sentispace',
+        short_name: 'Sentispace',
         description:
-            'Feel Tracker is a diary application designed to log your everyday activities and your sentiments associated with them. It offers daily, weekly, and monthly overviews of the activities you choose to monitor, alongside trend analysis and statistical data.',
+            'Sentispace is a diary application designed to log your everyday activities and your sentiments associated with them. It offers daily, weekly, and monthly overviews of the activities you choose to monitor, alongside trend analysis and statistical data.',
         theme_color: '#fff',
         orientation: 'portrait',
         display: 'standalone',
@@ -53,4 +59,7 @@ const pwaOptions: Partial<VitePWAOptions> = {
 export default defineConfig({
     base: './',
     plugins: [react(), VitePWA(pwaOptions)],
+    define: {
+        __APP_VERSION__: JSON.stringify(packageJson.version),
+    },
 });
