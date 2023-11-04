@@ -6,7 +6,6 @@ import ExportData from './SettingsItem/user-data/export-data/ExportData';
 import ImportData from './SettingsItem/user-data/import-data/ImportData';
 import InstallApp from './SettingsItem/install-app/InstallApp';
 import SettingsItem from './SettingsItem/SettingsItem';
-import { Link } from 'react-router-dom';
 
 const Settings = () => (
     <div className={classes.container}>
@@ -16,7 +15,7 @@ const Settings = () => (
             <SettingsItem
                 iconKey="Bug"
                 label="Bug report"
-                to="https://github.com/Polarts/feel-tracker/issues/new"
+                to="https://github.com/Polarts/sentispace/issues/new"
             />
             <InstallApp />
             <ImportData />

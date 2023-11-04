@@ -71,7 +71,7 @@ export const exportData = async (): Promise<void> => {
     const data: UserData = { activities, categories };
 
     const backupTime = format(new Date(), 'yyyyMMdd_HHmmss');
-    const fileName = `FeelingTracker_backup_${backupTime}.json`;
+    const fileName = `Sentispace_backup_${backupTime}.json`;
 
     const content = JSON.stringify(data, null, 2);
 
