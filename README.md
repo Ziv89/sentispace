@@ -29,7 +29,6 @@ My chronic health conditions got worse, so I needed to track my daily activities
 ## Features
 
 -   Activity Management: Create, modify, and delete activities with ease.
--   Category Management: Define, edit, and organize categories for activities.
 -   Organize with Categories: Assign activities to specific categories for enhanced tracking.
 -   Quick Duplication: Clone activities to quickly repeat them without re-entry.
 -   Activity Templates: Save activities as templates for future use.
@@ -52,7 +51,7 @@ Found a bug or have a feature suggestion? Please check to see if it has already 
 
 We are happy to accept pull requests, If you'd like to contribute to the codebase, here's a quick guide:
 
-1. Fork the repository and create your branch from `main`.
+1. Fork the repository and create your branch from `development`.
 2. Write clear, commented, and readable code.
 3. Ensure that your code adheres to the existing style in the project to maintain consistency.
 4. Submit a pull request with a detailed description of your changes.
@@ -77,7 +76,6 @@ This project wouldn't be what it is without the generous support and resources p
 -   **[date-fns](https://date-fns.org/)** for providing a consistent toolset for manipulating JavaScript dates in a straightforward way.
 -   The **[Haifa:Dev Developers Community](https://haifadev.netlify.app/)** for their encouragement and support throughout the development of this project.
 -   **[nick-vi](https://github.com/nick-vi)** for his role in designing the user experience and contributing to the app's development.
--   **[Elad Shechter](https://eladsc.com/)**'s [Storytelling Architecture](https://eladsc.com/2019/11/29/css-story-architecture-talk/) (at least for the folder hierarchy part) to keep the files neatly organized.
 
 ## License
 
