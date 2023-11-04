@@ -3,7 +3,7 @@ import { Category } from './interfaces/Category';
 
 export const initialActivities: Partial<Activity>[] = [
     {
-        title: 'Welcome to Feel Tracker! 👋',
+        title: 'Welcome to Sentispace! 👋',
         description: 'Get started by exploring the app.',
         rating: 5,
         startTime: new Date(),
@@ -33,7 +33,7 @@ export const initialActivities: Partial<Activity>[] = [
         rating: 5,
         startTime: new Date(),
         iconKey: 'SquaresFour',
-        categoryIds: [4],
+        categoryIds: [],
     },
     {
         title: 'Navigate Through The Week',

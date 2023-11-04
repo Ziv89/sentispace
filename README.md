@@ -1,50 +1,84 @@
-# Feel Tracker App
+<h1 align="center">Sentispace</h1>
+<p align="center">
+  <a href="https://sentispace.com/">
+    <img alt="Sentispace" title="Sentispace" src="https://i.imgur.com/xoTQj8f.png" width="150">
+  </a>
+</p>
 
-A diary app to track your daily activities, and how you feel about them.
-Feel Tracker will provide you with a day, week, and month view of the activities you want to track, as well as trending and statistics.
+## Table of Contents
+
+-   [About](#about)
+-   [Origin Story](#origin-story)
+-   [Features](#features)
+-   [How to contribute](#how-to-contribute)
+-   [Acknowledgements](#acknowledgements)
+-   [License](#license)
+
+## About
+
+Sentispace is an installable PWA diary app that's built with privacy in mind. You can log your daily activities and feelings, and the app provides summaries and trends for the day, week, or month. One of its key features is caching for offline access, allowing you to interact with your diary even when you're not connected to the internet. Everything runs on the user's own device—no back-end involved. The app is built using Vite, React, TypeScript and Dexie.
+
+-   [ORS/FRS Definitions](https://docs.google.com/document/d/11IM741stFVj3_9otDXg5aKKYirAFxMybJnWy4EoPHIQ/view?usp=sharing)
+-   [Architecture Diagram](https://drive.google.com/file/d/1uRsWsnlG9A36mTwNWcML81U5gVK3qsg2/view?usp=sharing)
+-   [UX Design on Figma](https://www.figma.com/file/JC406azeeeGGlTbLAxCs04/Feeling-Tracker?node-id=0%3A1&t=jyrThFgzn0f7LWof-0)
 
 ## Origin Story
 
-Due to the worsening of my chronic medical conditions, I had to start tracking my daily activity. 
+My chronic health conditions got worse, so I needed to track my daily activities closely. I couldn't find any existing apps that met my specific privacy and functionality needs, so I created my own. After sharing with friends, I saw a greater need and chose to release it as an open-source app for everyone.
 
-After thoroughly searching the Google Play Store, none of the available apps were good enough (or private enough) to suit my very specific needs.
+## Features
 
-I decided to make my own app to track my daily activities, with the ability to trace back weeks or even months and see useful trends.
+-   Activity Management: Create, modify, and delete activities with ease.
+-   Category Management: Define, edit, and organize categories for activities.
+-   Organize with Categories: Assign activities to specific categories for enhanced tracking.
+-   Quick Duplication: Clone activities to quickly repeat them without re-entry.
+-   Activity Templates: Save activities as templates for future use.
+-   Data Handling: Options to import, export, and permanently delete user data.
+-   Daily Overview: Access a daily view of activities and tasks.
+-   Navigate Weekly: Browse through days with a convenient weekly carousel.
 
-Talking to some friends, I realized there's more demand for such app than I had imagined, so I decided to make it a public open-source project.
+<br>
+<a href="https://imgur.com/7r0Vrju"><img src="https://i.imgur.com/7r0Vrju.gif" title="source: imgur.com" /></a>
 
-## Tech Stack
+## How to Contribute
 
-The app is built using Vite, React, TypeScript and Dexie.
+Thank you for your interest in contributing to our project! Here's how you can help:
 
-### Styles:
-This app uses SCSS and follows [Elad Shechter](https://eladsc.com/)'s [Storytelling Architecture](https://eladsc.com/2019/11/29/css-story-architecture-talk/) (at least for the folder hierarchy part) to keep the files neatly organized. 
+### Reporting Issues
 
-### PWA and Local Storage:
-To maximize privacy on this app, all of the user's data will be stored in local storage via [Dexie](https://dexie.org) (an IndexedDB wrapper). No server needed! Just "install" it locally and you're good to go.
+Found a bug or have a feature suggestion? Please check to see if it has already been reported or suggested in the issues tab. If not, go ahead and open a new issue, providing as much relevant information as possible to help us understand the request or problem.
 
-### State Management:
-This app uses React's [Context API](https://reactjs.org/docs/context.html) in combination with Dexie's [useLiveQuery](https://dexie.org/docs/dexie-react-hooks/useLiveQuery()) hook to achieve reactive, persistent states.
+### Contributing Code
 
-### Back-End:
-There is none! The app is fully self-sustaining without any external connections other than the domain for PWA updates.
+We are happy to accept pull requests, If you'd like to contribute to the codebase, here's a quick guide:
 
-## Project Management
+1. Fork the repository and create your branch from `main`.
+2. Write clear, commented, and readable code.
+3. Ensure that your code adheres to the existing style in the project to maintain consistency.
+4. Submit a pull request with a detailed description of your changes.
 
-We use the integrated GitHub Projects to manage tasks, although the classing Projects interface, not the new one.
-Since the classic projects are not the first thing you see in the Projects tab, [click here](https://github.com/Polarts/feel-tracker/projects?type=classic) if you can't find it.
+### Note on Pull Requests
 
-## External Links
+Since this project is in its early stages, we do not yet have a formalized test suite or Code of Conduct. By submitting a pull request, you agree that your contributions will be licensed under the same license that covers the project (typically this will be specified in a LICENSE file).
 
-- [ORS/FRS Definitions](https://docs.google.com/document/d/11IM741stFVj3_9otDXg5aKKYirAFxMybJnWy4EoPHIQ/view?usp=sharing)
-- [Architecture Diagram](https://drive.google.com/file/d/1uRsWsnlG9A36mTwNWcML81U5gVK3qsg2/view?usp=sharing)
-- [UX Design on Figma](https://www.figma.com/file/JC406azeeeGGlTbLAxCs04/Feeling-Tracker?node-id=0%3A1&t=jyrThFgzn0f7LWof-0)
+We hope to add more structured processes as the project grows. In the meantime, your contributions are very much appreciated and will help us get there!
 
-## Contributing
+Before starting, it would be a good idea to open an issue to discuss the proposed changes. This is not mandatory, but it can help prevent overlapping work and ensure that the changes align with the project's direction and goals.
 
-Currently the app is collaborators only, but in the future there'll be issues anyone can take to contribute to the project.
+Thank you for considering to contribute to our project, and we look forward to your contributions!
 
-## Special Thanks To:
+## Acknowledgements
 
-- [Haifa:Dev Developers Community](https://haifadev.netlify.app/) for supporting this project!
-- [Nick Vilvovsky](https://github.com/nick-vi) for designing the UX and contributing to the app's development.
+This project wouldn't be what it is without the generous support and resources provided by the following tools and communities:
+
+-   **[@phosphor-icons/react](https://github.com/phosphor-icons/phosphor-react)** for the wide array of beautiful icons that enhance the visual aspect of our app.
+-   **[Framer Motion](https://www.framer.com/motion/)** for enabling us to add smooth and natural motion effects to our UI components.
+-   **[React Router DOM](https://reactrouter.com/)** for the comprehensive navigation solution it offers for React apps.
+-   **[date-fns](https://date-fns.org/)** for providing a consistent toolset for manipulating JavaScript dates in a straightforward way.
+-   The **[Haifa:Dev Developers Community](https://haifadev.netlify.app/)** for their encouragement and support throughout the development of this project.
+-   **[nick-vi](https://github.com/nick-vi)** for his role in designing the user experience and contributing to the app's development.
+-   **[Elad Shechter](https://eladsc.com/)**'s [Storytelling Architecture](https://eladsc.com/2019/11/29/css-story-architecture-talk/) (at least for the folder hierarchy part) to keep the files neatly organized.
+
+## License
+
+[GNU GPLv3](LICENSE)

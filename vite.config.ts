@@ -14,10 +14,10 @@ const pwaOptions: Partial<VitePWAOptions> = {
         maximumFileSizeToCacheInBytes: 5_000_000,
     },
     manifest: {
-        name: 'Feeling Tracker',
-        short_name: 'Feeling Tracker',
+        name: 'Sentispace',
+        short_name: 'Sentispace',
         description:
-            'Feel Tracker is a diary application designed to log your everyday activities and your sentiments associated with them. It offers daily, weekly, and monthly overviews of the activities you choose to monitor, alongside trend analysis and statistical data.',
+            'Sentispace is a diary application designed to log your everyday activities and your sentiments associated with them. It offers daily, weekly, and monthly overviews of the activities you choose to monitor, alongside trend analysis and statistical data.',
         theme_color: '#fff',
         orientation: 'portrait',
         display: 'standalone',

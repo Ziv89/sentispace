@@ -1,14 +1,15 @@
 import SettingsItem from '../SettingsItem';
 import { Link } from 'react-router-dom';
 
-const VERSION = 'RELEASE_DATE VERSION';
+const RELEASE_DATE = new Date('04/11/2023').toDateString();
+const VERSION = '0.0.1a';
 
 const CurrentVersion = () => {
     return (
         <SettingsItem iconKey="GithubLogo" label="Current version">
-            <Link to={'https://github.com/Polarts/feel-tracker'}>
-                {VERSION}
-            </Link>
+            <Link
+                to={'https://github.com/Polarts/sentispace'}
+            >{`${RELEASE_DATE} - ${VERSION}`}</Link>
         </SettingsItem>
     );
 };
