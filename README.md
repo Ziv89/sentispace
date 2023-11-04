@@ -34,7 +34,7 @@ My chronic health conditions got worse, so I needed to track my daily activities
 -   Quick Duplication: Clone activities to quickly repeat them without re-entry.
 -   Activity Templates: Save activities as templates for future use.
 -   Data Handling: Options to import, export, and permanently delete user data.
--   Daily Overview: Access a daily view of activities and tasks.
+-   Daily Overview: Access a daily view of activities.
 -   Navigate Weekly: Browse through days with a convenient weekly carousel.
 
 <br>
