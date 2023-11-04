@@ -1,23 +1,36 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-type ReactStateTuple<T> = [T | undefined, Dispatch<SetStateAction<T | undefined>>]
+type ReactStateTuple<T> = [
+    T | undefined,
+    Dispatch<SetStateAction<T | undefined>>
+];
 
-export function useStoredState<T>(storage: Storage, key: string, initValue?: T): ReactStateTuple<T> {
+export function useStoredState<T>(
+    storage: Storage,
+    key: string,
+    initialValue?: T
+): ReactStateTuple<T> {
+    const [state, setState] = useState<T | undefined>(() => {
+        const storedItem = storage.getItem(key);
 
-    const [state, setState] = useState<T | undefined>(initValue);
-
-    useEffect(() => {
-        const storedJson = storage.getItem(key);
-        if (storedJson) {
-            setState(JSON.parse(storedJson));
-        } else {
-            storage.setItem(key, JSON.stringify(state));
+        if (storedItem != null) {
+            return JSON.parse(storedItem);
         }
-    }, []);
+
+        return initialValue;
+    });
 
     useEffect(() => {
-        storage.setItem(key, JSON.stringify(state));
-    }, [state])
+        const storedItem = storage.getItem(key);
+        if (storedItem === null) {
+            storage.setItem(key, JSON.stringify(initialValue));
+        }
+    }, [storage, key, initialValue]);
 
-    return [state!, setState];
+    useEffect(() => {
+        const serializedState = JSON.stringify(state);
+        storage.setItem(key, serializedState);
+    }, [state, storage, key]);
+
+    return [state, setState];
 }
