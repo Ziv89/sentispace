@@ -33,7 +33,7 @@ const useActivityForm = (activity?: Partial<Activity>) => {
         rating: activity?.rating || defaultState.rating,
         startTime: activity?.startTime || defaultState.startTime,
         endTime: activity?.endTime || defaultState.endTime,
-        isNow: !activity,
+        isNow: !activity?.id,
         alert: null,
         deleteGuard: !!activity,
     };

@@ -18,7 +18,9 @@ import { Heart, IconProps } from '@phosphor-icons/react';
 import CategoryBadge from '../category-selection/category-badge/CategoryBadge';
 import ActivityEditForm from '../activity-edit-form/ActivityEditForm';
 import classNames from 'classnames/bind';
-import ActivityOption, { ActivityOptionProps } from './activity-option/ActivityOption';
+import ActivityOption, {
+    ActivityOptionProps,
+} from './activity-option/ActivityOption';
 import { IndexableType } from 'dexie';
 import { db } from '../../data/Database';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
@@ -61,7 +63,7 @@ const Activity = ({
 
     useOutsideClick(activityRef, () => onSelectedActivityChange(0));
 
-    const editFormActivity = useMemo(() => {
+    const editFormActivity = () => {
         const activityProps = {
             iconKey,
             title,
@@ -74,10 +76,10 @@ const Activity = ({
                 id,
                 startTime,
                 endTime,
-            })
+            });
         }
         return activityProps;
-    }, [templateView, isDuplicate])
+    };
 
     useEffect(() => {
         if (isEditFormOpen && isDuplicate) return;
@@ -110,38 +112,44 @@ const Activity = ({
         handleOnFormOpen();
     };
 
-    const activityOptions: ActivityOptionProps[] = useMemo(() => ([
-        {
-            onClick: handleOnFormOpen,
-            label: "Edit",
-            iconKey: "NotePencil"
-        },
-        {
-            onClick: handleOnDuplicateActivity,
-            label: "Duplicate",
-            iconKey: "Copy"
-        },
-        {
-            onClick: handleOnTemplateChange,
-            label: 'Template',
-            iconKey: isTemplate ? 'File' : 'FileDashed',
-            iconWeight: isTemplate ? 'fill' : 'light',
-        }
-    ]), [isTemplate])
+    const activityOptions: ActivityOptionProps[] = useMemo(
+        () => [
+            {
+                onClick: handleOnFormOpen,
+                label: 'Edit',
+                iconKey: 'NotePencil',
+            },
+            {
+                onClick: handleOnDuplicateActivity,
+                label: 'Duplicate',
+                iconKey: 'Copy',
+            },
+            {
+                onClick: handleOnTemplateChange,
+                label: 'Template',
+                iconKey: isTemplate ? 'File' : 'FileDashed',
+                iconWeight: isTemplate ? 'fill' : 'light',
+            },
+        ],
+        [isTemplate]
+    );
 
-    const templateOptions: ActivityOptionProps[] = useMemo(() => ([
-        {
-            onClick: handleOnDuplicateActivity,
-            label: "Create Activity",
-            iconKey: "FilePlus"
-        },
-        {
-            onClick: handleOnTemplateChange,
-            label: 'Remove',
-            iconKey: isTemplate ? 'File' : 'FileDashed',
-            iconWeight: isTemplate ? 'fill' : 'light',
-        }
-    ]), [isTemplate])
+    const templateOptions: ActivityOptionProps[] = useMemo(
+        () => [
+            {
+                onClick: handleOnDuplicateActivity,
+                label: 'Create Activity',
+                iconKey: 'FilePlus',
+            },
+            {
+                onClick: handleOnTemplateChange,
+                label: 'Remove',
+                iconKey: isTemplate ? 'File' : 'FileDashed',
+                iconWeight: isTemplate ? 'fill' : 'light',
+            },
+        ],
+        [isTemplate]
+    );
 
     const IconComponent = getIconComponent(iconKey);
 
@@ -155,9 +163,14 @@ const Activity = ({
         >
             {isSelected && (
                 <div className={classes.blurred}>
-                    {(templateView ? templateOptions : activityOptions).map(option => (
-                        <ActivityOption key={`option_${option.label}_${option.iconKey}`} {...option} />
-                    ))}
+                    {(templateView ? templateOptions : activityOptions).map(
+                        (option) => (
+                            <ActivityOption
+                                key={`option_${option.label}_${option.iconKey}`}
+                                {...option}
+                            />
+                        )
+                    )}
                 </div>
             )}
             <div className={classes.content}>
@@ -194,7 +207,7 @@ const Activity = ({
                     onCloseTemplateSelection={
                         onCloseTemplateModal ? onCloseTemplateModal : undefined
                     }
-                    activity={editFormActivity}
+                    activity={editFormActivity()}
                 />
             )}
         </article>
