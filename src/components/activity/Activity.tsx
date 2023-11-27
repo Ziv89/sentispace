@@ -63,24 +63,6 @@ const Activity = ({
 
     useOutsideClick(activityRef, () => onSelectedActivityChange(0));
 
-    const editFormActivity = () => {
-        const activityProps = {
-            iconKey,
-            title,
-            description,
-            rating,
-            categoryIds,
-        };
-        if (!(templateView || isDuplicate)) {
-            Object.assign(activityProps, {
-                id,
-                startTime,
-                endTime,
-            });
-        }
-        return activityProps;
-    };
-
     useEffect(() => {
         if (isEditFormOpen && isDuplicate) return;
 
@@ -207,7 +189,16 @@ const Activity = ({
                     onCloseTemplateSelection={
                         onCloseTemplateModal ? onCloseTemplateModal : undefined
                     }
-                    activity={editFormActivity()}
+                    activity={{
+                        iconKey,
+                        title,
+                        description,
+                        rating,
+                        categoryIds,
+                        ...(templateView || isDuplicate
+                            ? {}
+                            : { id, startTime, endTime }),
+                    }}
                 />
             )}
         </article>
