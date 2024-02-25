@@ -1,21 +1,90 @@
 @use '../../styles/config/mixins' as *;
 
 .insights {
+  @include flex(column);
+
+  flex-grow: 1;
+  overflow: hidden;
+
+  .stats {
+    overflow-y: scroll;
+  }
+
+  .header {
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin: 0;
+    font-size: calc(var(--font-size-xl));
+  }
+
+  .content {
     @include flex(column);
 
+    border-radius: var(--border-radius-outer);
+    background-color: var(--color-neutral-5);
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
     flex-grow: 1;
 
-    .header {
-        padding: var(--spacing-md) var(--spacing-lg);
+    overflow-y: hidden;
+
+    .heading {
+      margin: 0;
+      margin-bottom: var(--spacing-sm);
+    }
+  }
+
+  .macro {
+    @include flex(row);
+
+    gap: var(--spacing-md);
+
+    .card {
+      @include flex(column, center, center);
+      width: 33.33%;
+
+      .title {
+        font-weight: var(--font-weight-small);
+        font-size: var(--font-size-md);
+        text-transform: capitalize;
         margin: 0;
-        font-size: calc(var(--font-size-xl));
+      }
+
+      .value {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+        margin: 0;
+      }
     }
+  }
 
-    .content {
-        @include flex(column, center, center);
+  .chart {
+    @include flex(column);
 
-        border-radius: var(--border-radius-outer);
+    gap: var(--spacing-xs);
+
+    .barWrapper {
+      @include flex(column, center);
+
+      gap: var(--spacing-xs);
+
+      .barLabel {
+        @include flex(row, space-between);
+        font-size: var(--font-size-sm);
+        margin: 0;
+      }
+
+      .barShadow {
+        height: var(--size-xl);
         background-color: var(--color-neutral-5);
-        flex-grow: 1;
+        border-radius: var(--border-radius-inner);
+      }
+
+      .bar {
+        height: var(--size-xl);
+        background-color: var(--color-primary);
+        border-radius: var(--border-radius-inner);
+        transition: height var(--transition-md);
+      }
     }
+  }
 }
