@@ -15,7 +15,7 @@ import { ActionType, ActivityFormAlerts } from './activityForm.enums';
 import { copyDate } from '../../../utils/time';
 
 const defaultState: DefaultState = {
-    iconKey: getRandomIconKey(),
+    iconKey: getRandomIconKey,
     title: '',
     description: '',
     categoryIds: [],
@@ -26,14 +26,14 @@ const defaultState: DefaultState = {
 
 const useActivityForm = (activity?: Partial<Activity>) => {
     const initialState: ActivityFormState = {
-        iconKey: activity?.iconKey || defaultState.iconKey,
+        iconKey: activity?.iconKey || defaultState.iconKey(),
         title: activity?.title || defaultState.title,
         description: activity?.description || defaultState.description,
         categoryIds: activity?.categoryIds || defaultState.categoryIds,
         rating: activity?.rating || defaultState.rating,
         startTime: activity?.startTime || defaultState.startTime,
         endTime: activity?.endTime || defaultState.endTime,
-        isNow: !activity,
+        isNow: !activity?.id,
         alert: null,
         deleteGuard: !!activity,
     };

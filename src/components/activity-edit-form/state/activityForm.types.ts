@@ -19,8 +19,10 @@ export type ActivityFormState = {
 
 export type DefaultState = Omit<
     ActivityFormState,
-    'isNow' | 'alert' | 'deleteGuard'
->;
+    'iconKey' | 'isNow' | 'alert' | 'deleteGuard'
+> & {
+    iconKey: () => IconKeyType;
+};
 
 type SetTimeType = {
     startTime: Date;
