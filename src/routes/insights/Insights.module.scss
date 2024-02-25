@@ -6,10 +6,6 @@
   flex-grow: 1;
   overflow: hidden;
 
-  .stats {
-    overflow-y: scroll;
-  }
-
   .header {
     padding: var(--spacing-md) var(--spacing-lg);
     margin: 0;
@@ -30,61 +26,6 @@
     .heading {
       margin: 0;
       margin-bottom: var(--spacing-sm);
-    }
-  }
-
-  .macro {
-    @include flex(row);
-
-    gap: var(--spacing-md);
-
-    .card {
-      @include flex(column, center, center);
-      width: 33.33%;
-
-      .title {
-        font-weight: var(--font-weight-small);
-        font-size: var(--font-size-md);
-        text-transform: capitalize;
-        margin: 0;
-      }
-
-      .value {
-        font-size: var(--font-size-xl);
-        font-weight: var(--font-weight-bold);
-        margin: 0;
-      }
-    }
-  }
-
-  .chart {
-    @include flex(column);
-
-    gap: var(--spacing-xs);
-
-    .barWrapper {
-      @include flex(column, center);
-
-      gap: var(--spacing-xs);
-
-      .barLabel {
-        @include flex(row, space-between);
-        font-size: var(--font-size-sm);
-        margin: 0;
-      }
-
-      .barShadow {
-        height: var(--size-xl);
-        background-color: var(--color-neutral-5);
-        border-radius: var(--border-radius-inner);
-      }
-
-      .bar {
-        height: var(--size-xl);
-        background-color: var(--color-primary);
-        border-radius: var(--border-radius-inner);
-        transition: height var(--transition-md);
-      }
     }
   }
 }
