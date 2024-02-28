@@ -1,4 +1,4 @@
-import Card from '../../components/card/Card';
+import classNames from 'classnames';
 import { Activity, Category } from '../../data/interfaces';
 import classes from './DistributionChart.module.scss';
 
@@ -9,23 +9,23 @@ type DistributionChartProps = {
   categories: Category[];
 };
 
-type NormalizedCategoriesWithCount = {
+type SummarizedCategoriesWithCount = {
   [id: string]: { name: string; color: number; count: number };
 };
 
-const normalizeCategories = (
+const summarizedCategories = (
   categories: Category[]
-): NormalizedCategoriesWithCount => {
+): SummarizedCategoriesWithCount => {
   return categories.reduce((acc, { id, name, color }) => {
     acc[`${id}`] = { name, color, count: 0 };
     return acc;
-  }, {} as NormalizedCategoriesWithCount);
+  }, {} as SummarizedCategoriesWithCount);
 };
 
 function groupByCategory(activities: Activity[], categories: Category[]) {
-  const group: NormalizedCategoriesWithCount = {
+  const group: SummarizedCategoriesWithCount = {
     [UNCATEGORIZED]: { name: UNCATEGORIZED, color: 0, count: 0 },
-    ...normalizeCategories(categories),
+    ...summarizedCategories(categories),
   };
 
   activities.forEach((activity) => {
@@ -59,7 +59,7 @@ export default function DistributionChart({
   }).count;
 
   return (
-    <Card className={classes.card}>
+    <div className={classNames('card', classes.card)}>
       <div className={classes.cardContainer}>
         <h2 className={classes.heading}>Activity Distribution</h2>
         <div className={classes.chart}>
@@ -89,6 +89,6 @@ export default function DistributionChart({
             })}
         </div>
       </div>
-    </Card>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 import { differenceInCalendarDays } from 'date-fns';
-import Card from '../../components/card/Card';
 import { Activity, Category } from '../../data/interfaces';
 import classes from './OverviewStats.module.scss';
+import classNames from 'classnames';
 
 type OverviewStatsProps = {
   activities: Activity[];
@@ -15,10 +15,10 @@ type StatCardProps = {
 
 function StatCard({ title, value }: StatCardProps) {
   return (
-    <Card className={classes.card}>
+    <div className={classNames('card', classes.card)}>
       <p className={classes.value}>{value}</p>
       <h2 className={classes.title}>{title}</h2>
-    </Card>
+    </div>
   );
 }
 
