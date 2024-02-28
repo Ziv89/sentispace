@@ -1,12 +1,13 @@
 import classes from './Insights.module.scss';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../../data/Database';
 import DistributionChart from './DistributionChart';
 import OverviewStats from './OverviewStats';
+import { useContext } from 'react';
+import { ActivitiesContext } from '../../data/contexts/ActivitiesContext';
+import { CategoriesContext } from '../../data/contexts/CategoriesContext';
 
 const Insights = () => {
-  const activities = useLiveQuery(() => db.activities.toArray()) ?? [];
-  const categories = useLiveQuery(() => db.categories.toArray()) ?? [];
+  const activities = useContext(ActivitiesContext);
+  const { categories } = useContext(CategoriesContext);
 
   return (
     <div className={classes.insights}>
