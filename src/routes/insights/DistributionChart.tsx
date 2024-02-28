@@ -1,13 +1,10 @@
 import classNames from 'classnames';
 import { Activity, Category } from '../../data/interfaces';
 import classes from './DistributionChart.module.scss';
+import { useContext } from 'react';
+import { InsightsContext } from '../../data/contexts/InsightsContext';
 
 const UNCATEGORIZED = 'Uncategorized';
-
-type DistributionChartProps = {
-  activities: Activity[];
-  categories: Category[];
-};
 
 type SummarizedCategoriesWithCount = {
   [id: string]: { name: string; color: number; count: number };
@@ -44,13 +41,8 @@ function groupByCategory(activities: Activity[], categories: Category[]) {
   return group;
 }
 
-export default function DistributionChart({
-  activities,
-  categories,
-}: DistributionChartProps) {
-  if (activities.length === 0 || categories.length === 0) {
-    return null;
-  }
+export default function DistributionChart() {
+  const { activities, categories } = useContext(InsightsContext);
 
   const groupedByCategory = groupByCategory(activities, categories);
 

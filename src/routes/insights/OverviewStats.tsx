@@ -1,12 +1,9 @@
 import { differenceInCalendarDays } from 'date-fns';
-import { Activity, Category } from '../../data/interfaces';
+import { Activity } from '../../data/interfaces';
 import classes from './OverviewStats.module.scss';
 import classNames from 'classnames';
-
-type OverviewStatsProps = {
-  activities: Activity[];
-  categories: Category[];
-};
+import { useContext } from 'react';
+import { InsightsContext } from '../../data/contexts/InsightsContext';
 
 type StatCardProps = {
   title: string;
@@ -50,10 +47,8 @@ const calculateLongestStreak = (activities: Activity[]) => {
   return longestStreak;
 };
 
-export default function OverviewStatsProps({
-  activities,
-  categories,
-}: OverviewStatsProps) {
+export default function OverviewStatsProps() {
+  const { activities, categories } = useContext(InsightsContext);
   const longestStreak = calculateLongestStreak(activities);
 
   return (

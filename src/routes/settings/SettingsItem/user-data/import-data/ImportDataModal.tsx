@@ -1,6 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { UserData } from '../userData.interfaces';
 import classes from './ImportData.module.scss';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { db } from '../../../../../data/Database';
 import ModalPopup, {
   ButtonType,
 } from '../../../../../components/generic/ModalPopup';
@@ -11,8 +13,6 @@ import classNames from 'classnames/bind';
 import { importData, mergeData } from '../userData.functions';
 import { AlertType } from '../../../../../components/generic/Alert';
 import { IMPORT_SUCCESS, MERGE_SUCCESS } from '../userData.constants';
-import { ActivitiesContext } from '../../../../../data/contexts/ActivitiesContext';
-import { CategoriesContext } from '../../../../../data/contexts/CategoriesContext';
 
 const cx = classNames.bind(classes);
 
@@ -29,8 +29,8 @@ const ImportDataModal = ({
 }: ImportDataModalProps) => {
   const [shouldMerge, setShouldMerge] = useState<boolean>(false);
 
-  const activities = useContext(ActivitiesContext);
-  const { categories } = useContext(CategoriesContext);
+  const activities = useLiveQuery(() => db.activities.toArray()) ?? [];
+  const categories = useLiveQuery(() => db.categories.toArray()) ?? [];
 
   const isDbPopulated = activities.length > 0 || categories.length > 0;
 

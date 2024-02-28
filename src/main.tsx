@@ -10,22 +10,19 @@ import DayViewContextProvider from './data/contexts/DayViewContext';
 import { InstallPromptProvider } from './data/contexts/InstallPromptContext';
 import { generateData } from './data/MOCK_DATA';
 import { routesConfig } from './routes/routes';
-import ActivityContextProvider from './data/contexts/ActivitiesContext';
 
 if (import.meta.env.DEV) generateData();
 
 const router = createBrowserRouter([routesConfig]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <ActivityContextProvider>
-    <CategoryContextProvider>
-      <DayViewContextProvider>
-        <InstallPromptProvider>
-          <IconContext.Provider value={iconConfig}>
-            <RouterProvider router={router} />
-          </IconContext.Provider>
-        </InstallPromptProvider>
-      </DayViewContextProvider>
-    </CategoryContextProvider>
-  </ActivityContextProvider>
+  <CategoryContextProvider>
+    <DayViewContextProvider>
+      <InstallPromptProvider>
+        <IconContext.Provider value={iconConfig}>
+          <RouterProvider router={router} />
+        </IconContext.Provider>
+      </InstallPromptProvider>
+    </DayViewContextProvider>
+  </CategoryContextProvider>
 );
