@@ -16,13 +16,13 @@ if (import.meta.env.DEV) generateData();
 const router = createBrowserRouter([routesConfig]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <CategoryContextProvider>
-        <DayViewContextProvider>
-            <InstallPromptProvider>
-                <IconContext.Provider value={iconConfig}>
-                    <RouterProvider router={router} />
-                </IconContext.Provider>
-            </InstallPromptProvider>
-        </DayViewContextProvider>
-    </CategoryContextProvider>
+  <CategoryContextProvider>
+    <DayViewContextProvider>
+      <InstallPromptProvider>
+        <IconContext.Provider value={iconConfig}>
+          <RouterProvider router={router} />
+        </IconContext.Provider>
+      </InstallPromptProvider>
+    </DayViewContextProvider>
+  </CategoryContextProvider>
 );

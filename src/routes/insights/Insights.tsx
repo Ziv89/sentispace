@@ -1,16 +1,20 @@
-import { Hammer } from '@phosphor-icons/react';
 import classes from './Insights.module.scss';
+import DistributionChart from './DistributionChart';
+import OverviewStats from './OverviewStats';
+import InsightsContextProvider from '../../data/contexts/InsightsContext';
 
 const Insights = () => {
-    return (
-        <div className={classes.insights}>
-            <h1 className={classes.header}>Insights</h1>
-            <div className={classes.content}>
-                <h2>Work in progress</h2>
-                <Hammer size={48} />
-            </div>
+  return (
+    <div className={classes.insights}>
+      <h1 className={classes.header}>Insights</h1>
+      <InsightsContextProvider>
+        <div className={classes.content}>
+          <OverviewStats />
+          <DistributionChart />
         </div>
-    );
+      </InsightsContextProvider>
+    </div>
+  );
 };
 
 export default Insights;
