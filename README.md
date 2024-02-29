@@ -7,20 +7,20 @@
 
 ## Table of Contents
 
--   [About](#about)
--   [Origin Story](#origin-story)
--   [Features](#features)
--   [How to contribute](#how-to-contribute)
--   [Acknowledgements](#acknowledgements)
--   [License](#license)
+- [About](#about)
+- [Origin Story](#origin-story)
+- [Features](#features)
+- [How to contribute](#how-to-contribute)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
 
 ## About
 
 Sentispace is an installable PWA diary app that's built with privacy in mind. You can log your daily activities and feelings, and the app provides summaries and trends for the day, week, or month. One of its key features is caching for offline access, allowing you to interact with your diary even when you're not connected to the internet. Everything runs on the user's own device—no back-end involved. The app is built using Vite, React, TypeScript and Dexie.
 
--   [ORS/FRS Definitions](https://docs.google.com/document/d/11IM741stFVj3_9otDXg5aKKYirAFxMybJnWy4EoPHIQ/view?usp=sharing)
--   [Architecture Diagram](https://drive.google.com/file/d/1uRsWsnlG9A36mTwNWcML81U5gVK3qsg2/view?usp=sharing)
--   [UX Design on Figma](https://www.figma.com/file/JC406azeeeGGlTbLAxCs04/Feeling-Tracker?node-id=0%3A1&t=jyrThFgzn0f7LWof-0)
+- [ORS/FRS Definitions](https://docs.google.com/document/d/11IM741stFVj3_9otDXg5aKKYirAFxMybJnWy4EoPHIQ/view?usp=sharing)
+- [Architecture Diagram](https://drive.google.com/file/d/1uRsWsnlG9A36mTwNWcML81U5gVK3qsg2/view?usp=sharing)
+- [UX Design on Figma](https://www.figma.com/file/JC406azeeeGGlTbLAxCs04/Feeling-Tracker?node-id=0%3A1&t=jyrThFgzn0f7LWof-0)
 
 ## Origin Story
 
@@ -28,13 +28,13 @@ My chronic health conditions got worse, so I needed to track my daily activities
 
 ## Features
 
--   Activity Management: Create, modify, and delete activities with ease.
--   Organize with Categories: Assign activities to specific categories for enhanced tracking.
--   Quick Duplication: Clone activities to quickly repeat them without re-entry.
--   Activity Templates: Save activities as templates for future use.
--   Data Handling: Options to import, export, and permanently delete user data.
--   Daily Overview: Access a daily view of activities.
--   Navigate Weekly: Browse through days with a convenient weekly carousel.
+- Activity Management: Create, modify, and delete activities with ease.
+- Organize with Categories: Assign activities to specific categories for enhanced tracking.
+- Quick Duplication: Clone activities to quickly repeat them without re-entry.
+- Activity Templates: Save activities as templates for future use.
+- Data Handling: Options to import, export, and permanently delete user data.
+- Daily Overview: Access a daily view of activities.
+- Navigate Weekly: Browse through days with a convenient weekly carousel.
 
 <br>
 <a href="https://imgur.com/7r0Vrju"><img src="https://i.imgur.com/7r0Vrju.gif" title="source: imgur.com" /></a>
@@ -70,12 +70,12 @@ Thank you for considering to contribute to our project, and we look forward to y
 
 This project wouldn't be what it is without the generous support and resources provided by the following tools and communities:
 
--   **[@phosphor-icons/react](https://github.com/phosphor-icons/phosphor-react)** for the wide array of beautiful icons that enhance the visual aspect of our app.
--   **[Framer Motion](https://www.framer.com/motion/)** for enabling us to add smooth and natural motion effects to our UI components.
--   **[React Router DOM](https://reactrouter.com/)** for the comprehensive navigation solution it offers for React apps.
--   **[date-fns](https://date-fns.org/)** for providing a consistent toolset for manipulating JavaScript dates in a straightforward way.
--   The **[Haifa:Dev Developers Community](https://haifadev.netlify.app/)** for their encouragement and support throughout the development of this project.
--   **[nick-vi](https://github.com/nick-vi)** for his role in designing the user experience and contributing to the app's development.
+- **[@phosphor-icons/react](https://github.com/phosphor-icons/phosphor-react)** for the wide array of beautiful icons that enhance the visual aspect of our app.
+- **[Framer Motion](https://www.framer.com/motion/)** for enabling us to add smooth and natural motion effects to our UI components.
+- **[React Router DOM](https://reactrouter.com/)** for the comprehensive navigation solution it offers for React apps.
+- **[date-fns](https://date-fns.org/)** for providing a consistent toolset for manipulating JavaScript dates in a straightforward way.
+- The **[Haifa:Dev Developers Community](https://haifadev.netlify.app/)** for their encouragement and support throughout the development of this project.
+- **[nick-vi](https://github.com/nick-vi)** for his role in designing the user experience and contributing to the app's development.
 
 ## License
 
