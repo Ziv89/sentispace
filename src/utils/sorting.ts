@@ -8,12 +8,12 @@
  * @returns {number} Comparison result.
  */
 const compareStrings = (
-    a: string,
-    b: string,
-    isAscending: boolean = true
+  a: string,
+  b: string,
+  isAscending: boolean = true,
 ): number => {
-    return isAscending ? a.localeCompare(b) : b.localeCompare(a);
-};
+  return isAscending ? a.localeCompare(b) : b.localeCompare(a)
+}
 
 /**
  * Compares two numbers.
@@ -25,12 +25,12 @@ const compareStrings = (
  * @returns {number} Comparison result.
  */
 const compareNumbers = (
-    a: number,
-    b: number,
-    isAscending: boolean = true
+  a: number,
+  b: number,
+  isAscending: boolean = true,
 ): number => {
-    return isAscending ? a - b : b - a;
-};
+  return isAscending ? a - b : b - a
+}
 
 /**
  * Creates a comparator function for sorting an array of objects by a specified key.
@@ -42,21 +42,21 @@ const compareNumbers = (
  * @returns {(a: T, b: T) => number} - A comparator function that can be used in array sorting.
  */
 export function sortObjectByKeyFactory<T>(
-    key: keyof T,
-    isAscending: boolean = true
+  key: keyof T,
+  isAscending: boolean = true,
 ): (a: T, b: T) => number {
-    return function (a: T, b: T): number {
-        const valueA = a[key];
-        const valueB = b[key];
+  return function (a: T, b: T): number {
+    const valueA = a[key]
+    const valueB = b[key]
 
-        if (typeof valueA === 'string' && typeof valueB === 'string') {
-            return compareStrings(valueA, valueB, isAscending);
-        }
+    if (typeof valueA === 'string' && typeof valueB === 'string') {
+      return compareStrings(valueA, valueB, isAscending)
+    }
 
-        if (typeof valueA === 'number' && typeof valueB === 'number') {
-            return compareNumbers(valueA, valueB, isAscending);
-        }
+    if (typeof valueA === 'number' && typeof valueB === 'number') {
+      return compareNumbers(valueA, valueB, isAscending)
+    }
 
-        return 0;
-    };
+    return 0
+  }
 }
