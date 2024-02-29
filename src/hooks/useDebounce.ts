@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 export const useDebouce = (value: string, timeout: number = 500): string => {
-    const [debouncedValue, setDebouncedValue] = useState<string>(value);
+  const [debouncedValue, setDebouncedValue] = useState<string>(value)
 
-    useEffect(() => {
-        if (value === '') return setDebouncedValue('');
+  useEffect(() => {
+    if (value === '') return setDebouncedValue('')
 
-        const timerId = setTimeout(() => {
-            setDebouncedValue(value);
-        }, timeout);
+    const timerId = setTimeout(() => {
+      setDebouncedValue(value)
+    }, timeout)
 
-        return () => {
-            clearTimeout(timerId);
-        };
-    }, [value]);
+    return () => {
+      clearTimeout(timerId)
+    }
+  }, [timeout, value])
 
-    return debouncedValue;
-};
+  return debouncedValue
+}
