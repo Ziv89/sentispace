@@ -2,58 +2,58 @@
 @use '../../../styles/config/variables' as *;
 
 .header {
-    @include flex(row, space-between, center);
+  @include flex(row, space-between, center);
 
-    margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 
-    .displayedMonth {
-        font-size: var(--font-size-xl);
-        font-weight: var(--font-weight-bold);
-    }
+  .displayedMonth {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+  }
 
-    svg {
-        width: var(--size-lg);
-    }
+  svg {
+    width: var(--size-lg);
+  }
 }
 
 .week {
-    @include flex(row, space-between);
+  @include flex(row, space-between);
 
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-xs);
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
 
-    &:first-of-type {
-        border-bottom: 1px solid var(--color-neutral-6);
-        margin-bottom: var(--spacing-md);
-    }
+  &:first-of-type {
+    border-bottom: 1px solid var(--color-neutral-6);
+    margin-bottom: var(--spacing-md);
+  }
 
-    &:last-of-type {
-        margin-bottom: 0;
-    }
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
-    .day {
-        @include flex(row, center, center);
-        background-color: var(--color-neutral-5);
-        color: var(--color-neutral-2);
-        font-size: var(--font-size-sm);
-        width: 100%;
-        padding: auto;
-        max-width: 3rem;
-        aspect-ratio: 1/1;
-        border-radius: var(--border-radius-inner);
-    }
+  .day {
+    @include flex(row, center, center);
+    background-color: var(--color-neutral-5);
+    color: var(--color-neutral-2);
+    font-size: var(--font-size-sm);
+    width: 100%;
+    padding: auto;
+    max-width: 3rem;
+    aspect-ratio: 1/1;
+    border-radius: var(--border-radius-inner);
+  }
 
-    .dayName {
-        background-color: transparent;
-    }
+  .dayName {
+    background-color: transparent;
+  }
 
-    .selectedDate {
-        background: $gradient-accent;
-        color: var(--color-neutral-4);
-    }
+  .selectedDate {
+    background: $gradient-accent;
+    color: var(--color-neutral-4);
+  }
 
-    .outOfMonth {
-        background-color: transparent;
-        opacity: 0.5;
-    }
+  .outOfMonth {
+    background-color: transparent;
+    opacity: 0.5;
+  }
 }

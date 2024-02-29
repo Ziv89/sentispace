@@ -1,59 +1,59 @@
 @use '../../../styles/config/mixins' as *;
 
 .label {
-    font-weight: var(--font-weight-medium);
-    color: var(--color-neutral-2);
-    font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-2);
+  font-size: var(--font-size-md);
 }
 
 .input {
-    @include flex;
-    @include focus;
+  @include flex;
+  @include focus;
 
-    gap: var(--spacing-sm);
-    background-color: var(--color-neutral-5);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    margin-top: var(--spacing-md);
-    border-radius: var(--border-radius-inner);
-    height: auto;
+  gap: var(--spacing-sm);
+  background-color: var(--color-neutral-5);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  margin-top: var(--spacing-md);
+  border-radius: var(--border-radius-inner);
+  height: auto;
 
-    &.noLabel {
-        margin-top: 0;
+  &.noLabel {
+    margin-top: 0;
+  }
+
+  .inputIcon {
+    @include flex(row, center);
+
+    box-sizing: content-box;
+    color: var(--color-neutral-3);
+
+    svg {
+      max-width: fit-content;
+    }
+  }
+
+  input,
+  textarea {
+    border: none;
+    background-color: transparent;
+    font-weight: var(--font-weight-regular);
+    color: var(--color-neutral-2);
+    width: 100%;
+
+    &:focus {
+      outline: none;
     }
 
-    .inputIcon {
-        @include flex(row, center);
+    &::placeholder {
+      @include text-truncate;
 
-        box-sizing: content-box;
-        color: var(--color-neutral-3);
-
-        svg {
-            max-width: fit-content;
-        }
+      padding-right: var(--spacing-sm);
+      overflow: hidden;
     }
+  }
 
-    input,
-    textarea {
-        border: none;
-        background-color: transparent;
-        font-weight: var(--font-weight-regular);
-        color: var(--color-neutral-2);
-        width: 100%;
-
-        &:focus {
-            outline: none;
-        }
-
-        &::placeholder {
-            @include text-truncate;
-
-            padding-right: var(--spacing-sm);
-            overflow: hidden;
-        }
-    }
-
-    textarea {
-        padding-top: var(--spacing-xs);
-        resize: none;
-    }
+  textarea {
+    padding-top: var(--spacing-xs);
+    resize: none;
+  }
 }

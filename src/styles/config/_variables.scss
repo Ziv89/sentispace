@@ -7,59 +7,59 @@ $gradient-start: 0%;
 $gradient-end: 100%;
 
 $gradient-accent: linear-gradient(
-    $gradient-direction,
-    var(--color-primary) $gradient-start,
-    var(--color-secondary) $gradient-end
+  $gradient-direction,
+  var(--color-primary) $gradient-start,
+  var(--color-secondary) $gradient-end
 );
 
 $gradient-secondary: linear-gradient(
-    $gradient-direction,
-    var(--color-secondary) $gradient-start,
-    var(--color-primary) $gradient-end
+  $gradient-direction,
+  var(--color-secondary) $gradient-start,
+  var(--color-primary) $gradient-end
 );
 
 $gradient-rating-1: linear-gradient(
-    $gradient-direction,
-    var(--color-rating-1) $gradient-start,
-    var(--color-rating-2) $gradient-end
+  $gradient-direction,
+  var(--color-rating-1) $gradient-start,
+  var(--color-rating-2) $gradient-end
 );
 $gradient-rating-2: linear-gradient(
-    $gradient-direction,
-    var(--color-rating-2) $gradient-start,
-    var(--color-rating-3) $gradient-end
+  $gradient-direction,
+  var(--color-rating-2) $gradient-start,
+  var(--color-rating-3) $gradient-end
 );
 $gradient-rating-3: linear-gradient(
-    $gradient-direction,
-    var(--color-rating-3) $gradient-start,
-    var(--color-rating-4) $gradient-end
+  $gradient-direction,
+  var(--color-rating-3) $gradient-start,
+  var(--color-rating-4) $gradient-end
 );
 $gradient-rating-4: linear-gradient(
-    $gradient-direction,
-    var(--color-rating-4) $gradient-start,
-    var(--color-rating-5) $gradient-end
+  $gradient-direction,
+  var(--color-rating-4) $gradient-start,
+  var(--color-rating-5) $gradient-end
 );
 $gradient-rating-5: linear-gradient(
-    $gradient-direction,
-    var(--color-rating-5) $gradient-start,
-    var(--color-rating-6) $gradient-end
+  $gradient-direction,
+  var(--color-rating-5) $gradient-start,
+  var(--color-rating-6) $gradient-end
 );
 $gradient-rating-6: linear-gradient(
-    $gradient-direction,
-    var(--color-rating-6) $gradient-start,
-    var(--color-rating-7) $gradient-end
+  $gradient-direction,
+  var(--color-rating-6) $gradient-start,
+  var(--color-rating-7) $gradient-end
 );
 $gradient-rating-7: linear-gradient(
-    $gradient-direction,
-    var(--color-rating-7) $gradient-start,
-    var(--color-rating-8) $gradient-end
+  $gradient-direction,
+  var(--color-rating-7) $gradient-start,
+  var(--color-rating-8) $gradient-end
 );
 
 $gradient-ratings: (
-    1: $gradient-rating-1,
-    2: $gradient-rating-2,
-    3: $gradient-rating-3,
-    4: $gradient-rating-4,
-    5: $gradient-rating-5,
-    6: $gradient-rating-6,
-    7: $gradient-rating-7,
+  1: $gradient-rating-1,
+  2: $gradient-rating-2,
+  3: $gradient-rating-3,
+  4: $gradient-rating-4,
+  5: $gradient-rating-5,
+  6: $gradient-rating-6,
+  7: $gradient-rating-7,
 );

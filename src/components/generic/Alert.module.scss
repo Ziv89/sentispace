@@ -1,46 +1,46 @@
 @use '../../styles/config/mixins' as *;
 
 .alert {
-    @include flex;
+  @include flex;
 
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-inner);
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-inner);
 
-    .icon {
-        box-sizing: content-box;
+  .icon {
+    box-sizing: content-box;
 
-        svg {
-            max-width: fit-content;
-        }
+    svg {
+      max-width: fit-content;
     }
+  }
 
-    &.marginTop,
-    &.marginBottom {
-        margin-top: var(--spacing-xl);
-    }
+  &.marginTop,
+  &.marginBottom {
+    margin-top: var(--spacing-xl);
+  }
 
-    &.error {
-        background-color: var(--color-error-light);
-        color: var(--color-error-dark);
-    }
+  &.error {
+    background-color: var(--color-error-light);
+    color: var(--color-error-dark);
+  }
 
-    &.warning {
-        background-color: var(--color-warning-light);
-        color: var(--color-warning-dark);
-    }
+  &.warning {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning-dark);
+  }
 
-    &.info {
-        background-color: var(--color-info-light);
-        color: var(--color-info-dark);
-    }
+  &.info {
+    background-color: var(--color-info-light);
+    color: var(--color-info-dark);
+  }
 
-    &.success {
-        background-color: var(--color-success-light);
-        color: var(--color-success-dark);
-    }
+  &.success {
+    background-color: var(--color-success-light);
+    color: var(--color-success-dark);
+  }
 
-    .title {
-        font-weight: var(--font-weight-medium);
-    }
+  .title {
+    font-weight: var(--font-weight-medium);
+  }
 }

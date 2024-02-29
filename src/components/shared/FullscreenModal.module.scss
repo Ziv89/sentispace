@@ -3,40 +3,40 @@
 @include ios-fix('.fullscreenModal');
 
 .fullscreenModal {
+  @include flex(column);
+
+  gap: var(--spacing-md);
+  z-index: 100;
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-neutral-4);
+  overflow-y: scroll;
+
+  .container {
     @include flex(column);
 
-    gap: var(--spacing-md);
-    z-index: 100;
-    position: fixed;
-    inset: 0;
-    background-color: var(--color-neutral-4);
-    overflow-y: scroll;
+    min-height: 100%;
+    position: relative;
 
-    .container {
-        @include flex(column);
+    .header {
+      @include flex(row, space-between);
 
-        min-height: 100%;
-        position: relative;
+      padding: var(--spacing-lg);
+      border-bottom: 1px solid var(--color-neutral-6);
 
-        .header {
-            @include flex(row, space-between);
-
-            padding: var(--spacing-lg);
-            border-bottom: 1px solid var(--color-neutral-6);
-
-            .title {
-                font-size: calc(var(--font-size-xl));
-                margin: 0;
-                line-height: 1;
-            }
-        }
-
-        .buttonsPanel {
-            @include flex(column);
-            padding: var(--spacing-lg);
-            border-top: 1px solid var(--color-neutral-6);
-            gap: var(--spacing-md);
-            margin-top: auto;
-        }
+      .title {
+        font-size: calc(var(--font-size-xl));
+        margin: 0;
+        line-height: 1;
+      }
     }
+
+    .buttonsPanel {
+      @include flex(column);
+      padding: var(--spacing-lg);
+      border-top: 1px solid var(--color-neutral-6);
+      gap: var(--spacing-md);
+      margin-top: auto;
+    }
+  }
 }

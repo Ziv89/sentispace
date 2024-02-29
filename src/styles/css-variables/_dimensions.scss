@@ -1,16 +1,16 @@
 /* css-variables globals */
 
 @mixin dimensions {
-    /* Navbar */
-    --navbar-height: 5rem;
+  /* Navbar */
+  --navbar-height: 5rem;
 
-    /* Category Select */
-    --category-select-item-height: 3rem;
+  /* Category Select */
+  --category-select-item-height: 3rem;
 
-    /* Carousel */
-    --carousel-height: 6.375rem;
+  /* Carousel */
+  --carousel-height: 6.375rem;
 
-    /* Scrollbar */
-    --scrollbar-width: 0.5rem;
-    --scrollbar-border-radius: 0.5rem;
+  /* Scrollbar */
+  --scrollbar-width: 0.5rem;
+  --scrollbar-border-radius: 0.5rem;
 }
