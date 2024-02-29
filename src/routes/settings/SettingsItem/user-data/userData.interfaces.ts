@@ -1,7 +1,7 @@
-import { Activity, Category } from '../../../../data/interfaces';
+import { Activity, Category } from '../../../../data/interfaces'
 
 export interface UserData {
-    activities: Activity[];
-    categories: Category[];
-    lastModifiedDate?: Date;
+  activities: Activity[]
+  categories: Category[]
+  lastModifiedDate?: Date
 }
