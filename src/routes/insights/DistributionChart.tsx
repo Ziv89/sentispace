@@ -58,8 +58,6 @@ export default function DistributionChart() {
           {Object.values(groupedByCategory)
             .sort((a, b) => b.count - a.count)
             .map(({ count, name, color }) => {
-              if (count === 0) return null
-
               const pct = Math.round((count / highestCount) * 100)
 
               return (
