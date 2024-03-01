@@ -66,8 +66,8 @@ const Activity = ({
 
   useEffect(() => {
     setIsDuplicate((prev) => {
-      if (isEditFormOpen) return false
-      return prev
+      if (isEditFormOpen && prev) return prev
+      return false
     })
   }, [isEditFormOpen])
 
