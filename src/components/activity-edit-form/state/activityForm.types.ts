@@ -27,7 +27,6 @@ export type DefaultState = Omit<
 type SetTimeType = {
   startTime: Date
   endTime?: Date
-  isNow: boolean
 }
 
 export type Action =

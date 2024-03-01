@@ -10,7 +10,7 @@ export function reducer(
         ...state,
         startTime: action.payload.startTime,
         endTime: action.payload?.endTime,
-        isNow: action.payload.isNow && false,
+        isNow: false,
       }
     case 'SET_ICON_KEY':
       return { ...state, iconKey: action.payload }

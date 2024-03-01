@@ -109,15 +109,6 @@ const ActivityEditForm = ({
     setDescription(value)
   }
 
-  const handleTimeChange = (startTime: Date, endTime?: Date): void => {
-    if (isNow) {
-      const now = new Date()
-      setTime(now)
-      return
-    }
-    setTime(startTime, endTime)
-  }
-
   const handlePrimaryButton = (event: MouseEvent | TouchEvent): void => {
     event.preventDefault()
 
@@ -231,7 +222,7 @@ const ActivityEditForm = ({
             startTime={startTime}
             endTime={endTime}
             isNow={isNow}
-            onTimeChange={handleTimeChange}
+            onTimeChange={setTime}
           />
           {!!alert && (
             <Alert

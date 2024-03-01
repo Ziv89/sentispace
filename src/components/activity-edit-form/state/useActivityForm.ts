@@ -49,7 +49,6 @@ const useActivityForm = (activity?: Partial<Activity>) => {
     rating,
     startTime,
     endTime,
-    isNow,
     deleteGuard,
     iconKey,
     categoryIds,
@@ -83,7 +82,7 @@ const useActivityForm = (activity?: Partial<Activity>) => {
   const setTime = (startTime: Date, endTime?: Date) => {
     dispatch({
       type: ActionType.SET_TIME,
-      payload: { startTime, endTime, isNow },
+      payload: { startTime, endTime },
     })
   }
 
