@@ -5,14 +5,25 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "type-check": "tsc --pretty --noEmit",
     "lint-check": "eslint --ext .ts,.tsx .",
     "lint-fix": "eslint --fix --ext .ts,.tsx .",
     "format-check": "prettier --check .",
     "format": "prettier --write .",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "type-check": "tsc --pretty --noEmit",
+    "lint-and-check": "npm run lint && npm run type-check",
+    "prepare": "husky install",
+    "clean": "rimraf ./dist"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{js,cjs,ts,tsx,json,md,css,scss}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.0.8",
@@ -35,7 +46,10 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
+    "rimraf": "^5.0.5",
     "sass": "^1.60.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
