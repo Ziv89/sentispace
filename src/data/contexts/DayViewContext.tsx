@@ -54,22 +54,15 @@ export default function DayViewContextProvider({
   }, [selectedDay])
 
   useEffect(() => {
-    if (!lastestActivity) return
+    setInitialLoad(false)
+  }, [])
 
-    if (initialLoad) {
-      setInitialLoad((prev) => {
-        if (prev) return false
-        return prev
-      })
-      return
-    }
+  useEffect(() => {
+    if (!lastestActivity?.id || initialLoad) return
 
     setSelectedDay((prev) => {
-      if (!isSameDay(prev, lastestActivity.startTime)) {
-        return lastestActivity.startTime
-      }
-
-      return prev
+      if (isSameDay(prev, lastestActivity.startTime)) return prev
+      return lastestActivity.startTime
     })
   }, [initialLoad, lastestActivity])
 
