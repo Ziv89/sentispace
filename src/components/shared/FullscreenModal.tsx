@@ -1,14 +1,14 @@
-import classNames from 'classnames';
-import { FC } from 'react';
-import { createPortal } from 'react-dom';
-import { ChildrenProps, ClassNameProps } from '../../utils/types';
-import classes from './FullscreenModal.module.scss';
+import classNames from 'classnames'
+import { FC } from 'react'
+import { createPortal } from 'react-dom'
+import { ChildrenProps, ClassNameProps } from '../../utils/types'
+import classes from './FullscreenModal.module.scss'
 
 type FSModalComp = FC<ClassNameProps & ChildrenProps> & {
-    ButtonsPanel: FC<ClassNameProps & ChildrenProps>;
-    Header: FC<ClassNameProps & ChildrenProps>;
-    Title: FC<ClassNameProps & ChildrenProps>;
-};
+  ButtonsPanel: FC<ClassNameProps & ChildrenProps>
+  Header: FC<ClassNameProps & ChildrenProps>
+  Title: FC<ClassNameProps & ChildrenProps>
+}
 
 /**
  * This component has been written in React-Bootstrap style.
@@ -23,26 +23,46 @@ type FSModalComp = FC<ClassNameProps & ChildrenProps> & {
  * @param children React children
  */
 const FullscreenModal: FSModalComp = ({ children, className }) => {
-    return createPortal(
-        <div
-            className={classNames(classes.fullscreenModal, className)}
-            onClick={(event) => event.stopPropagation()}
-        >
-            <div className={classes.container}>{children}</div>
-        </div>,
-        document.body
-    );
-};
-FullscreenModal.ButtonsPanel = ({ className, children }) => (
-    <div className={classNames(classes.buttonsPanel, className)}>
-        {children}
-    </div>
-);
-FullscreenModal.Header = ({ className, children }) => (
-    <div className={classNames(classes.header, className)}>{children}</div>
-);
-FullscreenModal.Title = ({ className, children }) => (
-    <h1 className={classNames(classes.title, className)}>{children}</h1>
-);
+  return createPortal(
+    <div
+      className={classNames(classes.fullscreenModal, className)}
+      onClick={(event) => event.stopPropagation()}
+    >
+      <div className={classes.container}>{children}</div>
+    </div>,
+    document.body,
+  )
+}
 
-export default FullscreenModal;
+type FullscreenComponentsProps = {
+  className?: string
+  children: React.ReactNode
+}
+
+FullscreenModal.ButtonsPanel = ({
+  className,
+  children,
+}: FullscreenComponentsProps) => (
+  <div className={classNames(classes.buttonsPanel, className)}>{children}</div>
+)
+FullscreenModal.ButtonsPanel.displayName = 'FullscreenModal.ButtonsPanel'
+
+FullscreenModal.Header = ({
+  className,
+  children,
+}: FullscreenComponentsProps) => (
+  <div className={classNames(classes.header, className)}>{children}</div>
+)
+FullscreenModal.Header.displayName = 'FullscreenModal.Header'
+
+FullscreenModal.Title = ({
+  className,
+  children,
+}: FullscreenComponentsProps) => (
+  <h1 className={classNames(classes.title, className)}>{children}</h1>
+)
+FullscreenModal.Title.displayName = 'FullscreenModal.Title'
+
+FullscreenModal.displayName = 'FullscreenModal'
+
+export default FullscreenModal
