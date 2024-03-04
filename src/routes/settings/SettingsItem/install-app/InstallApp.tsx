@@ -1,89 +1,89 @@
-import { useContext, useEffect, useState } from 'react';
-import SettingsItem from '../SettingsItem';
-import ApplePrompt from './ApplePrompt';
-import { InstallPromptContext } from '../../../../data/contexts/InstallPromptContext';
+import { useContext, useEffect, useState } from 'react'
+import SettingsItem from '../SettingsItem'
+import ApplePrompt from './ApplePrompt'
+import { InstallPromptContext } from '../../../../data/contexts/InstallPromptContext'
 
 const tested_browsers = [
-    'Edge',
-    'Opera',
-    'Chrome',
-    'Safari',
-    'Firefox',
-    'Brave',
-];
+  'Edge',
+  'Opera',
+  'Chrome',
+  'Safari',
+  'Firefox',
+  'Brave',
+]
 
 const getBrowserInfo = (userAgent: string): string => {
-    let browserName = 'Unknown Browser';
-    let version = '';
+  let browserName = 'Unknown Browser'
+  let version = ''
 
-    for (let browser of tested_browsers) {
-        if (userAgent.indexOf(browser) > -1) {
-            const match = userAgent.match(
-                new RegExp('(?:' + browser + '|rv)[:\\s/]?(\\d+\\.?\\d*)')
-            );
-            browserName = browser;
-            version = (match && match[1]) || '';
-            break;
-        }
+  for (const browser of tested_browsers) {
+    if (userAgent.indexOf(browser) > -1) {
+      const match = userAgent.match(
+        new RegExp('(?:' + browser + '|rv)[:\\s/]?(\\d+\\.?\\d*)'),
+      )
+      browserName = browser
+      version = (match && match[1]) || ''
+      break
     }
+  }
 
-    return `${browserName} ${version}`;
-};
+  return `${browserName} ${version}`
+}
 
 const isInStandaloneMode = (window: Window) => {
-    return (
-        window.navigator.standalone ||
-        window.matchMedia('(display-mode: standalone)').matches
-    );
-};
+  return (
+    window.navigator.standalone ||
+    window.matchMedia('(display-mode: standalone)').matches
+  )
+}
 
 const InstallApp = () => {
-    const installPromptContext = useContext(InstallPromptContext);
-    const [isIOS, setIsIOS] = useState<boolean>(false);
-    const [isApplePromptModalOpen, setIsApplePromptModalOpen] =
-        useState<boolean>(false);
+  const installPromptContext = useContext(InstallPromptContext)
+  const [isIOS, setIsIOS] = useState<boolean>(false)
+  const [isApplePromptModalOpen, setIsApplePromptModalOpen] =
+    useState<boolean>(false)
 
-    useEffect(() => {
-        const isIOSUserAgent = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        setIsIOS(isIOSUserAgent);
-    }, []);
+  useEffect(() => {
+    const isIOSUserAgent = /iPad|iPhone|iPod/.test(navigator.userAgent)
+    setIsIOS(isIOSUserAgent)
+  }, [])
 
-    if (!installPromptContext) return null;
+  if (!installPromptContext) return null
 
-    const { promptEvent, promptInstall } = installPromptContext;
+  const { promptEvent, promptInstall } = installPromptContext
 
-    const browserInfo = getBrowserInfo(navigator.userAgent);
+  const browserInfo = getBrowserInfo(navigator.userAgent)
 
-    if (isInStandaloneMode(window)) return null;
+  if (isInStandaloneMode(window)) return null
 
-    if (isIOS) {
-        return (
-            <SettingsItem
-                label="Install App"
-                iconKey="DeviceMobile"
-                onClick={() => setIsApplePromptModalOpen(true)}
-            >
-                {browserInfo}
-                {isApplePromptModalOpen && (
-                    <ApplePrompt
-                        isOpen={isApplePromptModalOpen}
-                        onClose={() => setIsApplePromptModalOpen(false)}
-                    />
-                )}
-            </SettingsItem>
-        );
-    } else if (promptEvent) {
-        return (
-            <SettingsItem
-                label="Install App"
-                iconKey="DeviceMobile"
-                value={browserInfo}
-                onClick={promptInstall}
-            />
-        );
-    }
+  if (isIOS) {
+    return (
+      <SettingsItem
+        label="Install App"
+        iconKey="DeviceMobile"
+        onClick={() => setIsApplePromptModalOpen(true)}
+      >
+        {browserInfo}
+        {isApplePromptModalOpen && (
+          <ApplePrompt
+            isOpen={isApplePromptModalOpen}
+            onClose={() => setIsApplePromptModalOpen(false)}
+          />
+        )}
+      </SettingsItem>
+    )
+  } else if (promptEvent) {
+    return (
+      <SettingsItem
+        label="Install App"
+        iconKey="DeviceMobile"
+        value={browserInfo}
+        onClick={promptInstall}
+      />
+    )
+  }
 
-    return null;
-};
+  return null
+}
 
-export default InstallApp;
+export default InstallApp

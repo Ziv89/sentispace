@@ -1,7 +1,7 @@
-import classes from './Insights.module.scss';
-import DistributionChart from './DistributionChart';
-import OverviewStats from './OverviewStats';
-import InsightsContextProvider from '../../data/contexts/InsightsContext';
+import classes from './Insights.module.scss'
+import DistributionChart from './DistributionChart'
+import OverviewStats from './OverviewStats'
+import InsightsContextProvider from '../../data/contexts/InsightsContext'
 
 const Insights = () => {
   return (
@@ -14,7 +14,7 @@ const Insights = () => {
         </div>
       </InsightsContextProvider>
     </div>
-  );
-};
+  )
+}
 
-export default Insights;
+export default Insights

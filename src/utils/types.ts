@@ -1,4 +1,8 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 
-export interface ChildrenProps { children: ReactNode };
-export interface ClassNameProps { className?: string };
+export interface ChildrenProps {
+  children: ReactNode
+}
+export interface ClassNameProps {
+  className?: string
+}

@@ -1,77 +1,81 @@
 import {
-    useState,
-    Dispatch,
-    SetStateAction,
-    createContext,
-    ReactNode,
-    useEffect,
-} from 'react';
-import { getArrayOfWeekDatesFromDate } from '../../utils/time';
-import { isSameDay, isSameWeek, startOfDay } from 'date-fns';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../Database';
+  useState,
+  Dispatch,
+  SetStateAction,
+  createContext,
+  ReactNode,
+  useEffect,
+} from 'react'
+import { getArrayOfWeekDatesFromDate } from '../../utils/time'
+import { isSameDay, isSameWeek, startOfDay } from 'date-fns'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { db } from '../Database'
 
 export interface IDayViewContext {
-    selectedDay: Date;
-    setSelectedDay: Dispatch<SetStateAction<Date>>;
-    displayedWeek: Date[];
-    setDisplayedWeek: Dispatch<SetStateAction<Date[]>>;
+  selectedDay: Date
+  setSelectedDay: Dispatch<SetStateAction<Date>>
+  displayedWeek: Date[]
+  setDisplayedWeek: Dispatch<SetStateAction<Date[]>>
 }
 
 interface ContextProviderProps {
-    children: ReactNode;
+  children: ReactNode
 }
 
-const today = startOfDay(new Date());
+const today = startOfDay(new Date())
 
 export const DayViewContext = createContext<IDayViewContext>({
-    selectedDay: today,
-    setSelectedDay: () => {},
-    displayedWeek: [],
-    setDisplayedWeek: () => {},
-});
+  selectedDay: today,
+  setSelectedDay: () => {},
+  displayedWeek: [],
+  setDisplayedWeek: () => {},
+})
 
 export default function DayViewContextProvider({
-    children,
+  children,
 }: ContextProviderProps) {
-    const [initialLoad, setInitialLoad] = useState<boolean>(true);
-    const [selectedDay, setSelectedDay] = useState<Date>(today);
-    const [displayedWeek, setDisplayedWeek] = useState<Date[]>(
-        getArrayOfWeekDatesFromDate(today)
-    );
+  const [initialLoad, setInitialLoad] = useState<boolean>(true)
+  const [selectedDay, setSelectedDay] = useState<Date>(today)
+  const [displayedWeek, setDisplayedWeek] = useState<Date[]>(
+    getArrayOfWeekDatesFromDate(today),
+  )
 
-    const lastestActivity = useLiveQuery(() =>
-        db.activities.orderBy(':id').last()
-    );
+  const lastestActivity = useLiveQuery(() =>
+    db.activities.orderBy(':id').last(),
+  )
 
-    useEffect(() => {
-        if (!isSameWeek(startOfDay(selectedDay), displayedWeek[0]))
-            setDisplayedWeek(getArrayOfWeekDatesFromDate(selectedDay));
-    }, [selectedDay]);
+  useEffect(() => {
+    setDisplayedWeek((prev) => {
+      if (!isSameWeek(startOfDay(selectedDay), prev[0]))
+        getArrayOfWeekDatesFromDate(selectedDay)
 
-    useEffect(() => {
-        if (!lastestActivity) return;
+      return prev
+    })
+  }, [selectedDay])
 
-        if (initialLoad) {
-            setInitialLoad(false);
-            return;
-        }
+  useEffect(() => {
+    setInitialLoad(false)
+  }, [])
 
-        if (!isSameDay(selectedDay, lastestActivity.startTime)) {
-            setSelectedDay(lastestActivity.startTime);
-        }
-    }, [lastestActivity?.id]);
+  useEffect(() => {
+    if (!lastestActivity?.id || initialLoad) return
 
-    return (
-        <DayViewContext.Provider
-            value={{
-                selectedDay,
-                setSelectedDay,
-                displayedWeek,
-                setDisplayedWeek,
-            }}
-        >
-            {children}
-        </DayViewContext.Provider>
-    );
+    setSelectedDay((prev) => {
+      if (isSameDay(prev, lastestActivity.startTime)) return prev
+      return lastestActivity.startTime
+    })
+  }, [initialLoad, lastestActivity])
+
+  return (
+    <DayViewContext.Provider
+      value={{
+        selectedDay,
+        setSelectedDay,
+        displayedWeek,
+        setDisplayedWeek,
+      }}
+    >
+      {children}
+    </DayViewContext.Provider>
+  )
 }

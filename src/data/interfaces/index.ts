@@ -1,2 +1,2 @@
-export * from './Category';
-export * from './Activity';
+export * from './Category'
+export * from './Activity'

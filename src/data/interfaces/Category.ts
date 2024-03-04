@@ -1,7 +1,7 @@
-import { IndexableType } from 'dexie';
+import { IndexableType } from 'dexie'
 
 export interface Category {
-    id: IndexableType;
-    name: string;
-    color: number;
+  id: IndexableType
+  name: string
+  color: number
 }

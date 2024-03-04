@@ -1,20 +1,20 @@
 @use '../../../styles/config/mixins' as *;
 
 .ratingPicker {
-    touch-action: none;
+  touch-action: none;
 
-    .label {
-        font-weight: var(--font-weight-medium);
-        color: var(--color-neutral-2);
-        font-size: var(--font-size-md);
-        margin-bottom: var(--spacing-md);
-    }
+  .label {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-neutral-2);
+    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-md);
+  }
 
-    .hearts {
-        @include flex(row, space-between);
-        @include focus;
+  .hearts {
+    @include flex(row, space-between);
+    @include focus;
 
-        border-radius: var(--border-radius-inner);
-        padding: var(--spacing-sm);
-    }
+    border-radius: var(--border-radius-inner);
+    padding: var(--spacing-sm);
+  }
 }

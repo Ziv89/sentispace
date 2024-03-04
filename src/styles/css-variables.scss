@@ -5,9 +5,9 @@
 @use 'css-variables/dimensions';
 
 :root {
-    @include fonts.fonts;
-    @include sizes.sizes;
-    @include colors.colors;
-    @include animations.animations;
-    @include dimensions.dimensions;
+  @include fonts.fonts;
+  @include sizes.sizes;
+  @include colors.colors;
+  @include animations.animations;
+  @include dimensions.dimensions;
 }

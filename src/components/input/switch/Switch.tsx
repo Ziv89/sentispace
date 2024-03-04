@@ -1,33 +1,33 @@
-import classes from './Switch.module.scss';
+import classes from './Switch.module.scss'
 
-import classNames from 'classnames/bind';
-import { InputHTMLAttributes } from 'react';
+import classNames from 'classnames/bind'
+import { InputHTMLAttributes } from 'react'
 
-const cx = classNames.bind(classes);
+const cx = classNames.bind(classes)
 
 interface SwitchProps extends InputHTMLAttributes<HTMLInputElement> {
-    label?: string;
-    className?: string;
+  label?: string
+  className?: string
 }
 
 const Switch = ({
-    className,
-    name,
-    label,
-    checked,
-    onChange,
-    ...props
+  className,
+  name,
+  label,
+  checked,
+  onChange,
+  ...props
 }: SwitchProps) => (
-    <label className={cx(className, { switch: true })}>
-        <input
-            type="checkbox"
-            name={name}
-            checked={checked}
-            onChange={onChange}
-            {...props}
-        />
-        <span className={classes.slider} />
-    </label>
-);
+  <label className={cx(className, { switch: true })}>
+    <input
+      type="checkbox"
+      name={name}
+      checked={checked}
+      onChange={onChange}
+      {...props}
+    />
+    <span className={classes.slider} />
+  </label>
+)
 
-export default Switch;
+export default Switch

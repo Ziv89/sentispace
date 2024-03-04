@@ -1,13 +1,13 @@
 .spinner {
-    animation: spin 1s linear infinite;
-    color: var(--color-neutral-3);
+  animation: spin 1s linear infinite;
+  color: var(--color-neutral-3);
 }
 
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

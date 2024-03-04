@@ -1,23 +1,23 @@
 /* css-variables sizes */
 
 @mixin sizes {
-    /* Borders */
-    --border-radius-inner: 0.5rem;
-    --border-radius-outer: 1rem;
+  /* Borders */
+  --border-radius-inner: 0.5rem;
+  --border-radius-outer: 1rem;
 
-    /* Sizes */
-    --size-xs: 0.5rem;
-    --size-sm: 0.75rem;
-    --size-md: 1rem;
-    --size-lg: 1.25rem;
-    --size-xl: 1.5rem;
-    --size-xxl: 2rem;
+  /* Sizes */
+  --size-xs: 0.5rem;
+  --size-sm: 0.75rem;
+  --size-md: 1rem;
+  --size-lg: 1.25rem;
+  --size-xl: 1.5rem;
+  --size-xxl: 2rem;
 
-    /* Spacings */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 0.75rem;
-    --spacing-lg: 1rem;
-    --spacing-xl: 1.5rem;
-    --spacing-xxl: 2rem;
+  /* Spacings */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-xxl: 2rem;
 }

@@ -1,75 +1,75 @@
 /* mixins */
 
 @mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-    border-radius: $radius;
-    background-clip: padding-box; /* stops bg color from leaking outside the border: */
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box; /* stops bg color from leaking outside the border: */
 }
 
 @mixin text-truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @mixin flex(
-    $flex-direction: row,
-    $justify-content: start,
-    $align-items: stretch
+  $flex-direction: row,
+  $justify-content: start,
+  $align-items: stretch
 ) {
-    display: flex;
-    flex-direction: $flex-direction;
-    justify-content: $justify-content;
-    align-items: $align-items;
+  display: flex;
+  flex-direction: $flex-direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
 }
 
 @mixin custom-scrollbar {
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
 
-    &::-webkit-scrollbar {
-        width: var(--scrollbar-width);
+  &::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+  }
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb {
+    border-radius: var(--scrollbar-border-radius);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+
+    &:hover {
+      background: var(--scrollbar-thumb-color-hover);
     }
-
-    &::-webkit-scrollbar-track,
-    &::-webkit-scrollbar-thumb {
-        border-radius: var(--scrollbar-border-radius);
-    }
-
-    &::-webkit-scrollbar-track {
-        background: var(--scrollbar-track-color);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: var(--scrollbar-thumb-color);
-
-        &:hover {
-            background: var(--scrollbar-thumb-color-hover);
-        }
-    }
+  }
 }
 
 @mixin invalid {
-    &.invalid {
-        cursor: not-allowed;
-        opacity: 0.5;
-    }
+  &.invalid {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }
 
 @mixin focus {
-    &:focus-within,
-    &:focus,
-    &::selection {
-        outline: 2px solid var(--color-neutral-2);
-    }
+  &:focus-within,
+  &:focus,
+  &::selection {
+    outline: 2px solid var(--color-neutral-2);
+  }
 }
 
 @mixin ios-fix($selector) {
-    @media screen and (display-mode: standalone) {
-        #{$selector} {
-            margin-top: env(safe-area-inset-top);
-            margin-bottom: calc(env(safe-area-inset-bottom) / 3);
-        }
+  @media screen and (display-mode: standalone) {
+    #{$selector} {
+      margin-top: env(safe-area-inset-top);
+      margin-bottom: calc(env(safe-area-inset-bottom) / 3);
     }
+  }
 }

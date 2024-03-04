@@ -1,25 +1,25 @@
-import { useState } from 'react';
-import { UserData } from '../userData.interfaces';
-import classes from './ImportData.module.scss';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../../../../../data/Database';
+import { useState } from 'react'
+import { UserData } from '../userData.interfaces'
+import classes from './ImportData.module.scss'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { db } from '../../../../../data/Database'
 import ModalPopup, {
   ButtonType,
-} from '../../../../../components/generic/ModalPopup';
-import { format } from 'date-fns';
-import Checkbox from '../../../../../components/input/checkbox/Checkbox';
-import { Database, Disc } from '@phosphor-icons/react';
-import classNames from 'classnames/bind';
-import { importData, mergeData } from '../userData.functions';
-import { AlertType } from '../../../../../components/generic/Alert';
-import { IMPORT_SUCCESS, MERGE_SUCCESS } from '../userData.constants';
+} from '../../../../../components/generic/ModalPopup'
+import { format } from 'date-fns'
+import Checkbox from '../../../../../components/input/checkbox/Checkbox'
+import { Database, Disc } from '@phosphor-icons/react'
+import classNames from 'classnames/bind'
+import { importData, mergeData } from '../userData.functions'
+import { AlertType } from '../../../../../components/generic/Alert'
+import { IMPORT_SUCCESS, MERGE_SUCCESS } from '../userData.constants'
 
-const cx = classNames.bind(classes);
+const cx = classNames.bind(classes)
 
 interface ImportDataModalProps {
-  data: UserData;
-  onClose: () => void;
-  onAlertChange: (alert: AlertType) => void;
+  data: UserData
+  onClose: () => void
+  onAlertChange: (alert: AlertType) => void
 }
 
 const ImportDataModal = ({
@@ -27,37 +27,37 @@ const ImportDataModal = ({
   onClose,
   onAlertChange,
 }: ImportDataModalProps) => {
-  const [shouldMerge, setShouldMerge] = useState<boolean>(false);
+  const [shouldMerge, setShouldMerge] = useState<boolean>(false)
 
-  const activities = useLiveQuery(() => db.activities.toArray()) ?? [];
-  const categories = useLiveQuery(() => db.categories.toArray()) ?? [];
+  const activities = useLiveQuery(() => db.activities.toArray()) ?? []
+  const categories = useLiveQuery(() => db.categories.toArray()) ?? []
 
-  const isDbPopulated = activities.length > 0 || categories.length > 0;
+  const isDbPopulated = activities.length > 0 || categories.length > 0
 
   const primaryButtonText = isDbPopulated
     ? shouldMerge
       ? 'Merge'
       : 'Overwrite'
-    : 'Import';
+    : 'Import'
 
   const onButtonClick = (button: ButtonType) => {
     switch (button) {
       case 'primary':
         if (shouldMerge) {
-          mergeData(data);
-          onAlertChange(MERGE_SUCCESS);
+          mergeData(data)
+          onAlertChange(MERGE_SUCCESS)
         } else {
-          importData(data);
-          onAlertChange(IMPORT_SUCCESS);
+          importData(data)
+          onAlertChange(IMPORT_SUCCESS)
         }
-        onClose();
-        break;
+        onClose()
+        break
       case 'secondary':
       case 'close':
-        onClose();
-        break;
+        onClose()
+        break
     }
-  };
+  }
 
   return (
     <ModalPopup
@@ -125,7 +125,7 @@ const ImportDataModal = ({
         )}
       </div>
     </ModalPopup>
-  );
-};
+  )
+}
 
-export default ImportDataModal;
+export default ImportDataModal

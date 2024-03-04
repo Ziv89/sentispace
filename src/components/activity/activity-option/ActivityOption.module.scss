@@ -1,10 +1,10 @@
 @use '../../../styles/config/mixins' as *;
 
 .activityOption {
-    @include flex(column, center, center);
+  @include flex(column, center, center);
 
-    color: var(--color-neutral-2);
-    min-width: 5rem;
-    margin: var(--spacing-md);
-    gap: var(--spacing-xs);
+  color: var(--color-neutral-2);
+  min-width: 5rem;
+  margin: var(--spacing-md);
+  gap: var(--spacing-xs);
 }

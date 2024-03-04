@@ -1,4 +1,4 @@
 export enum Stores {
-    ACTIVITY = 'activities',
-    CATEGORY = 'categories',
+  ACTIVITY = 'activities',
+  CATEGORY = 'categories',
 }

@@ -1,38 +1,38 @@
 @use '../../../styles/config/variables' as *;
 
 .label {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .iconsWrapper {
-    background-color: var(--color-neutral-5);
-    margin-top: var(--spacing-md);
-    border-radius: var(--border-radius-inner);
-    padding: var(--spacing-lg);
+  background-color: var(--color-neutral-5);
+  margin-top: var(--spacing-md);
+  border-radius: var(--border-radius-inner);
+  padding: var(--spacing-lg);
 }
 
 .iconsContainer {
-    $grid-gap: var(--spacing-sm);
-    $icon-padding: var(--spacing-sm);
-    $icon-size: calc(2rem + $icon-padding * 2);
-    $container-height: calc($icon-size * 4 + $grid-gap * 3);
+  $grid-gap: var(--spacing-sm);
+  $icon-padding: var(--spacing-sm);
+  $icon-size: calc(2rem + $icon-padding * 2);
+  $container-height: calc($icon-size * 4 + $grid-gap * 3);
 
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax($icon-size, 1fr));
-    grid-auto-rows: min-content;
-    gap: $grid-gap;
-    overflow-y: scroll;
-    height: $container-height;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($icon-size, 1fr));
+  grid-auto-rows: min-content;
+  gap: $grid-gap;
+  overflow-y: scroll;
+  height: $container-height;
 
-    svg {
-        padding: $icon-padding;
-        box-sizing: content-box;
-        justify-self: center;
+  svg {
+    padding: $icon-padding;
+    box-sizing: content-box;
+    justify-self: center;
 
-        &.isActive {
-            background: $gradient-accent;
-            color: var(--color-neutral-4);
-            border-radius: var(--border-radius-inner);
-        }
+    &.isActive {
+      background: $gradient-accent;
+      color: var(--color-neutral-4);
+      border-radius: var(--border-radius-inner);
     }
+  }
 }

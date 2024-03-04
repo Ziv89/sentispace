@@ -1,14 +1,14 @@
-import { differenceInCalendarDays } from 'date-fns';
-import { Activity } from '../../data/interfaces';
-import classes from './OverviewStats.module.scss';
-import classNames from 'classnames';
-import { useContext } from 'react';
-import { InsightsContext } from '../../data/contexts/InsightsContext';
+import { differenceInCalendarDays } from 'date-fns'
+import { Activity } from '../../data/interfaces'
+import classes from './OverviewStats.module.scss'
+import classNames from 'classnames'
+import { useContext } from 'react'
+import { InsightsContext } from '../../data/contexts/InsightsContext'
 
 type StatCardProps = {
-  title: string;
-  value: number;
-};
+  title: string
+  value: number
+}
 
 function StatCard({ title, value }: StatCardProps) {
   return (
@@ -16,40 +16,40 @@ function StatCard({ title, value }: StatCardProps) {
       <p className={classes.value}>{value}</p>
       <h2 className={classes.title}>{title}</h2>
     </div>
-  );
+  )
 }
 
 const calculateLongestStreak = (activities: Activity[]) => {
-  if (activities.length === 0) return 0;
+  if (activities.length === 0) return 0
 
   const sortedActivities = activities.sort(
-    (a, b) => a.startTime.getTime() - b.startTime.getTime()
-  );
+    (a, b) => a.startTime.getTime() - b.startTime.getTime(),
+  )
 
-  let longestStreak = 1;
-  let currentStreak = 1;
-  let prevDate = new Date(sortedActivities[0].startTime);
+  let longestStreak = 1
+  let currentStreak = 1
+  let prevDate = new Date(sortedActivities[0].startTime)
 
   sortedActivities.forEach((activity) => {
-    const currentDate = new Date(activity.startTime);
-    const diffInDays = differenceInCalendarDays(currentDate, prevDate);
+    const currentDate = new Date(activity.startTime)
+    const diffInDays = differenceInCalendarDays(currentDate, prevDate)
 
     if (diffInDays === 1) {
-      currentStreak++;
-      longestStreak = Math.max(longestStreak, currentStreak);
+      currentStreak++
+      longestStreak = Math.max(longestStreak, currentStreak)
     } else if (diffInDays > 1) {
-      currentStreak = 1;
+      currentStreak = 1
     }
 
-    prevDate = currentDate;
-  });
+    prevDate = currentDate
+  })
 
-  return longestStreak;
-};
+  return longestStreak
+}
 
 export default function OverviewStatsProps() {
-  const { activities, categories } = useContext(InsightsContext);
-  const longestStreak = calculateLongestStreak(activities);
+  const { activities, categories } = useContext(InsightsContext)
+  const longestStreak = calculateLongestStreak(activities)
 
   return (
     <div className={classes.macro}>
@@ -57,5 +57,5 @@ export default function OverviewStatsProps() {
       <StatCard title="categories" value={categories.length} />
       <StatCard title="streak" value={longestStreak} />
     </div>
-  );
+  )
 }
