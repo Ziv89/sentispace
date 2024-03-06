@@ -1,0 +1,24 @@
+@use '../../../styles/config/mixins' as *;
+@use '../../../styles/config/variables' as *;
+
+.checkboxesContainer {
+  @include flex(column);
+  @include custom-scrollbar;
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-neutral-5);
+  }
+
+  scrollbar-width: thin;
+  $n-categories: 15;
+
+  margin-top: var(--spacing-lg);
+  gap: var(--spacing-md);
+  overflow-y: scroll;
+  padding: 2px;
+  max-height: calc(var(--size-xl) * $n-categories);
+}
+
+.contentHeading {
+  font-weight: var(--font-weight-medium);
+}

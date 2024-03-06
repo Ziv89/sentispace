@@ -1,6 +1,7 @@
+import { Category } from '@categories/Category.interface'
+import { Activity } from '@activities/Activity.interface'
 import Dexie, { Table } from 'dexie'
-import { Stores } from './enums/Stores'
-import { Activity, Category } from './interfaces'
+import { Stores } from './Stores.enum'
 
 export interface IDatabase {
   [Stores.ACTIVITY]: Table<Activity>

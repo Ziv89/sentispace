@@ -1,5 +1,5 @@
-import { Activity } from './interfaces/Activity'
-import { Category } from './interfaces/Category'
+import { Activity } from '../features/activities/Activity.interface'
+import { Category } from '../features/categories/Category.interface'
 
 export const initialActivities: Partial<Activity>[] = [
   {

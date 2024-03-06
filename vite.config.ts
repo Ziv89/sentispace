@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa'
 import { readFileSync } from 'fs'
 import path from 'path'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 const packageJson = JSON.parse(
   readFileSync(path.resolve(__dirname, './package.json'), 'utf8'),
@@ -58,7 +59,11 @@ const pwaOptions: Partial<VitePWAOptions> = {
 
 export default defineConfig({
   base: './',
-  plugins: [react(), VitePWA(pwaOptions)],
+  plugins: [
+    react(), 
+    VitePWA(pwaOptions),
+    tsconfigPaths()
+  ],
   define: {
     __APP_VERSION__: JSON.stringify(packageJson.version),
   },

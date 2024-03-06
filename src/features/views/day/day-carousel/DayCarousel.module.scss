@@ -1,0 +1,48 @@
+@use '../../../../styles/config/mixins' as *;
+
+.daysCarousel {
+  @include flex(row);
+
+  .daysWrapper {
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+    height: var(--carousel-height);
+  }
+
+  .days {
+    position: absolute;
+    inset: 0;
+  }
+
+  .prevWeek,
+  .nextWeek,
+  .currentWeek {
+    @include flex(row);
+    gap: var(--spacing-xs);
+  }
+
+  .prevWeek,
+  .nextWeek {
+    position: absolute;
+    width: 100%;
+  }
+
+  .prevWeek {
+    left: calc(-100% - var(--spacing-xs));
+  }
+
+  .nextWeek {
+    right: calc(-100% - var(--spacing-xs));
+    top: 0;
+  }
+
+  & svg {
+    @include invalid;
+
+    margin-top: var(--spacing-xl);
+    width: var(--size-xl);
+    flex-shrink: 0;
+    align-self: center;
+  }
+}

@@ -1,15 +1,15 @@
 import './styles/css-variables.scss'
 import './styles/main.scss'
 
+import { iconConfig } from '@assets/icons'
 import { IconContext } from '@phosphor-icons/react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { iconConfig } from './assets/icons'
-import CategoryContextProvider from './data/contexts/CategoriesContext'
-import DayViewContextProvider from './data/contexts/DayViewContext'
+import CategoryContextProvider from './features/categories/CategoriesContext'
+import DayViewContextProvider from './features/views/day/DayViewContext'
 import { InstallPromptProvider } from './data/contexts/InstallPromptContext'
 import { generateData } from './data/MOCK_DATA'
-import { routesConfig } from './routes/routes'
+import { routesConfig } from './features/navigation/routes'
 
 if (import.meta.env.DEV) generateData()
 

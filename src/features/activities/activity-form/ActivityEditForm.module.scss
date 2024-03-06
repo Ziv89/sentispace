@@ -1,0 +1,26 @@
+@use '../../../styles/config/mixins' as *;
+
+.form {
+  @include flex(column);
+
+  min-height: 100%;
+  position: relative;
+
+  .inputs {
+    @include flex(column);
+
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+    flex-grow: 1;
+    overflow-y: scroll;
+
+    .titleAndIcon {
+      position: relative;
+
+      .iconPicker {
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+}
