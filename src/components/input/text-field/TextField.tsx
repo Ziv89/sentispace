@@ -1,14 +1,14 @@
 import classes from './TextField.module.scss'
 
-import { IconKeyType, getIconComponent } from '../../../assets/icons'
+import { getIconComponent, IconKeyType } from '@assets/icons'
+import classNames from 'classnames/bind'
 import {
   InputHTMLAttributes,
   TextareaHTMLAttributes,
   useEffect,
   useId,
-  useRef,
+  useRef
 } from 'react'
-import classNames from 'classnames/bind'
 
 const cx = classNames.bind(classes)
 

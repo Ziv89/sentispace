@@ -1,0 +1,107 @@
+@use '../../../styles/config/mixins' as *;
+
+.activity {
+  @include flex(column);
+
+  justify-content: space-between;
+  border-radius: var(--border-radius-outer);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  background-color: var(--color-neutral-4);
+  transition: height var(--transition-md);
+  position: relative;
+
+  .blurred {
+    @include flex(row, space-evenly, center);
+
+    position: absolute;
+    inset: 0;
+    gap: var(--spacing-sm);
+    z-index: 10;
+    border-radius: inherit;
+    padding: var(--spacing-lg);
+  }
+
+  &.options > *:not(.blurred) {
+    filter: blur(10px) opacity(0.5) grayscale(0.75);
+  }
+
+  .content,
+  .footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .content {
+    display: grid;
+    grid-gap: var(--spacing-sm);
+    grid-template-columns: max-content;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'icon title time'
+      'icon description description';
+
+    .icon {
+      grid-area: icon;
+      margin-right: var(--spacing-md);
+    }
+
+    .title {
+      grid-area: title;
+      font-weight: var(--font-weight-medium);
+      margin: 0;
+    }
+
+    .time {
+      grid-area: time;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      justify-self: end;
+      white-space: nowrap;
+    }
+
+    .description {
+      grid-area: description;
+      font-weight: var(--font-weight-light);
+      font-size: var(--font-size-sm);
+      color: var(--color-neutral-3);
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  .footer {
+    @include flex(row, space-between, center);
+
+    gap: var(--spacing-md);
+    border-top: 1px solid var(--color-neutral-5);
+
+    .rating {
+      @include flex(row, start, center);
+
+      margin: var(--spacing-xs) 0;
+      gap: var(--spacing-xs);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+
+      .svg {
+        max-width: none;
+      }
+    }
+
+    .categories {
+      @include flex(row-reverse, flex-start);
+
+      gap: var(--spacing-sm);
+      overflow: auto;
+      white-space: nowrap;
+      width: 100%;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}

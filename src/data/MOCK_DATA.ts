@@ -1,9 +1,9 @@
-import { Rating } from './types/Rating'
+import { getRandomIconKey } from '@assets/icons'
 import { addDays, subWeeks } from 'date-fns'
-import { getRandomIconKey } from '../assets/icons'
-import { Activity, Category } from './interfaces'
-import { db } from './Database'
 import { IndexableType } from 'dexie'
+import { Activity, Rating } from 'src/features/activities/Activity.interface'
+import { Category } from 'src/features/categories/Category.interface'
+import { db } from './Database'
 
 const activityNames = [
   'Biking',

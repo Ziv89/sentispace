@@ -21,7 +21,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import ModalPopup, { ButtonType } from '../../generic/ModalPopup'
+import ModalPopup, { ButtonType } from '../../generic/modals/ModalPopup'
 import { CaretLeft, CaretRight } from '@phosphor-icons/react'
 import classNames from 'classnames/bind'
 

@@ -1,0 +1,11 @@
+@use '../../../styles/config/mixins' as *;
+
+.app {
+  @include flex(column, space-between);
+
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-neutral-4);
+}
+
+@include ios-fix('.app');

@@ -1,0 +1,28 @@
+@use '../../../../styles/config/mixins' as *;
+
+.categoryBadge {
+  @include flex;
+  gap: var(--spacing-xs);
+  border-radius: var(--border-radius-outer);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--color-neutral-4);
+  background-color: var(--color);
+  width: fit-content;
+
+  @for $i from 1 through 16 {
+    &.categoryColor#{$i} {
+      background-color: var(--color-category-#{$i});
+    }
+  }
+
+  .badgeText {
+    white-space: nowrap;
+    text-transform: capitalize;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+  }
+
+  &:has(svg) {
+    padding-left: var(--spacing-xs);
+  }
+}

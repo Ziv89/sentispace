@@ -1,12 +1,12 @@
 import classes from './IconPicker.module.scss'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { IconKeyType, getIconComponent, iconKeys } from '../../../assets/icons'
-import ModalPopup, { ButtonType } from '../../generic/ModalPopup'
-import TextField from '../text-field/TextField'
+import { getIconComponent, iconKeys, IconKeyType } from '@assets/icons'
+import { deepEqual } from '@utils/functions'
+import { useDebouce } from '@utils/hooks'
 import classNames from 'classnames/bind'
-import { useDebouce } from '../../../hooks/useDebounce'
-import { deepEqual } from '../../../utils/comparison'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import ModalPopup, { ButtonType } from '../../generic/modals/ModalPopup'
+import TextField from '../text-field/TextField'
 
 const cx = classNames.bind(classes)
 

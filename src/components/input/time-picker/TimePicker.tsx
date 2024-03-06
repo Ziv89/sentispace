@@ -1,12 +1,12 @@
 import classes from './TimePicker.module.scss'
 
-import TextField from '../text-field/TextField'
-import { MouseEvent, TouchEvent, useMemo, useState } from 'react'
-import ModalPopup, { ButtonType } from '../../generic/ModalPopup'
-import { addDays, isBefore, isSameMinute } from 'date-fns'
-import Switch from '../switch/Switch'
+import { formatTimeRange } from '@utils/functions'
 import classNames from 'classnames/bind'
-import { formatTimeRange } from '../../../utils/time'
+import { addDays, isBefore, isSameMinute } from 'date-fns'
+import { MouseEvent, TouchEvent, useMemo, useState } from 'react'
+import ModalPopup, { ButtonType } from '../../generic/modals/ModalPopup'
+import Switch from '../switch/Switch'
+import TextField from '../text-field/TextField'
 import TimeIncrementButtons from './TimeIncrementButtons'
 import TimeInput from './TimeInput'
 

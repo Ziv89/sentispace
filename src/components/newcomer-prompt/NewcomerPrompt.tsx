@@ -1,16 +1,15 @@
 import classes from './NewcomerPropmt.module.scss'
 
-import ModalPopup from '../generic/ModalPopup'
 import { ArrowRight, GearSix, Trash } from '@phosphor-icons/react'
-import { db } from '../../data/Database'
-import { Category } from '../../data/interfaces'
-import { Activity } from '../../data/interfaces'
-import {
-  initialCategories,
-  initialActivities,
-} from '../../data/newComer.constants'
-import { useStoredState } from '../../hooks/useStoredState'
+import { useStoredState } from '@utils/hooks'
 import { useEffect } from 'react'
+import { db } from '../../data/Database'
+import {
+  initialActivities, initialCategories
+} from '../../data/newComer.constants'
+import ModalPopup from '../generic/modals/ModalPopup'
+import { Category } from '@categories/Category.interface'
+import { Activity } from '@activities/Activity.interface'
 
 async function addInitialItems() {
   await db.categories.bulkAdd(initialCategories as Category[])
