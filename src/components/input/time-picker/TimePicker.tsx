@@ -1,23 +1,24 @@
-import classes from './TimePicker.module.scss'
+import { useMemo, useState, useEffect } from 'react';
+import classNames from 'classnames/bind';
+import { formatTimeRange } from '@utils/functions';
+import ModalPopup, { ButtonType } from '../../generic/modals/ModalPopup';
+import Switch from '../switch/Switch';
+import TextField from '../text-field/TextField';
+import TimeIncrementButtons from './TimeIncrementButtons';
+import TimeInput from './TimeInput';
+import { addDays, isBefore, isSameMinute } from 'date-fns';
+import classes from './TimePicker.module.scss';
 
-import { formatTimeRange } from '@utils/functions'
-import classNames from 'classnames/bind'
-import { addDays, isBefore, isSameMinute } from 'date-fns'
-import { MouseEvent, TouchEvent, useMemo, useState } from 'react'
-import ModalPopup, { ButtonType } from '../../generic/modals/ModalPopup'
-import Switch from '../switch/Switch'
-import TextField from '../text-field/TextField'
-import TimeIncrementButtons from './TimeIncrementButtons'
-import TimeInput from './TimeInput'
-
-const cx = classNames.bind(classes)
+const cx = classNames.bind(classes);
 
 interface TimePickerProps {
-  label: string
-  startTime: Date
-  endTime?: Date
-  isNow: boolean
-  onTimeChange: (startTime: Date, endTime?: Date) => void
+  label: string;
+  startTime: Date;
+  endTime?: Date;
+  isNow: boolean;
+  onTimeChange: (startTime: Date, endTime?: Date) => void;
+  is24HourMode: boolean;
+  on24HourModeToggle: () => void;
 }
 
 const TimePicker = ({
@@ -26,14 +27,26 @@ const TimePicker = ({
   endTime,
   isNow,
   onTimeChange,
+  is24HourMode,
+  on24HourModeToggle,
 }: TimePickerProps) => {
-  const [selectedStartTime, setSelectedStartTime] = useState<Date>(startTime)
-  const [selectedEndTime, setSelectedEndTime] = useState<Date>(
-    endTime || startTime,
-  )
+  const [selectedStartTime, setSelectedStartTime] = useState<Date>(startTime);
+  const [selectedEndTime, setSelectedEndTime] = useState<Date>(endTime || startTime);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [displayEndTime, setDisplayEndTime] = useState<boolean>(!!endTime);
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [displayEndTime, setDisplayEndTime] = useState<boolean>(!!endTime)
+  // Retrieve is24HourMode from local storage
+  const [is24HourModeStored, setIs24HourModeStored] = useState<boolean>(false);
+  const [is24HourModeTemporary, setIs24HourModeTemporary] = useState<boolean>(is24HourMode);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem('is24HourMode');
+    setIs24HourModeStored(savedMode ? JSON.parse(savedMode) : false);
+  }, []);
+
+  useEffect(() => {
+    setIs24HourModeTemporary(is24HourModeStored);
+  }, [is24HourModeStored]);
 
   const inputValue = useMemo(
     () =>
@@ -42,87 +55,87 @@ const TimePicker = ({
         displayEndTime ? selectedEndTime : undefined,
         isNow,
       ),
-    [selectedStartTime, displayEndTime, selectedEndTime, isNow],
-  )
+    [selectedStartTime, displayEndTime, selectedEndTime, isNow, is24HourModeTemporary]
+  );
 
   const disabledButton = () => {
-    const isStartTimeUnchanged = isSameMinute(startTime, selectedStartTime)
-    const isEndTimeUnchanged = endTime && isSameMinute(endTime, selectedEndTime)
-    const areStartAndEndSame = isSameMinute(selectedStartTime, selectedEndTime)
+    const isStartTimeUnchanged = isSameMinute(startTime, selectedStartTime);
+    const isEndTimeUnchanged = endTime && isSameMinute(endTime, selectedEndTime);
+    const areStartAndEndSame = isSameMinute(selectedStartTime, selectedEndTime);
 
     if (!displayEndTime) {
-      // If the end time is not displayed, the button should be disabled if the start time is unchanged
-      // but if there's an end time, or if isNow is true, the button should always be enabled
-      return isStartTimeUnchanged && !(endTime || isNow)
+      return isStartTimeUnchanged && !(endTime || isNow);
     }
 
     if (displayEndTime) {
-      // If the end time is displayed, the button should be disabled in the following cases:
-      // 1. Start and end time are the same, and the start time is unchanged
-      // 2. An end time exists and both start and end times are unchanged
       return (
         (areStartAndEndSame && isStartTimeUnchanged) ||
         (endTime && isStartTimeUnchanged && isEndTimeUnchanged)
-      )
+      );
     }
 
-    return false
-  }
+    return false;
+  };
 
   const onButtonClick = (button: ButtonType): void => {
     switch (button) {
       case 'primary':
         // eslint-disable-next-line no-case-declarations
-        let adjustedEndTime: Date | undefined
+        let adjustedEndTime: Date | undefined;
 
         if (displayEndTime && selectedEndTime) {
-          // If the end time is displayed, and the end time is before the start time, add a day to the end time
           if (isBefore(selectedEndTime, selectedStartTime)) {
-            adjustedEndTime = addDays(selectedEndTime, 1)
-            setSelectedEndTime(adjustedEndTime)
+            adjustedEndTime = addDays(selectedEndTime, 1);
+            setSelectedEndTime(adjustedEndTime);
           } else {
-            adjustedEndTime = selectedEndTime
+            adjustedEndTime = selectedEndTime;
           }
         }
 
-        onTimeChange(selectedStartTime, adjustedEndTime)
-        setIsModalOpen(false)
-        break
+        onTimeChange(selectedStartTime, adjustedEndTime);
+        setIsModalOpen(false);
+        break;
       case 'secondary':
-        handleTimeReset()
-        break
+        handleTimeReset();
+        break;
       case 'close':
-        setIsModalOpen(false)
-        setDisplayEndTime(endTime instanceof Date)
-        break
+        setIsModalOpen(false);
+        setDisplayEndTime(endTime instanceof Date);
+        break;
     }
-  }
+  };
 
   const handleTimeReset = (): void => {
-    setSelectedStartTime(startTime)
-    setSelectedEndTime(endTime || startTime)
-  }
+    setSelectedStartTime(startTime);
+    setSelectedEndTime(endTime || startTime);
+  };
 
   const handleEndTimeToggle = (): void => {
     if (displayEndTime) {
-      setTimeout(() => setSelectedEndTime(selectedStartTime), 250)
+      setTimeout(() => setSelectedEndTime(selectedStartTime), 250);
     } else {
-      setSelectedEndTime(endTime || selectedStartTime)
+      setSelectedEndTime(endTime || selectedStartTime);
     }
-    setDisplayEndTime((prev) => !prev)
-  }
+    setDisplayEndTime(prev => !prev);
+  };
 
-  const handleModalOpen = (event: MouseEvent | TouchEvent): void => {
-    event.stopPropagation()
-    const target = event.target as HTMLInputElement
-    target.blur()
+  const handle24HourModeTemporaryToggle = (): void => {
+    setIs24HourModeTemporary(prev => !prev);
+    // Optionally, trigger a global toggle here
+    on24HourModeToggle();
+  };
+
+  const handleModalOpen = (event: React.MouseEvent | React.TouchEvent): void => {
+    event.stopPropagation();
+    const target = event.target as HTMLInputElement;
+    target.blur();
     setIsModalOpen(() => {
-      setSelectedStartTime(isNow ? new Date() : startTime)
-      setSelectedEndTime(isNow ? new Date() : endTime || startTime)
+      setSelectedStartTime(isNow ? new Date() : startTime);
+      setSelectedEndTime(isNow ? new Date() : endTime || startTime);
 
-      return true
-    })
-  }
+      return true;
+    });
+  };
 
   return (
     <>
@@ -146,12 +159,23 @@ const TimePicker = ({
           <TimeInput
             date={selectedStartTime}
             onDateChange={setSelectedStartTime}
+            is24HourMode={is24HourModeTemporary} // Using the temporary toggle state here
           />
 
           <div className={classes.endTimeToggle}>
             <div className={classes.label}>End time (optional)</div>
             <Switch checked={displayEndTime} onChange={handleEndTimeToggle} />
           </div>
+
+          {!is24HourModeStored && (
+            <div className={classes.labelContainer}>
+              <span className={classes.label}>24-hour mode only (optional)</span>
+              <Switch
+                checked={is24HourModeTemporary}
+                onChange={handle24HourModeTemporaryToggle}
+              />
+            </div>
+          )}
 
           <div
             className={cx({
@@ -168,13 +192,14 @@ const TimePicker = ({
               <TimeInput
                 date={selectedEndTime}
                 onDateChange={setSelectedEndTime}
+                is24HourMode={is24HourModeTemporary} // Again using the temporary state
               />
             </div>
           </div>
         </ModalPopup>
       )}
     </>
-  )
-}
+  );
+};
 
-export default TimePicker
+export default TimePicker;
