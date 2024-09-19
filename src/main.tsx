@@ -10,12 +10,14 @@ import DayViewContextProvider from './features/views/day/DayViewContext'
 import { InstallPromptProvider } from './data/contexts/InstallPromptContext'
 import { generateData } from './data/MOCK_DATA'
 import { routesConfig } from './features/navigation/routes'
-
+import { TimeModeProvider } from './data/contexts/TimeModeContext';
 if (import.meta.env.DEV) generateData()
 
 const router = createBrowserRouter([routesConfig])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <TimeModeProvider>
+
   <CategoryContextProvider>
     <DayViewContextProvider>
       <InstallPromptProvider>
@@ -25,4 +27,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       </InstallPromptProvider>
     </DayViewContextProvider>
   </CategoryContextProvider>,
+  </TimeModeProvider>
 )
