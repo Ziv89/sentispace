@@ -8,9 +8,7 @@ import TimeIncrementButtons from './TimeIncrementButtons';
 import TimeInput from './TimeInput';
 import { addDays, isBefore, isSameMinute } from 'date-fns';
 import classes from './TimePicker.module.scss';
-// import { use24HourModeState } from '../../../utils/hooks/use24HourModeState'; // Custom hook
-
-import { useTimeModeContext } from '../../../data/contexts/TimeModeContext';
+import { use24HourModeState } from '../../../utils/hooks/use24HourModeState'; // Custom hook
 
 const cx = classNames.bind(classes);
 
@@ -35,7 +33,7 @@ const TimePicker = ({
   const [displayEndTime, setDisplayEndTime] = useState<boolean>(!!endTime);
 
   // Use useTimeModeContext hook to manage 24-hour mode state
-  const { is24HourMode, toggle24HourMode } = useTimeModeContext();
+  const { is24HourMode, toggle24HourMode } = use24HourModeState();
 
   const inputValue = useMemo(
     () =>
