@@ -56,9 +56,9 @@ const CategorySelectionModal = ({
         <ArrowLeft size={24} onClick={onClose} />
         <div className={classes.headerContainer}>
           <FullscreenModal.Title className={classes.modalTitle}>Labels</FullscreenModal.Title>
-          <Button onClick={handleOnClick} className={classes.saveButton}>
+          {/* <Button onClick={handleOnClick} className={classes.saveButton}>
             Save
-          </Button>
+          </Button> */}
 
           {isNewCategoryModalOpen && (
             <CategoryModal onClose={() => setIsNewCategoryModalOpen(false)} />
@@ -67,10 +67,10 @@ const CategorySelectionModal = ({
       </FullscreenModal.Header>
 
       <div className={classes.modalContent}>
-        <div className={classes.border}>
+        <div className={classes.border_input}>
           <TextField
             placeholder="Search"
-            iconKey={'MagnifyingGlass'}
+            iconKey={'Binoculars'}
             value={searchQuery}
             size={32}
             onChange={(event) => setSearchQuery(event.target.value)}
@@ -97,8 +97,10 @@ const CategorySelectionModal = ({
               ))}
                 </div>
           </div>
-          <div className={classes.border}>
+          {/* <div className={classes.border}> */}
             {/* Selectable Categories Section */}
+            <div className={classes.selectItems}>            <div className={classes.fixedLabelSelectItems}>Select Labels</div>
+             
             {filteredCategories
               ?.filter(({ id }) => !categoryIds.includes(id))
               .map(({ id, name, color }) => (
@@ -110,14 +112,15 @@ const CategorySelectionModal = ({
                   onChange={handleCategorySelection}
                 />
               ))}
-          </div>
+          {/* </div> */}
+        </div>
         </div>
       </div>
-      {/* <FullscreenModal.ButtonsPanel className={classes.buttons}>
+      <FullscreenModal.ButtonsPanel className={classes.buttons}>
         <Button variant="secondary" onClick={onClose} underline>
           Go Back
         </Button>
-      </FullscreenModal.ButtonsPanel> */}
+      </FullscreenModal.ButtonsPanel>
     </FullscreenModal>
   );
 };
