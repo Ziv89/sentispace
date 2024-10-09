@@ -55,15 +55,22 @@ $gap: 2px;
     font-weight: bold;
     color: #333;
     background-color: white; // Prevent overlap with other elements
-    padding: 0 5px;
-    z-index: 10; // Ensure it stays above other content
   }
+
+
 
   &.isOpen {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     margin-bottom: 0;
   }
+}
+
+.fixedLabelSelectItems {
+  margin-bottom: var(--spacing-md);
+  // font-weight: bold;
+  transform: translateX(15px); // Move it 5px to the left
+  
 }
 
 .sideButton,
@@ -119,6 +126,15 @@ $gap: 2px;
   @include flex(column);
   gap: var(--spacing-md);
   transform: translate(12px, -20px); // Moves 20px left and 20px upwards
+}
+
+.selectItems {
+  position: relative; // Relative position for positioning child elements
+  margin: var(--spacing-lg) 0;
+  
+  display: flex; // Use flex to handle layout
+  flex-direction: column; // Stack items vertically
+  gap: var(--spacing-md); // Add space between items
 }
 
 
@@ -218,7 +234,16 @@ $gap: 2px;
   }
 }
 .border {
-  border-bottom: 20px solid #ccc; // Light grey color for the border
+  border-bottom: 2px solid #ccc; // Light grey color for the border
   margin: 10px 0; // Space between bordered sections
+  // padding: 10px; // Padding inside the bordered sections
+}
+
+.border_input
+{
+  // border: 2px solid #ccc; // Light grey color for the border
+  margin: 10px 0; // Space between bordered sections
+  background-color: var(--color-neutral-5);
+  border-radius: var(--border-radius-inner);
   // padding: 10px; // Padding inside the bordered sections
 }
