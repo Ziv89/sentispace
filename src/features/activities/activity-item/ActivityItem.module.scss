@@ -2,7 +2,6 @@
 
 .activity {
   @include flex(column);
-
   justify-content: space-between;
   border-radius: var(--border-radius-outer);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
@@ -12,7 +11,6 @@
 
   .blurred {
     @include flex(row, space-evenly, center);
-
     position: absolute;
     inset: 0;
     gap: var(--spacing-sm);
@@ -73,14 +71,12 @@
   }
 
   .footer {
-    @include flex(row, space-between, center);
-
+    @include flex(row, start, left);
     gap: var(--spacing-md);
     border-top: 1px solid var(--color-neutral-5);
 
     .rating {
       @include flex(row, start, center);
-
       margin: var(--spacing-xs) 0;
       gap: var(--spacing-xs);
       font-size: var(--font-size-sm);
@@ -92,16 +88,29 @@
     }
 
     .categories {
-      @include flex(row-reverse, flex-start);
-
-      gap: var(--spacing-sm);
+      @include flex(row, flex-start);
+      gap: 0.01rem;
       overflow: auto;
       white-space: nowrap;
-      width: 100%;
+      width: 30%;
 
       &::-webkit-scrollbar {
         display: none;
       }
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .activity .footer .categories {
+    width: 35%;
+    gap: 0.001rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .activity .footer .categories {
+    width: 45%;
+    gap: 0.001rem;
   }
 }
