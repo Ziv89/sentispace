@@ -20,14 +20,13 @@ const CategoryItem = ({
     <div className={classes.selectItemContent}>
       <CategoryBadge id={id} name={name} color={color} />
     </div>
-    <div className={classes.sideButton}> 
+    <div className={classes.sideButton}>
       {isSelected ? (
         <X onClick={() => onChange(id, 'remove')} />
       ) : (
         <div className={classes.plusButton}>
           <div className={classes.circle}>
-            <PlusCircle 
-            onClick={() => onChange(id, 'add')} />
+            <PlusCircle onClick={() => onChange(id, 'add')} />
           </div>
         </div>
       )}
