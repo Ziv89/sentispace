@@ -39,7 +39,7 @@ const CategorySelectionModal = ({
     setIsNewCategoryModalOpen(true);
   };
 
-  const handleCategorySelection: CategorySelectionFunction = (categoryId, operation) => {
+  const handleCategorySelection: CategorySelectionFunction = (categoryId: IndexableType, operation: string) => {
     switch (operation) {
       case 'add':
         onCategoriesChange([...categoryIds, categoryId]);
@@ -52,19 +52,15 @@ const CategorySelectionModal = ({
 
   return (
     <FullscreenModal>
-      <FullscreenModal.Header>
-        <ArrowLeft size={24} onClick={onClose} />
-        <div className={classes.headerContainer}>
-          <FullscreenModal.Title className={classes.modalTitle}>Labels</FullscreenModal.Title>
-          {/* <Button onClick={handleOnClick} className={classes.saveButton}>
-            Save
-          </Button> */}
-
-          {isNewCategoryModalOpen && (
-            <CategoryModal onClose={() => setIsNewCategoryModalOpen(false)} />
-          )}
-        </div>
-      </FullscreenModal.Header>
+<FullscreenModal.Header>
+  <div className={classes.headerContainer}>
+    <ArrowLeft size={24} onClick={onClose} className={classes.backArrow} />
+    <FullscreenModal.Title className={classes.modalTitle}>Categories</FullscreenModal.Title>
+  </div>
+  {isNewCategoryModalOpen && (
+    <CategoryModal onClose={() => setIsNewCategoryModalOpen(false)} />
+  )}
+</FullscreenModal.Header>
 
       <div className={classes.modalContent}>
         <div className={classes.border_input}>
@@ -81,25 +77,26 @@ const CategorySelectionModal = ({
         <div className={classes.selectionList}>
         <div className={classes.border}>
 
-          {/* Selected Category Badges Section */}
-          <div className={classes.categoryBadges}>
+         
+          <div className={classes.selectedItems}>
             <div className={classes.fixedLabel}>Selected</div>
-            {categories
-              ?.filter(({ id }) => categoryIds.includes(id))
-              .map((cat) => (
-                <CategoryBadge
-                  {...cat}
-                  onClick={() => handleCategorySelection(cat.id, 'remove')}
-                  onDelete={() => handleCategorySelection(cat.id, 'remove')}
-                  deletable
-                  key={cat.id.toString()}
-                />
-              ))}
+            <div className={classes.CategoryBageselectItems}>   
+  {categories
+    ?.filter(({ id }) => categoryIds.includes(id))
+    .map((cat) => (
+      <CategoryBadge
+        {...cat}
+        onClick={() => handleCategorySelection(cat.id, 'remove')}
+        onDelete={() => handleCategorySelection(cat.id, 'remove')}
+        deletable
+        key={cat.id.toString()}
+      />
+    ))}
+   </div>
                 </div>
           </div>
-          {/* <div className={classes.border}> */}
-            {/* Selectable Categories Section */}
-            <div className={classes.selectItems}>            <div className={classes.fixedLabelSelectItems}>Select Labels</div>
+
+            <div className={classes.selectItems}>   <div className={classes.fixedLabelSelectItems}>Select Labels</div>
              
             {filteredCategories
               ?.filter(({ id }) => !categoryIds.includes(id))
